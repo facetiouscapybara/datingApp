@@ -1,4 +1,4 @@
-var db = require('database.js');
+var db = require('../db/database.js');
 
 // The queryParams for createRelationship need to have all of these properties.
 // {

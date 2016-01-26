@@ -4,7 +4,7 @@ var host = 'localhost',
 port = 7474;
 
 var username = 'neo4j';
-var password = 'Married0913';
+var password = 'password';
 var userPass = new Buffer(username + ":" + password).toString('base64');
 var httpUrlForTransaction = 'http://' + host + ':' + port + '/db/data/transaction/commit';
 

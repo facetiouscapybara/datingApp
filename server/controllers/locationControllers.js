@@ -1,4 +1,4 @@
-var db = require('database.js');
+var db = require('../db/database.js');
 
 module.exports.getUsersInArea = function (req, res) {
 	var params = { 

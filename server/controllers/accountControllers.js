@@ -1,4 +1,4 @@
-var db = require('database.js');
+var db = require('../db/database.js');
 
 
 // The user info for the addUser function needs to come in this format
