@@ -2,17 +2,22 @@
   "name": "neo4j-test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripts": {
+    "start": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "request": "^2.67.0"
   },
   "devDependencies": {
+    "morgan": "^1.6.1",
     "nodemon": "^1.8.1"
   }
 }

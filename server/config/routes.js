@@ -1,19 +1,24 @@
-var express = require('express');
-var accoutControllers = require('accoutControllers.js');
-var relationshipControllers = require('relationshipControllers.js');
-var locaitonControllers = require('locationControllers.js');
-var app = express();
+var accoutControllers = require('../controllers/accountControllers.js');
+var relationshipControllers = require('../controllers/relationshipControllers.js');
+var locaitonControllers = require('../controllers/locationControllers.js');
 
-app.post('/api/user', accoutControllers.createNewUser); // COMPLETE
-app.get('/api/user', accoutControllers.getUserById); // COMPLETE
-app.put('/api/user', accoutControllers.updateUserProfile); // COMPLETE
-app.delete('/api/user', accountControllers.deleteUser); // COMPLETE
+module.exports = function(app, express) {
 
-app.post('/api/relationship', relationshipControllers.createRelationship); // COMPLETE
-app.delete('/api/relationship', relationshipControllers.deleteRelationship); // COMPLETE
+	app.post('/api/user', accoutControllers.createNewUser);
+	app.get('/api/user/:id', accoutControllers.getUserById);
+	app.put('/api/user/:id', accoutControllers.updateUser);
+	app.delete('/api/user/:id', accoutControllers.deleteUser);
 
-app.get('/api/getUsers', locaitonControllers.getUsersInArea); // COMPLETE
+	app.post('/api/relationship', relationshipControllers.createRelationship);
+	app.delete('/api/relationship', relationshipControllers.deleteRelationship);
 
+	app.get('/api/getUsers', locaitonControllers.getUsersInArea);
+
+	app.get('/', function(req, res){
+		res.send('hello there!');
+	});
+
+}
 
 
 
