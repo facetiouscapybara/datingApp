@@ -4,12 +4,13 @@ var host = 'localhost',
 port = 7474;
 
 var username = 'neo4j';
-var password = 'Married0913';
+var password = 'password';
 var userPass = new Buffer(username + ":" + password).toString('base64');
 var httpUrlForTransaction = 'http://' + host + ':' + port + '/db/data/transaction/commit';
 
-// this is the interface between the server and the database
+// this is the interface between the user and the database
 module.exports.cypherQuery = function(query, params, callback) {
+  // an option to not have to use params.
   if(params){
     if(typeof params === 'function'){
       callback = params;
