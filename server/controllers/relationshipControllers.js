@@ -5,14 +5,14 @@ var db = require('../db/database.js');
 //  userId: 10,
 //  endId: 11,
 //  tag: 'family',
-//  relationship: 'HELLO',
+//  relationship: 'friends',
 //  relationshipData: {strength: 5}
 // }
 
 module.exports.createRelationship = function(req, res) {
 
-	var queryData = req.body.queryData;
-	queryData.tag = queryData.tag || '';
+	var queryData = req.body;
+	queryData.tag = queryData.tag || 'tempTag';
   var params = {
     data: queryData.relationshipData,
     userId : queryData.userId,
@@ -31,7 +31,7 @@ module.exports.createRelationship = function(req, res) {
 
 module.exports.deleteRelationship = function(req, res) {
 
-	var queryData = req.body.queryData;
+	var queryData = req.body;
   var params = {
     userId : queryData.userId,
     endId : queryData.endId
