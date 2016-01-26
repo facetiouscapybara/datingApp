@@ -12,7 +12,7 @@ module.exports = function(app, express) {
 	app.post('/api/relationship', relationshipControllers.createRelationship);
 	app.delete('/api/relationship', relationshipControllers.deleteRelationship);
 
-	app.get('/api/getUsers', locaitonControllers.getUsersInArea);
+	app.post('/api/getUsers', locaitonControllers.getUsersInArea);
 
 	app.get('/', function(req, res){
 		res.send('hello there!');
