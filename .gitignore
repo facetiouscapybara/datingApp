@@ -1,0 +1,13 @@
+### INTELLIJ ###
+.idea/
+*.iml
+
+
+### NODE ###
+build/
+dist/
+node_modules/
+bower_components/
+lib/
+
+*/.DS_Store
