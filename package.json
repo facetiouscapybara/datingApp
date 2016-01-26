@@ -10,8 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
-    "node-neo4j": "^2.0.3",
-    "nodemon": "^1.8.1",
     "request": "^2.67.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
   }
 }
