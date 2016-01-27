@@ -4,10 +4,10 @@ var locaitonControllers = require('../controllers/locationControllers.js');
 var passport = require('passport');
 
 module.exports = function(app, express) {
-	app.post('/api/user', accountControllers.createNewUser);
+	app.post('/api/account', accountControllers.createNewUser);
 	app.post('/api/getUser/', accountControllers.getUserById);
-	app.put('/api/user', accountControllers.updateUser);
-	app.delete('/api/user', accountControllers.deleteUser);
+	app.put('/api/account', accountControllers.updateUser);
+	app.delete('/api/account', accountControllers.deleteUser);
 
 	app.post('/api/relationship', relationshipControllers.createRelationship);
 	app.delete('/api/relationship', relationshipControllers.deleteRelationship);
