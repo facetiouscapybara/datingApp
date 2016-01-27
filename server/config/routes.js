@@ -1,14 +1,13 @@
 var accountControllers = require('../controllers/accountControllers.js');
 var relationshipControllers = require('../controllers/relationshipControllers.js');
 var locaitonControllers = require('../controllers/locationControllers.js');
-var authenticateControllers = require('../controllers/authenticateControllers.js');
 var passport = require('passport');
 
 module.exports = function(app, express) {
 	app.post('/api/user', accountControllers.createNewUser);
-	app.get('/api/user/:id', accountControllers.getUserById);
-	app.put('/api/user/:id', accountControllers.updateUser);
-	app.delete('/api/user/:id', accountControllers.deleteUser);
+	app.post('/api/getUser/', accountControllers.getUserById);
+	app.put('/api/user', accountControllers.updateUser);
+	app.delete('/api/user', accountControllers.deleteUser);
 
 	app.post('/api/relationship', relationshipControllers.createRelationship);
 	app.delete('/api/relationship', relationshipControllers.deleteRelationship);
@@ -21,8 +20,7 @@ module.exports = function(app, express) {
 	 });
 
 	 app.get('/api/auth/facebook',
-	   passport.authenticate('facebook', { scope: ['public_profile'] }),
-	   function(req, res){});
+	   passport.authenticate('facebook', { scope: ['public_profile'] }), function(req, res){});
 
 	 app.get('/auth/facebook/callback',
 	   passport.authenticate('facebook',  { session: false, failureRedirect: '/login'}),

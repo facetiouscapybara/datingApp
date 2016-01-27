@@ -21,7 +21,7 @@ passport.use(new FacebookStrategy({
              user.name = profile.displayName;
              user.picture = profile.photos[0].value;
              user.gender = profile._json.gender;
-             return done(null, user);
+             done(null, user);
            } else {
              accountControllers.createNewUser({
                facebookId: profile.id,
@@ -32,7 +32,7 @@ passport.use(new FacebookStrategy({
                bio: "null",
                age: "null"
              }, function(newUser){
-             	return done(null, newUser);
+             	done(null, newUser);
              });
            }
         });
