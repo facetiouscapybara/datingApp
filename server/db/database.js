@@ -1,12 +1,9 @@
 var request = require("request");
-
-var host = 'localhost',
-port = 7474;
+var constants = require('../../constants.js');
 
 var username = 'neo4j';
 var password = 'Married0913';
 var userPass = new Buffer(username + ":" + password).toString('base64');
-var httpUrlForTransaction = 'http://' + host + ':' + port + '/db/data/transaction/commit';
 
 // this is the interface between the server and the database
 module.exports.cypherQuery = function(query, params, callback) {
@@ -18,9 +15,8 @@ module.exports.cypherQuery = function(query, params, callback) {
   } else {
     params = {};
   }
-
   request.post({
-      uri: httpUrlForTransaction,
+      uri: constants.DB_URI,
       json: {statements: [{statement: query, parameters: params}]},
       headers: {               
         'Authorization': 'Basic ' + userPass                  

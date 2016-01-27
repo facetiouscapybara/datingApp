@@ -1,11 +1,8 @@
 var db = require('../db/database.js');
 
 module.exports.getUsersInArea = function (req, res) {
-	var params = { 
-		userId : req.body.userId,
-		idArray : req.body.idArray 
-	};
-	var queryString = 'START user=node({userId}) MATCH (target:Person) WHERE id(target) IN {idArray} AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
+	var params = req.body;
+	var queryString = 'MATCH (user:Person {facebookId : {facebookId} }), (target:Person) WHERE target.facebookId IN {idArray} AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(err){
 			res.status(404).json(err);

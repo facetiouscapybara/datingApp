@@ -1,19 +1,18 @@
 {
-  "name": "neo4j-test",
+  "name": "Dating-App",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "scripts": {
-    "start": "node server/server.js"
-  },
+  "main": "server/server.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "jsonwebtoken": "^5.5.4",
+    "node-neo4j": "^2.0.3",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.0.0",
     "request": "^2.67.0"
   },
   "devDependencies": {

@@ -11,15 +11,10 @@ var db = require('../db/database.js');
 
 module.exports.createRelationship = function(req, res) {
 
-	var queryData = req.body;
-	queryData.tag = queryData.tag || 'tempTag';
-  var params = {
-    data: queryData.relationshipData,
-    userId : queryData.userId,
-    endId : queryData.endId
-  };
+	var params = req.body;
+	params.tag = params.tag || 'tempTag';
 
-  var queryString = 'START startingUser=node({userId}), endingUser=node({endId}) CREATE (startingUser)-[' + queryData.tag + ':' + queryData.relationship + ' {data}]-> (endingUser) RETURN ' + queryData.tag;
+  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}}), (target:Person {facebookId : {targetFacebookId}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
   db.cypherQuery(queryString, params, function(err, response){
   	if(err){
   		res.status(404).json(err);
@@ -33,11 +28,11 @@ module.exports.deleteRelationship = function(req, res) {
 
 	var queryData = req.body;
   var params = {
-    userId : queryData.userId,
-    endId : queryData.endId
+    userFacebookId : queryData.userFacebookId,
+    targetFacebookId : queryData.targetFacebookId
   };
 
-  var queryString = 'START user=node({userId}), endUser=node({endId}) MATCH user-[rel:' + queryData.relationship + ']->endUser DELETE rel';
+  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}})-[rel:' + queryData.relationship + ']->(target:Person {facebookId : {targetFacebookId}}) DELETE rel';
   db.cypherQuery(queryString, params, function(err, response){
   	if(err){
   		res.status(404).json(err);
