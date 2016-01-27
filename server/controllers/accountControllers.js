@@ -8,19 +8,24 @@ var db = require('../db/database.js');
 //		age: 26,
 //		preference: 'women',
 //		bio: 'A developer at Hack Reactor',
-//		sex: 'man'
+//		sex: 'man',
+//		password: 'password'
 //	}
 
 module.exports.createNewUser = function (req, res) {
 
-	var userInfo = req.body;
-  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, sex:{sex}}) RETURN user, id(user)';
+	var userInfo = req.body ? req.body : req;
+  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, sex:{sex}, password:{password}}) RETURN user, id(user)';
   db.cypherQuery(queryString, userInfo, function(err, response){
-  	if(err){
-  		res.status(404).json(err);
-  	} else {
-  		res.status(200).json(response);
-  	}
+		if(typeof res === 'function'){
+			res(response.results[0].data[0].row[0]);
+		} else {
+      if (err) {
+      	res.status(404).json(err);
+      } else {
+        res.status(200).json(response.results[0].data[0].row[0]);
+      }
+		}
   });
 };
 
@@ -34,7 +39,7 @@ module.exports.updateUser = function (req, res) {
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
-	}, 'START user=node('+ req.params.id + ') SET');
+	}, 'START user=node(' + req.params.id + ') SET');
 	
 
 	db.cypherQuery(queryString, function (err, response) {
@@ -47,14 +52,20 @@ module.exports.updateUser = function (req, res) {
 };
 
 module.exports.getUserById = function(req, res) {
-var queryString = 'START user=node({userId}) RETURN user';
-var params = {userId: Number(req.params.id)};
+
+	var facebookId = req.body ? req.body.id : req;
+	var queryString = 'START user=node({userId}) RETURN user';
+	var params = {userId: facebookId};
   db.cypherQuery(queryString, params, function (err, response) {
-      if (err) {
-      	res.status(404).json(err);
-      } else {
-        res.status(200).json(response);
-      }
+  		if(typeof res === 'function'){
+  			res(response.results[0].data[0].row[0]);
+  		} else {
+	      if (err) {
+	      	res.status(404).json(err);
+	      } else {
+	        res.status(200).json(response.results[0].data[0].row[0]);
+	      }
+  		}
     }
   );
 };
@@ -67,7 +78,7 @@ module.exports.deleteUser = function(req, res) {
 		if(err){
 			res.status(404).json(err);
 		} else {
-			res.status(200).json(response);
+			res.status(200).json(response.results[0].data[0].row[0]);
 		}
 	});
 };
