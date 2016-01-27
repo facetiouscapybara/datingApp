@@ -1,7 +1,9 @@
 var passport = require('passport');
-var FacebookStrategy = require('facebook-passport');
+var FacebookStrategy = require('passport-facebook');
 var accountControllers = require('../controllers/accountControllers.js');
 var constants = require('../../constants.js');
+
+module.exports = function(){
 
 passport.use(new FacebookStrategy({
 		clientID: constants.FACEBOOK_APP_ID,
@@ -19,14 +21,16 @@ passport.use(new FacebookStrategy({
              user.name = profile.displayName;
              user.picture = profile.photos[0].value;
              user.gender = profile._json.gender;
-             user.save();
              return done(null, user);
            } else {
              accountControllers.createNewUser({
                facebookId: profile.id,
                name: profile.displayName,
                picture: profile.photos[0].value,
-               gender: profile._json.gender
+               gender: profile._json.gender,
+               preference: "null",
+               bio: "null",
+               age: "null"
              }, function(newUser){
              	return done(null, newUser);
              });
@@ -35,3 +39,4 @@ passport.use(new FacebookStrategy({
      });
     }
 ));
+}

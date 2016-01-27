@@ -15,7 +15,6 @@ module.exports.cypherQuery = function(query, params, callback) {
   } else {
     params = {};
   }
-
   request.post({
       uri: constants.DB_URI,
       json: {statements: [{statement: query, parameters: params}]},

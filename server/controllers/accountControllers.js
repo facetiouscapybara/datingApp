@@ -15,10 +15,10 @@ var db = require('../db/database.js');
 module.exports.createNewUser = function (req, res) {
 
 	var userInfo = req.body ? req.body : req;
-  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, sex:{sex}, password:{password}}) RETURN user, id(user)';
+  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{facebookId}, picture:{picture}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
 		if(typeof res === 'function'){
-			res(response.results[0].data[0].row[0]);
+			res(response);
 		} else {
       if (err) {
       	res.status(404).json(err);
@@ -52,18 +52,17 @@ module.exports.updateUser = function (req, res) {
 };
 
 module.exports.getUserById = function(req, res) {
-
 	var facebookId = req.body ? req.body.id : req;
-	var queryString = 'START user=node({userId}) RETURN user';
-	var params = {userId: facebookId};
+	var queryString = 'MATCH (user:Person) WHERE user.facebookId = {facebookId} RETURN user';
+	var params = {facebookId: facebookId};
   db.cypherQuery(queryString, params, function (err, response) {
   		if(typeof res === 'function'){
-  			res(response.results[0].data[0].row[0]);
+  			res(response.results[0].data[0]);
   		} else {
-	      if (err) {
+	      if (err || !response.results[0].data[0]) {
 	      	res.status(404).json(err);
 	      } else {
-	        res.status(200).json(response.results[0].data[0].row[0]);
+	      	res.status(200).json(response.results[0].data[0].row[0]);
 	      }
   		}
     }

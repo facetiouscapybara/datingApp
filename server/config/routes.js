@@ -24,19 +24,18 @@ module.exports = function(app, express) {
 	   passport.authenticate('facebook', { scope: ['public_profile'] }),
 	   function(req, res){});
 
-	 app.get('/api/auth/facebook/callback',
-	   passport.authenticate('facebook', { failureRedirect: '/#/login' }),
+	 app.get('/auth/facebook/callback',
+	   passport.authenticate('facebook',  { session: false, failureRedirect: '/login'}),
 	   function(req, res) {
-	     res.redirect('/#/');
+	     res.redirect('/');
 	   });
 
-	 app.get('/api/logout', function(req, res){
-	   req.logout();
-	   res.redirect('/#/login');
-	 });
+	app.get('/login', function(req, res){
+		res.send('this is the login page');
+	});
 	
 	app.get('/', function(req, res){
-		res.send('hello there!');
+		res.send('this is the home page');
 	});
 
 };

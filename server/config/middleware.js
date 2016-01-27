@@ -1,8 +1,13 @@
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var passport = require('passport');
+var passportInit = require('./passport.js');
+var session = require('express-session');
+
+
 
 module.exports = function(app, express) {
+	passportInit();
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
