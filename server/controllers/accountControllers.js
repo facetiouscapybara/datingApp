@@ -71,14 +71,18 @@ module.exports.getUserById = function(req, res) {
 };
 
 module.exports.deleteUser = function(req, res) {
-	var params = {facebookId: req.body.facebookId};
+	var params = req.body ? {facebookId: req.body.facebookId} : req;
 	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) DETACH DELETE user';
 	
 	db.cypherQuery(queryString, params, function (err, response) {
-		if(err){
-			res.status(404).json(err);
+		if(typeof res === 'function'){
+			res(response);
 		} else {
-			res.status(200).json(response);
+			if(err){
+				res.status(404).json(err);
+			} else {
+				res.status(200).json(response);
+			}
 		}
 	});
 };
