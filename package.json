@@ -5,6 +5,9 @@
   "main": "server/server.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
@@ -16,7 +19,11 @@
     "request": "^2.67.0"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-http": "^1.0.0",
+    "mocha": "^2.4.4",
     "morgan": "^1.6.1",
-    "nodemon": "^1.8.1"
+    "nodemon": "^1.8.1",
+    "supertest": "^1.1.0"
   }
 }

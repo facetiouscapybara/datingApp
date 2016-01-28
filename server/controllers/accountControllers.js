@@ -13,7 +13,6 @@ var db = require('../db/database.js');
 //	}
 
 module.exports.createNewUser = function (req, res) {
-
 	var userInfo = req.body ? req.body : req;
   var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{facebookId}, picture:{picture}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
@@ -37,6 +36,8 @@ module.exports.updateUser = function (req, res) {
 	var queryString = fields.reduce(function(memo, field, index){
 		if(index === fields.length-1){
 			stringEnding = ' RETURN user';
+		} else if (field === 'facebookId'){
+			return memo;
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
@@ -70,14 +71,18 @@ module.exports.getUserById = function(req, res) {
 };
 
 module.exports.deleteUser = function(req, res) {
-	var params = {facebookId: req.body.facebookId};
+	var params = req.body ? {facebookId: req.body.facebookId} : req;
 	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) DETACH DELETE user';
 	
 	db.cypherQuery(queryString, params, function (err, response) {
-		if(err){
-			res.status(404).json(err);
+		if(typeof res === 'function'){
+			res(response);
 		} else {
-			res.status(200).json(response);
+			if(err){
+				res.status(404).json(err);
+			} else {
+				res.status(200).json(response);
+			}
 		}
 	});
 };
