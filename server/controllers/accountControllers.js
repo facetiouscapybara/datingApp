@@ -14,7 +14,8 @@ var db = require('../db/database.js');
 
 module.exports.createNewUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
-  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{facebookId}, picture:{picture}}) RETURN user';
+	userInfo.access_token = userInfo.access_token || '';
+  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{facebookId}, picture:{picture}, access_token: {access_token}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
 		if(typeof res === 'function'){
 			res(response);

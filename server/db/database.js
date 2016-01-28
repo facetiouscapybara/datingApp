@@ -1,8 +1,8 @@
 var request = require("request");
 var constants = require('../../constants.js');
 
-var username = 'neo4j';
-var password = 'Married0913';
+var username = 'datingApp';
+var password = 'JM5vEJXuEsfNzESM2D3K';
 var userPass = new Buffer(username + ":" + password).toString('base64');
 
 // this is the interface between the server and the database
