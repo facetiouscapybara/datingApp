@@ -19,25 +19,29 @@ module.exports = function(){
 	    process.nextTick(function () {
 	    	accountControllers
 	        .getUserById(profile.id, function(user){
-	           if (user){
-	             user.name = profile.displayName;
-	             user.picture = profile.photos[0].value;
-	             user.gender = profile._json.gender;
-	             done(null, user);
-	           } else {
-	             accountControllers.createNewUser({
-	               facebookId: profile.id,
-	               name: profile.displayName,
-	               picture: profile.photos[0].value,
-	               gender: profile._json.gender,
-	               preference: "null",
-	               bio: "null",
-	               age: "null",
-	               access_token : accessToken
-	             }, function(newUser){
-	             	done(null, newUser);
-	             });
-	           }
+            if (user){
+            	var newToken = {
+            		facebookId : profile.id,
+            		access_token: accessToken
+            	};
+              accountControllers.updateUser(newToken, function(res){
+	              user.gender = profile._json.gender;
+	              done(null, user);
+              });
+            } else {
+              accountControllers.createNewUser({
+                facebookId: profile.id,
+                name: profile.displayName,
+                picture: profile.photos[0].value,
+                gender: profile._json.gender,
+                preference: "null",
+                bio: "null",
+                age: "null",
+                access_token : accessToken
+              }, function(newUser){
+              	done(null, newUser);
+              });
+           }
 	        });
 	     });
 	    }
@@ -46,6 +50,7 @@ module.exports = function(){
 	passport.use(
 	  new BearerStrategy(
 	    function(token, done) {
+
 	    	var query = "MATCH (user:Person {access_token : {token}}) RETURN user";
 	    	db.cypherQuery(query, {token : token}, function(err, response){
 	          if(err) {

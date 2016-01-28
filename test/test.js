@@ -173,7 +173,7 @@ describe('The relationship controller', function(){
  it('should filter the users based on relationships', function(done){
  	
  	var params = {
- 		facebookId : 346,
+ 		userFacebookId : 346,
  		usersInArea : [347, 348, 349]
  	};
 
@@ -191,7 +191,7 @@ describe('The relationship controller', function(){
 it('should return user connections based on the relationship type', function(done){
 		
 		var params = {
-			facebookId : 348,
+			userFacebookId : 348,
 			relationship : 'blocked'
 		};
 		chai.request(app)
