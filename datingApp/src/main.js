@@ -10,17 +10,33 @@ import SignIn from './components/signin'
 import SignUp from './components/signup'
 
 const ROUTES = {
-  signin: SignIn
+  signin: SignIn,
   signup: SignUp
 }
 export default class Main extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      token: ''
+    }
+  }
+
+  componentWillMount = () => {
+
+  };
+
+  renderScene = (route, navigator) => {
+    console.log(route)
+    var Component = ROUTES[route.name]
+    return <Component />
+  };
+
   render() {
     return (
       <Navigator
-       style={}
-       intitialRoute={{name: 'signin'}}
-       renderScene={}
+       initialRoute={{ name: 'signin' }}
+       renderScene={this.renderScene}
        configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
   }
-}
+};

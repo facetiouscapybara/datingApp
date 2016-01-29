@@ -4,8 +4,11 @@ import React, {
   StyleSheet,
   Text, 
   View,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
+
+// import FBSDKLogin from 'react-native-fbsdklogin';
+
 
 export default class SignIn extends Component {
   render(){
@@ -15,7 +18,7 @@ export default class SignIn extends Component {
           Sign In:
         </Text>
         <TouchableHighlight 
-          underlayColor='gray'
+          underlayColor='green'
           onPress={this.buttonPress}
           style={[styles.button]}
         >
@@ -32,7 +35,7 @@ export default class SignIn extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00F0C0',
+    backgroundColor: '#CFC555',
     justifyContent: 'center',
     alignItems: 'center'
   },
