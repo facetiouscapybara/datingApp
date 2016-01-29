@@ -31,7 +31,7 @@ module.exports = function(app, express) {
 		res.send('this is the login page');
 	});
 	
-	app.get('/',('bearer', { session: false, failureRedirect: '/login'}), function(req, res){
+	app.get('/', passport.authenticate('bearer', { session: false, failureRedirect: '/login'}), function(req, res){
 		res.send('this is the home page');
 	});
 
