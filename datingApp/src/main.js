@@ -1,18 +1,12 @@
-//main page, abstracted out of index.ios.js so that we can port it to android as well if we want to.
-import React, {
-  Component,
-  StyleSheet,
-  Text, 
-  View,
-  Navigator
-} from 'react-native';
+import React, { StyleSheet, Navigator } from 'react-native';
+import Firebase from 'firebase'
+import ReactFire from 'reactfire'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/signup'
 import Chatroom from './components/signup'
 import List from './components/signup'
 import Matches from './components/signup'
-
 
 const ROUTES = {
   signin: SignIn,
@@ -22,12 +16,26 @@ export default class Main extends Component {
   constructor(props){
     super(props)
     this.state = {
-      token: ''
+      token: '',
+      longitude: null,
+      latitude: null
     }
   }
-
+  
   componentWillMount = () => {
-
+    firebaseUser = new Firebase("https://rawdog.firebaseio.com/users");
+    navigator.geolocation.getCurrentPosition((loc) => 
+      {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
+        firebaseUser.push({
+          sex: 'dude2',
+          user: 'dannn',
+          location: {
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
+          }
+        });
+      }
+    )
   };
 
   renderScene = (route, navigator) => {
