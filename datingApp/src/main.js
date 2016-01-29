@@ -8,6 +8,11 @@ import React, {
 } from 'react-native';
 import SignIn from './components/signin'
 import SignUp from './components/signup'
+import Bio from './components/signup'
+import Chatroom from './components/signup'
+import List from './components/signup'
+import Matches from './components/signup'
+
 
 const ROUTES = {
   signin: SignIn,
@@ -26,7 +31,7 @@ export default class Main extends Component {
   };
 
   renderScene = (route, navigator) => {
-    console.log(route)
+    console.log(route);
     var Component = ROUTES[route.name]
     return <Component />
   };
@@ -34,9 +39,17 @@ export default class Main extends Component {
   render() {
     return (
       <Navigator
-       initialRoute={{ name: 'signin' }}
-       renderScene={this.renderScene}
-       configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
+        style={styles.container}
+        initialRoute={{ name: 'signin' }}
+        renderScene={this.renderScene}
+        configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
   }
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+})

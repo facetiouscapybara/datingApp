@@ -1,7 +1,7 @@
-//this will be the page the females see when they first log in showing them who is around them
+//essentailly a splash page for when men have no chat requests
 import React, { Componenet, View, Text, StyleSheet}
 
-export default class List extends Component {
+export default class Matches extends Component {
 	render () {
 		return (
 

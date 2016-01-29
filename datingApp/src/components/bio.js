@@ -1,7 +1,7 @@
-//this will be the page the females see when they first log in showing them who is around them
+//this will be the screen where, upon signing up the user is taken to write a short bio of themselves
 import React, { Componenet, View, Text, StyleSheet}
 
-export default class List extends Component {
+export default class Bio extends Component {
 	render () {
 		return (
 
