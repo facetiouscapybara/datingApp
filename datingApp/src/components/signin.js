@@ -6,25 +6,36 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
-import FBSDKCore from 'react-native-fbsdkcore';
-import FBSDKShare from 'react-native-fbsdkshare';
+import FBSDKCore from 'react-native-fbsdkcore/';
+import FBSDKShare from 'react-native-fbsdkshare/';
+import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 
 
 
 export default class SignIn extends Component {
-  render(){
+    render(){
+      console.log(FBSDKLoginButton)
+
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
           Sign In:
         </Text>
-        <TouchableHighlight 
-          underlayColor='green'
-          onPress={this.buttonPress}
-          style={[styles.button]}
-        >
-          <Text style={styles.text}>Facebook</Text>
-        </TouchableHighlight>
+        <FBSDKLoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              alert('Error logging in.');
+            } else {
+              if (result.isCancelled) {
+                alert('Login cancelled.');
+              } else {
+                alert('Logged in.');
+              }
+            }
+          }}
+          onLogoutFinished={() => alert('Logged out.')}
+          readPermissions={[]}
+          publishPermissions={['publish_actions']}/>
       </View>
       )
   }
@@ -54,3 +65,13 @@ const styles = StyleSheet.create({
     borderRadius: 5
   }
 })
+
+
+/*         <TouchableHighlight 
+          underlayColor='green'
+          onPress={this.buttonPress}
+          style={[styles.button]}
+        >
+          <Text style={styles.text}>Facebook</Text>
+        </TouchableHighlight>
+        */
