@@ -2,7 +2,11 @@
 import React, { Componenet, View, Text, StyleSheet}
 
 export default class Matches extends Component {
+	render () {
+		return (
 
+		)
+	}
 };
 
 const styles = StyleSheet.create({

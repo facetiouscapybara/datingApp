@@ -3,7 +3,11 @@
 import React, { Componenet, View, Text, StyleSheet}
 
 export default class SignUp extends Component {
+	render () {
+		return (
 
+		)
+	}
 };
 
 const styles = StyleSheet.create({
