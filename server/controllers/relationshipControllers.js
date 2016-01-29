@@ -13,17 +13,20 @@ var db = require('../db/database.js');
 //  userFacebookId: 32416340,
 //  targetFacebookId: 123451654,
 //  relationship: "friends",
-//  tag : "college", OPTIONAL
-//  relationshipData: {strength: 5} OPTIONAL this is just any additional data associated with the relationship
+//  userLocation : tuple of coordinates,
+//  targetLocation : tuple of coordinates
 // }
 
 module.exports.createRelationship = function(req, res) {
 
 	var params = req.body;
-	params.tag = params.tag || 'tempTag';
-  params.relationshipData = req.body.relationshipData || {};
+  params.relationshipData = {
+    timeStamp : new Date(),
+    userLocation : req.body.userLocation || '',
+    targetLocation : req.body.targetLocation || ''
+  };
 
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}}), (target:Person {facebookId : {targetFacebookId}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
+  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}}), (target:Person {facebookId : {targetFacebookId}}) CREATE (user)-[rel:' + params.relationship + ' {relationshipData}]-> (target) RETURN rel';
   db.cypherQuery(queryString, params, function(err, response){
   	if(err){
   		res.status(404).json(err);
@@ -80,7 +83,7 @@ module.exports.getEligibleUsersInArea = function (req, res) {
 };
 
 // This method takes a userFacebookId and a relationship and returns an array of users who are connected to the user by the 
-// desired relationship. This doesn't take into consideratin the direction of the relationship.
+// desired relationship. This does take a directional input into consideration.
 // 
 // ex. 
 //  if you wanted to get all of the people a user acknowledges as a friend as well as all of the people who
@@ -97,12 +100,22 @@ module.exports.getEligibleUsersInArea = function (req, res) {
 //  
 //  {
 //    userFacebookId : 52473892,
-//    relationship : "selected"
+//    relationship : "selected",
+//    direction : "undirected"      The options are "atUser", "atTarget", or "undirected"
 //  };
 //  
 module.exports.getConnections = function (req, res) {
+
   var params = req.body;
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
+  var userDirection = '';
+  var targetDirection = '';
+  if(req.body.direction === 'atUser'){
+    userDirection = '<';
+  } else if (req.body.direction === 'atTarget'){
+    targetDirection = '>';
+  }
+
+  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId} }), (target:Person) WHERE user ' + userDirection + '-[:' + params.relationship + ']-' + targetDirection + 'target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);
