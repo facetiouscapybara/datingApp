@@ -6,8 +6,9 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
+import FBSDKCore from 'react-native-fbsdkcore';
+import FBSDKShare from 'react-native-fbsdkshare';
 
-// import FBSDKLogin from 'react-native-fbsdklogin';
 
 
 export default class SignIn extends Component {
