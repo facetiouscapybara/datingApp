@@ -8,24 +8,22 @@ import React, {
 } from 'react-native';
 import FBSDKCore from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
-import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
+import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin';
 
 
 
 export default class SignIn extends Component {
     render(){
-      console.log(FBSDKLoginButton)
+      console.log("???????",FBSDKLoginButton)
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          Sign In:
-        </Text>
+      <View>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
             if (error) {
               alert('Error logging in.');
             } else {
+              console.log(">>>>>>>>>",result);
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
@@ -37,7 +35,7 @@ export default class SignIn extends Component {
           readPermissions={[]}
           publishPermissions={['publish_actions']}/>
       </View>
-      )
+    )
   }
   buttonPress(){
     console.log('button pressed!')

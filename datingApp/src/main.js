@@ -39,7 +39,7 @@ export default class Main extends Component {
   };
 
   renderScene = (route, navigator) => {
-    console.log(route);
+    console.log(".............",route);
     var Component = ROUTES[route.name]
     return <Component />
   };
