@@ -31,7 +31,7 @@ module.exports = function(app, express) {
 		res.send('this is the login page');
 	});
 	
-	app.get('/', function(req, res){
+	app.get('/', { session: false, failureRedirect: '/login'}, function(req, res){
 		res.send('this is the home page');
 	});
 
