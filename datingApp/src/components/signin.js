@@ -6,15 +6,36 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
-import FBSDKCore from 'react-native-fbsdkcore/';
+import FBSDKCore , { FBSDKGraphRequest } from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin';
 
 
 
 export default class SignIn extends Component {
-    render(){
-      console.log("???????",FBSDKLoginButton)
+
+    
+  handleLogin() {
+
+    // Create a graph request asking for friends with a callback to handle the response.
+    var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
+      if (error) {
+        alert('Error making request.');
+      } else {
+        // Data from request is in result
+        console.log("ooooooooooo", result);
+      }
+    }, '/me');
+    // Start the graph request.
+    fetchFriendsRequest.start();
+
+
+
+  }
+
+
+  render(){
+    console.log("???????",FBSDKLoginButton)
 
     return (
       <View>
@@ -28,6 +49,7 @@ export default class SignIn extends Component {
                 alert('Login cancelled.');
               } else {
                 alert('Logged in.');
+                this.handleLogin();
               }
             }
           }}
