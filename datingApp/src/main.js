@@ -8,6 +8,11 @@ import React, {
 } from 'react-native';
 import SignIn from './components/signin'
 import SignUp from './components/signup'
+import Bio from './components/signup'
+import Chatroom from './components/signup'
+import List from './components/signup'
+import Matches from './components/signup'
+
 
 const ROUTES = {
   signin: SignIn,
