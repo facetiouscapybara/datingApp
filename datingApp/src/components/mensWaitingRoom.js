@@ -1,10 +1,10 @@
 //essentailly a splash page for when men have no chat requests
-import React, { Componenet, View, Text, StyleSheet}
+import React, { Component, View, Text, StyleSheet} from 'react-native';
 
 export default class Matches extends Component {
 	render () {
 		return (
-
+      <View></View>
 		)
 	}
 };
