@@ -8,7 +8,7 @@ import React, {
 } from 'react-native';
 import FBSDKCore , { FBSDKGraphRequest } from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
-import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin';
+import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 
 
 
