@@ -1,14 +1,17 @@
-
 import React, { StyleSheet, Navigator, Component } from 'react-native';
+import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
+import Geofire from 'geofire'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/bio'
 import Chatroom from './components/chatRoom'
 import List from './components/list'
 import Matches from './components/matches'
+import Splash from './components/splash'
 
 const ROUTES = {
+  splash: Splash,
   signin: SignIn,
   signup: SignUp,
   bio: Bio,
@@ -17,50 +20,17 @@ const ROUTES = {
   matches: Matches
 }
 export default class Main extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      token: '',
-      longitude: null,
-      latitude: null
-    }
-  }
-  
-  componentWillMount = () => {
-    firebaseUser = new Firebase("https://rawdog.firebaseio.com/users");
-    if ("geolocation" in navigator) {
-      /* geolocation is available */
-      console.log("available");
-    } else {
-      /* geolocation IS NOT available */
-      console.log("not available llll");
-    }
-    navigator.geolocation.getCurrentPosition((loc) => 
-      {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-        console.log(loc)
-        firebaseUser.push({
-          sex: 'dude2',
-          user: 'dannn',
-          location: {
-            longitude: this.state.longitude,
-            latitude: this.state.latitude
-          }
-        });
-      }
-    )
-  };
-
   renderScene = (route, navigator) => {
-    console.log(".............",route);
+    console.log("route list:",route);
     var Component = ROUTES[route.name]
-    return <Component />
+    return <Component route={route} navigator={navigator} />
   };
 
   render() {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{ name: 'signin' }}
+        initialRoute={{ name: 'splash' }}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
