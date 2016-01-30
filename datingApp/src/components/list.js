@@ -13,6 +13,7 @@ export default class List extends Component {
       	<Text> 
       		Dude's nearby
       	</Text>
+      	<ListItem user={users[0]} />
       </View>
 		)
 	}
@@ -20,6 +21,7 @@ export default class List extends Component {
 
 const styles = StyleSheet.create({
 	container: {
+		marginTop: 20,
 		flex:1,
 		backgroundColor: 'green'
 	}
