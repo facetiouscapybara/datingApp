@@ -33,7 +33,7 @@ export default class SignIn extends Component {
   render(){
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 30}}>SIGN IN BITCH!</Text>
+        <Text style={{fontSize: 30}}>"SIGN IN M'LADY!"</Text>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
             if (error) {
