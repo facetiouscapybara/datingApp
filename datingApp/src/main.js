@@ -29,7 +29,7 @@ export default class Main extends Component {
       console.log("available");
     } else {
       /* geolocation IS NOT available */
-      console.log("not available");
+      console.log("not available llll");
     }
     // navigator.geolocation.getCurrentPosition((loc) => 
     //   {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
