@@ -6,30 +6,50 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
-import FBSDKCore from 'react-native-fbsdkcore/';
+import FBSDKCore , { FBSDKGraphRequest } from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 
 
 
 export default class SignIn extends Component {
-    render(){
-      console.log(FBSDKLoginButton)
+
+    
+  handleLogin() {
+
+    // Create a graph request asking for friends with a callback to handle the response.
+    var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
+      if (error) {
+        alert('Error making request.');
+      } else {
+        // Data from request is in result
+        console.log("ooooooooooo", result);
+      }
+    }, '/me');
+    // Start the graph request.
+    fetchFriendsRequest.start();
+
+
+
+  }
+
+
+  render(){
+    console.log("???????",FBSDKLoginButton)
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          Sign In:
-        </Text>
+      <View>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
             if (error) {
               alert('Error logging in.');
             } else {
+              console.log(">>>>>>>>>",result);
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
                 alert('Logged in.');
+                this.handleLogin();
               }
             }
           }}
@@ -37,7 +57,7 @@ export default class SignIn extends Component {
           readPermissions={[]}
           publishPermissions={['publish_actions']}/>
       </View>
-      )
+    )
   }
   buttonPress(){
     console.log('button pressed!')
