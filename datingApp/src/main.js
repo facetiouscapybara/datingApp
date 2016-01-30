@@ -3,14 +3,21 @@ import Firebase from 'firebase'
 import ReactFire from 'reactfire'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
-import Bio from './components/signup'
-import Chatroom from './components/signup'
-import List from './components/signup'
-import Matches from './components/signup'
+import Bio from './components/bio'
+import Chatroom from './components/chatRoom'
+import List from './components/list'
+import Matches from './components/matches'
+import EditProfile from './components/editProfile'
+
 
 const ROUTES = {
   signin: SignIn,
-  signup: SignUp
+  signup: SignUp,
+  bio: Bio,
+  chatRoom: Chatroom,
+  list: List,
+  matches: Matches,
+  editProfile: EditProfile
 }
 export default class Main extends Component {
   constructor(props){
