@@ -1,6 +1,6 @@
-import React, { StyleSheet, Navigator } from 'react-native';
-import Firebase from 'firebase'
-import ReactFire from 'reactfire'
+import React, { StyleSheet, Navigator, Component } from 'react-native';
+import Firebase from 'firebase/'
+import ReactFire from 'reactfire/'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/signup'
@@ -24,18 +24,25 @@ export default class Main extends Component {
   
   componentWillMount = () => {
     firebaseUser = new Firebase("https://rawdog.firebaseio.com/users");
-    navigator.geolocation.getCurrentPosition((loc) => 
-      {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-        firebaseUser.push({
-          sex: 'dude2',
-          user: 'dannn',
-          location: {
-            longitude: this.state.longitude,
-            latitude: this.state.latitude
-          }
-        });
-      }
-    )
+    if ("geolocation" in navigator) {
+      /* geolocation is available */
+      console.log("available");
+    } else {
+      /* geolocation IS NOT available */
+      console.log("not available");
+    }
+    // navigator.geolocation.getCurrentPosition((loc) => 
+    //   {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
+    //     firebaseUser.push({
+    //       sex: 'dude2',
+    //       user: 'dannn',
+    //       location: {
+    //         longitude: this.state.longitude,
+    //         latitude: this.state.latitude
+    //       }
+    //     });
+    //   }
+    // )
   };
 
   renderScene = (route, navigator) => {
