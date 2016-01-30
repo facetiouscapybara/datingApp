@@ -46,11 +46,9 @@ module.exports = function(){
 	     });
 	    }
 	));
-
 	passport.use(
 	  new BearerStrategy(
 	    function(token, done) {
-
 	    	var query = "MATCH (user:Person {access_token : {token}}) RETURN user";
 	    	db.cypherQuery(query, {token : token}, function(err, response){
 	          if(err) {
