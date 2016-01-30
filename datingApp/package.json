@@ -1,5 +1,12 @@
 {
-  "name": "datingApp",
+  "name": "Tolo",
+  "description": "An, on the go, quick chat, dating app",
+  "authors": [
+    "Daniel Frehner",
+    "Marlon Ma",
+    "Eric Geniesse",
+    "Brian Sweeney"
+  ],
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,12 +15,12 @@
   "dependencies": {
     "firebase": "^2.4.0",
     "react-native": "^0.18.1",
+    "react-native-background-geolocation": "^0.3.4",
     "react-native-fbsdkcore": "0.0.8",
     "react-native-fbsdklogin": "0.0.8",
     "react-native-fbsdkshare": "0.0.8",
     "react-promise": "^1.1.0",
     "react-redux": "^4.0.6",
-    "reactfire": "^0.5.1",
     "redux": "^3.0.6"
   }
 }
