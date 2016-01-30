@@ -5,6 +5,7 @@ var passport = require('passport');
 module.exports = function(app, express) {
 	app.post('/api/account', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.createNewUser);
 	app.post('/api/getUser/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getUserById);
+	app.post('/api/getAllUsers/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getAllUsers);
 	app.put('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.updateUser);
 	app.delete('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.deleteUser);
 

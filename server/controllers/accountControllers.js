@@ -1,5 +1,16 @@
 var db = require('../db/database.js');
 
+module.exports.getAllUsers = function (req, res) {
+	var query = 'MATCH (user) RETURN user';
+	db.cypherQuery(queryString, function(err, response){
+		if(err){
+			res.status(404).json(err);
+		} else {
+			res.status(200).josn(response.results[0].data);
+		}
+	});
+};
+
 
 // The createNewUser method automatically creates a new user upon facebook 
 // authentication. Here is an example request body.
