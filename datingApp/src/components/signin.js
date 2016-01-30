@@ -6,7 +6,7 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
-import FBSDKCore , { FBSDKGraphRequest } from 'react-native-fbsdkcore/';
+import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 
@@ -16,7 +16,6 @@ export default class SignIn extends Component {
 
     
   handleLogin() {
-
     // Create a graph request asking for friends with a callback to handle the response.
     var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
       if (error) {
@@ -28,15 +27,10 @@ export default class SignIn extends Component {
     }, '/me');
     // Start the graph request.
     fetchFriendsRequest.start();
-
-
-
   }
 
 
   render(){
-    console.log("???????",FBSDKLoginButton)
-
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{fontSize: 30}}>SIGN IN BITCH!</Text>
@@ -51,11 +45,14 @@ export default class SignIn extends Component {
               } else {
                 alert('Logged in.');
                 this.handleLogin();
+                FBSDKAccessToken.getCurrentAccessToken((token) => {
+                  console.log(token.tokenString);
+                })
               }
             }
           }}
           onLogoutFinished={() => alert('Logged out.')}
-          readPermissions={[]}
+          readPermissions={['public_profile','user_photos']}
           publishPermissions={['publish_actions']}/>
       </View>
     )
