@@ -1,7 +1,6 @@
 
 import React, { StyleSheet, Navigator, Component } from 'react-native';
 import Firebase from 'firebase/'
-import ReactFire from 'reactfire/'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/signup'
@@ -32,18 +31,19 @@ export default class Main extends Component {
       /* geolocation IS NOT available */
       console.log("not available llll");
     }
-    // navigator.geolocation.getCurrentPosition((loc) => 
-    //   {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-    //     firebaseUser.push({
-    //       sex: 'dude2',
-    //       user: 'dannn',
-    //       location: {
-    //         longitude: this.state.longitude,
-    //         latitude: this.state.latitude
-    //       }
-    //     });
-    //   }
-    // )
+    navigator.geolocation.getCurrentPosition((loc) => 
+      {this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
+        console.log(loc)
+        firebaseUser.push({
+          sex: 'dude2',
+          user: 'dannn',
+          location: {
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
+          }
+        });
+      }
+    )
   };
 
   renderScene = (route, navigator) => {
