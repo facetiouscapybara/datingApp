@@ -7,13 +7,12 @@ export default class List extends Component {
 
 
 	render () {
-		console.log("I'm trying")
 		return (
 			<View style={styles.container}>
 				<View style={styles.statusBar}/>
 				<View style={styles.header}>
 					<Text> 
-	      		Dude's nearby
+	      		Dude's nearby{/*refactor to be dynamic text so if the dudeList.length = 0, this says "Sorry, no dudes nearby". Also, very much not commited to "dudes", this is jsut comment text, don't overthink it*/}
 	      	</Text>
 	      </View>
 				<ScrollView
@@ -52,6 +51,8 @@ const styles = StyleSheet.create({
 	}
 })
 
+
+//to be abstracted out into the constructor function in here
 const dudes = [
 	{
 		name: 'Brian Sweeney',
