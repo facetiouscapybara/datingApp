@@ -1,5 +1,7 @@
 import React, { Component, View, Text, StyleSheet, TabBarIOS} from 'react-native';
-import SideMenu from 'react-native-side-menu';
+import SideMenu from 'react-native-side-menu';//Couldn't get this componenet to work
+
+//Feel free to rip this all out
 
 export default class Menu extends Component {
 	render () {
