@@ -1,7 +1,7 @@
 import React, { StyleSheet, Navigator, Component } from 'react-native';
 import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
-import Geofire from 'geofire'
+//import Geofire from 'geofire/'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/bio'
@@ -22,7 +22,7 @@ const ROUTES = {
 export default class Main extends Component {
   renderScene = (route, navigator) => {
     console.log("route list:",route);
-    var Component = ROUTES[route.name]
+    var Component = ROUTES[route.name];
     return <Component route={route} navigator={navigator} />
   };
 

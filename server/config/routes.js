@@ -5,6 +5,7 @@ var passport = require('passport');
 module.exports = function(app, express) {
 	app.post('/api/account', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.createNewUser);
 	app.post('/api/getUser/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getUserById);
+	app.post('/api/getAllUsers/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getAllUsers);
 	app.put('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.updateUser);
 	app.delete('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.deleteUser);
 
@@ -31,7 +32,7 @@ module.exports = function(app, express) {
 		res.send('this is the login page');
 	});
 	
-	app.get('/', passport.authenticate('bearer', {failureRedirect: '/login', session: false}), function(req, res){
+	app.get('/', passport.authenticate('bearer', { session: false, failureRedirect: '/login'}), function(req, res){
 		res.send('this is the home page');
 	});
 

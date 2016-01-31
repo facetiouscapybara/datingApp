@@ -23,8 +23,21 @@ export default class SignIn extends Component {
       } else {
         // Data from request is in result
         console.log("ooooooooooo", result);
+        FBSDKAccessToken.getCurrentAccessToken((token) => {
+          console.log(token.tokenString);
+          var url = "https://graph.facebook.com/" + result.id + "?fields=id,name,gender,picture&access_token=" + token.tokenString;
+          console.log(url);
+          fetch(url)
+            .then(function (res) {
+              console.log(res);
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
+        });
+        
       }
-    }, '/me');
+    }, '/me?fields=id,age_range,email,first_name,gender');
     // Start the graph request.
     fetchFriendsRequest.start();
   }
@@ -39,20 +52,16 @@ export default class SignIn extends Component {
             if (error) {
               alert('Error logging in.');
             } else {
-              console.log(">>>>>>>>>",result);
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
                 alert('Logged in.');
                 this.handleLogin();
-                FBSDKAccessToken.getCurrentAccessToken((token) => {
-                  console.log(token.tokenString);
-                })
               }
             }
           }}
           onLogoutFinished={() => alert('Logged out.')}
-          readPermissions={['public_profile','user_photos']}
+          readPermissions={['public_profile','user_friends', 'email']}
           publishPermissions={['publish_actions']}/>
       </View>
     )

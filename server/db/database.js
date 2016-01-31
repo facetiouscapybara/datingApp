@@ -16,7 +16,7 @@ module.exports.cypherQuery = function(query, params, callback) {
     params = {};
   }
   request.post({
-      uri: constants.DB_URI,
+      uri: constants.DATABASE_URL,
       json: {statements: [{statement: query, parameters: params}]},
       headers: {               
         'Authorization': 'Basic ' + userPass                  
