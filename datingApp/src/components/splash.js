@@ -1,7 +1,7 @@
 import React, { Component, View, Text, StyleSheet } from 'react-native'
 import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
-import Geofire from 'geofire'
+//import Geofire from 'geofire/'
 
 export default class Splash extends Component {
 

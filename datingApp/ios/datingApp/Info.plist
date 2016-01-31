@@ -29,7 +29,7 @@
 			<key>facebook.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
-				<true/>
+				<false/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
