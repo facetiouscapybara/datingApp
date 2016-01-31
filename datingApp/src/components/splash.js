@@ -1,7 +1,8 @@
 import React, { Component, View, Text, StyleSheet } from 'react-native'
 import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
-import Firebase from 'firebase/'
+import Firebase from 'firebase/';
 //import Geofire from 'geofire/'
+import Bio from './bio';
 
 export default class Splash extends Component {
 
@@ -9,9 +10,9 @@ export default class Splash extends Component {
     navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
         this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-        console.log(loc)
+        console.log(loc);
       } else {
-        console.log(err)
+        console.log(err);
       } 
     })
   };
@@ -20,16 +21,21 @@ export default class Splash extends Component {
     FBSDKAccessToken.getCurrentAccessToken((token) => {
       if(token){
         tolkien = token.tokenString
+        console.log(this.props.navigator);
+        this.props.navigator.push({name: 'bio'});
       } else {
         console.log('no token present, please sign in')
         this.props.navigator.push({name: 'signin'})
       }
     })
-    console.log('token:', tolkien)
   };
 
   render(){
-    return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><Text style={styles.logo}>TOLO</Text></View>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.logo}>TOLO</Text>
+      </View>
+    )
   }
 }
 
@@ -37,5 +43,32 @@ let tolkien
 const styles = StyleSheet.create ({
   logo: {
     fontSize: 75
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#48BBEC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+    marginTop: 65
   }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
