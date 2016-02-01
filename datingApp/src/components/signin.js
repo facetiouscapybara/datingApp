@@ -5,11 +5,13 @@ import React, {
   Text, 
   View,
   TouchableHighlight,
+  Image
 } from 'react-native';
 import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import fbApi from '../helpers/fbsdk';
+import GameChanger from '../../ios/somehowFixesEverything.gif'
 
 
 export default class SignIn extends Component {
@@ -36,6 +38,7 @@ export default class SignIn extends Component {
   render(){
     return (
       <View style={styles.container}>
+        <Image source={GameChanger} />
         <Text style={styles.text}>"SIGN IN M'LADY!"</Text>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
