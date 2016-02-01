@@ -23,6 +23,7 @@ export default class Main extends Component {
   renderScene = (route, navigator) => {
     console.log("route list:",route);
     var Component = ROUTES[route.name];
+    console.log(Component);
     return <Component route={route} navigator={navigator} />
   };
 
@@ -30,7 +31,7 @@ export default class Main extends Component {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{ name: 'splash' }}
+        initialRoute={{ name: 'signin'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
@@ -40,6 +41,6 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   }
 })
