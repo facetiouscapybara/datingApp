@@ -5,6 +5,13 @@ import Bio from './bio';
 import Firebase from 'firebase/'
 import Geofire from 'geofire/'
 
+const options = {
+  enableHighAccuracy: true
+}
+
+const errorLog = (error) => {
+  console.log(error);
+}
 
 export default class Splash extends Component {
 
@@ -13,10 +20,8 @@ export default class Splash extends Component {
       if(!err){
         this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
         console.log(loc);
-      } else {
-        console.log(err);
       } 
-    })
+    }, errorLog, options)
   };
 
   componentDidMount = () => {
