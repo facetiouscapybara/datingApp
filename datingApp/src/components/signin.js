@@ -29,8 +29,7 @@ export default class SignIn extends Component {
 
   handleFBProfile() {
     fbApi.fbProfile((result) => {
-      console.log(result)
-      host = host + '/api/login'
+      let urlPath = host.SERVER_URL + '/api/login';
       let queryObject = {
         method: 'POST',
         headers: {
@@ -48,13 +47,15 @@ export default class SignIn extends Component {
           bio: "null"
         })
       };
-      fetch(, queryObject)
+      console.log(urlPath)
+      fetch(urlPath, queryObject)
         .then(function(res){
+          console.log('this is the res', res)
       this.setState({
         profile: result
       });
       this.handleRedirect();
-        })
+        });
     });
 
   }
