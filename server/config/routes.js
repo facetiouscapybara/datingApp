@@ -4,10 +4,9 @@ var passport = require('passport');
 
 module.exports = function(app, express) {
 
-	app.post('/api/getUser/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getUserById);
-	app.post('/api/getAllUsers/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getAllUsers);
-	app.put('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.updateUser);
-	app.delete('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.deleteUser);
+	app.get('/api/users/:id', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getUserById);
+	app.put('/api/users/:id', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.updateUser);
+	app.delete('/api/users/:id', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.deleteUser);
 
 	app.post('/api/relationship', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.createRelationship);
 	app.delete('/api/relationship', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.deleteRelationship);

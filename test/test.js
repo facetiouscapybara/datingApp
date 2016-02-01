@@ -235,10 +235,10 @@ it('should delete user relatinships', function(done){
 		 });
 });
  after(function(done){
- 	deleteUser({id : 346}, function(res){
- 		deleteUser({id : 347}, function(res){
- 			deleteUser({id : 348}, function(res){
- 				deleteUser({id : 349}, function(res){
+ 	deleteUser(346, function(res){
+ 		deleteUser(347, function(res){
+ 			deleteUser(348, function(res){
+ 				deleteUser(349, function(res){
  					done();
  				}); 			
  			});

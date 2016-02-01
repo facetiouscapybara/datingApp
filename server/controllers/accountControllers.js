@@ -56,7 +56,8 @@ createNewUser = function (req, res) {
 //	
 updateUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
-	var params = {id: userInfo.id};
+	var id = req.params ? req.params.id : req.id;
+	var params = { id: id };
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
@@ -91,7 +92,7 @@ updateUser = function (req, res) {
 //  
   
 getUserById = function(req, res) {
-	var id = req.body ? req.body.id : req;
+	var id = req.params ? req.params.id : req;
 	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
 	var params = {id: id};
   db.cypherQuery(queryString, params, function (err, response) {
@@ -117,9 +118,9 @@ getUserById = function(req, res) {
 //  
 
 deleteUser = function(req, res) {
-	var params = req.body ? {id: req.body.id} : req;
+	var id = req.params ? req.params.id : req;
 	var queryString = 'MATCH (user:Person {id : {id}}) DETACH DELETE user';
-	
+	var params = { id: id };
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
 			res(response);
