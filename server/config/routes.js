@@ -3,7 +3,6 @@ var relationshipControllers = require('../controllers/relationshipControllers.js
 var passport = require('passport');
 
 module.exports = function(app, express) {
-	app.post('/api/account', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.createNewUser);
 	app.post('/api/getUser/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getUserById);
 	app.post('/api/getAllUsers/', passport.authenticate('bearer', { failureRedirect: '/login'}), accountControllers.getAllUsers);
 	app.put('/api/account', passport.authenticate('bearer', {failureRedirect: '/login'}),accountControllers.updateUser);
@@ -15,9 +14,7 @@ module.exports = function(app, express) {
 	app.post('/api/getUsers', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.getEligibleUsersInArea);
 	app.post('/api/connections', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.getConnections);
 
-	app.get('/api/loggedin', passport.authenticate('bearer', {failureRedirect: '/login'}),function(req,res) {
-	   res.send(req.isAuthenticated() ? req.user : '0');
-	 });
+	app.post('/api/login', accountControllers.signIn);
 
 	 app.get('/api/auth/facebook',
 	   passport.authenticate('facebook', { scope: ['public_profile'] }), function(req, res){});

@@ -41,6 +41,7 @@ export default class List extends Component {
 	}
 
 	users () {
+
 		let swipeBtns = [
 		  {
 		    text: 'Delete',
