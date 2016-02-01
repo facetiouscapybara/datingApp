@@ -6,7 +6,6 @@ import Separator from '../helpers/separator';
 
 export default class List extends Component {
 
-
 	render () {
 		return (
 			<View style={styles.container}>
@@ -26,6 +25,7 @@ export default class List extends Component {
 	}
 
 	users () {
+
 		let swipeBtns = [
 		  {
 		    text: 'Delete',

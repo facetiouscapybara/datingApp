@@ -24,7 +24,7 @@ getAllUsers = function (req, res) {
 	//   picture: "https://scontent.xx.fbcdn.net/hprofile-xfa1",
 	//   gender: "male",
 	//   preference: "null",
-	//   bio: "null"
+	//   bio: "null"   
 	// };
 
 createNewUser = function (req, res) {
@@ -44,7 +44,7 @@ createNewUser = function (req, res) {
   });
 };
 
-// The request for this object needs to have a id field as well as
+// The request for this object needs to have a id field as well as 
 // an access_token field. After the user is verified, you can update any field
 // that needs to be updated. Here is an example request body.
 // 
@@ -138,12 +138,13 @@ signIn = function(req, res){
 	    process.nextTick(function () {
         getUserById(userData.id, function(user){
           if (user){
-		var newToken = {
-			id : userData.id,
-			access_token: userData.access_token
-		};
+						var newToken = {
+							id : userData.id,
+							access_token: userData.access_token
+						};
             updateUser(newToken, function(updatedUser){
             	updatedUser.row[0].isNewUser = false;
+
               res.status(201).json(updatedUser.row[0]);
             });
           } else {

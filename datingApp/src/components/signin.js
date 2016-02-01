@@ -29,8 +29,8 @@ export default class SignIn extends Component {
 
   handleFBProfile() {
     fbApi.fbProfile((result) => {
-      var urlPath = host.SERVER_URL + '/api/login';
-      var queryObject = {
+      let urlPath = host.SERVER_URL + '/api/login';
+      let queryObject = {  
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -45,12 +45,12 @@ export default class SignIn extends Component {
           picture: result.picture,
           gender: result.gender,
           preference: "null",
-          bio: "null"
+          bio: "null"   
         })
       };
       fetch(urlPath, queryObject)
         .then(function(res){
-          var result = JSON.parse(res._bodyText);
+          let result = JSON.parse(res._bodyText);
           this.setState({
             profile: result
           });

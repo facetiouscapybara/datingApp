@@ -1,7 +1,7 @@
 var db = require('../db/database.js');
 
 // This method creates a directed edge between two users. It takes a userid
-// and targetid and has the edge pointing from the user to to the target
+// and targetid and has the edge pointing from the user to to the target 
 // ex.
 // 
 //  (user)-[follows]->(target) 
@@ -79,7 +79,7 @@ module.exports.getEligibleUsersInArea = function (req, res) {
   });
 };
 
-// This method takes a userid and a relationship and returns an array of users who are connected to the user by the
+// This method takes a userid and a relationship and returns an array of users who are connected to the user by the 
 // desired relationship. This doesn't take into consideratin the direction of the relationship.
 // 
 // ex. 

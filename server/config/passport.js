@@ -5,7 +5,6 @@ var db = require('../db/database.js');
 var BearerStrategy = require('passport-http-bearer');
 
 module.exports = function(){
-
 	passport.use(
 	  new BearerStrategy(
 	    function(token, done) {
