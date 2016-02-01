@@ -1,1 +1,1 @@
-This is the Raw Dawg dating app.
+This is the Tolo dating app.

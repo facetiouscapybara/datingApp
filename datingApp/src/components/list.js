@@ -10,7 +10,17 @@ export default class List extends Component {
 
   componentWillMount(){
     console.log(this.props)
-
+    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
+    const geoFire = new Geofire(firebaseRef);
+    geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
+      .then(function(key){console.log('location set')})
+    const geoQuery = geoFire.query({
+      center: [this.props.locationLat, this.props.locationLon],
+      radius: 0.5 //kilometers
+    });
+    geoQuery.on("key_entered", function(key, location, distance) {
+      console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
+    });
   }
 	render () {
 		return (

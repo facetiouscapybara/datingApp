@@ -9,17 +9,6 @@ import List from './components/list';
 import Matches from './components/matches';
 import Splash from './components/splash';
 
-
-const ROUTES = {
-  splash: Splash,
-  signin: SignIn,
-  signup: SignUp,
-  bio: Bio,
-  chatRoom: Chatroom,
-  list: List,
-  matches: Matches
-};
-
 export default class Main extends Component {
 
   render() {

@@ -4,7 +4,7 @@ import Bio from './bio';
 import List from './list';
 import SignIn from './signin';
 import fbApi from '../helpers/fbsdk';
-
+import Matches from './matches';
 
 
 export default class Splash extends Component {
@@ -20,11 +20,11 @@ export default class Splash extends Component {
   };
 
   handleRedirect(component) {
-    if (component === 'bio') {
+    if (component === 'matches') {
       this.props.navigator.push({
-        component: Bio,
-        title: 'Profile',
-        passProps: { profile: this.state.profile }
+        component: Matches,
+        title: 'Matches',
+        passProps: { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
       });
     } else if ( component === 'list' ) {
       this.props.navigator.push({
@@ -46,10 +46,10 @@ export default class Splash extends Component {
       this.setState({
         profile: result
       });
-      if(this.state.profile.name === 'Daniel Frehner' || this.state.profile.gender === 'female') {
+      if(this.state.profile.gender === 'female' || this.state.profile.name === 'Daniel Frehner') {
         this.handleRedirect('list')
       } else if(this.state.profile.gender === 'male'){
-        this.handleRedirect('bio');
+        this.handleRedirect('matches');
       }
     });
   }

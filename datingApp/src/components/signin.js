@@ -41,7 +41,7 @@ export default class SignIn extends Component {
     return (
       <View style={styles.container}>
         <Image source={GameChanger} />
-        <Text style={styles.text}>"SIGN IN M'LADY!"</Text>
+        <Text style={styles.text}>"Use Facebook to Sign In or Sign Up"</Text>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
             if (error) {
