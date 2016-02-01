@@ -30,7 +30,7 @@ getAllUsers = function (req, res) {
 createNewUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
 	userInfo.access_token = userInfo.access_token || '';
-  var queryString = 'CREATE (user:Person {name : {name}, first_name : {first_name} age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, id:{id}, picture:{picture}, access_token: {access_token}}) RETURN user';
+  var queryString = 'CREATE (user:Person {name : {name}, first_name : {first_name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, id:{id}, picture:{picture}, access_token: {access_token}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
 		if(typeof res === 'function'){
 			res(response);
@@ -142,22 +142,12 @@ signIn = function(req, res){
           		id : userData.id,
           		access_token: userData.access_token
           	};
-            updateUser(newToken, function(res){
-              user.gender = userData._json.gender;
-              done(null, user);
+            updateUser(newToken, function(updatedUser){
+              res.status(201).json(updatedUser.row[0]);
             });
           } else {
-            createNewUser({
-              id: userData.id,
-              name: userData.name,
-              picture: userData.photo,
-              gender: userData.gender,
-              preference: "null",
-              bio: "null",
-              age: "null",
-              access_token : accessToken
-            }, function(newUser){
-            	done(null, newUser);
+            createNewUser(userData, function(newUser){
+              res.status(201).json(newUser.results[0].data[0].row[0]);
             });
          }
         });
