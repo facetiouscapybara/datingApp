@@ -13,6 +13,7 @@ import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import fbApi from '../helpers/fbsdk';
 import GameChanger from '../../ios/somehowFixesEverything.gif';
 import Bio from './bio';
+import host from './../../constants.js'
 
 export default class SignIn extends Component {
 
@@ -28,10 +29,32 @@ export default class SignIn extends Component {
 
   handleFBProfile() {
     fbApi.fbProfile((result) => {
+      console.log(result)
+      host = host + '/api/login'
+      let queryObject = {  
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: result.id,
+          access_token: result.access_token,
+          name: result.name,
+          age: result.age || 'null',
+          picture: result.picture,
+          gender: result.gender,
+          preference: "null",
+          bio: "null"   
+        })
+      };
+      fetch(, queryObject)
+        .then(function(res){
       this.setState({
         profile: result
       });
       this.handleRedirect();
+        })
     });
 
   }

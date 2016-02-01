@@ -23,9 +23,7 @@ const ROUTES = {
 
 export default class Main extends Component {
   renderScene = (route, navigator) => {
-    console.log("route list:",route);
     var Component = ROUTES[route.name];
-    console.log(Component);
     return <Component route={route} navigator={navigator} />
   };
 
@@ -42,7 +40,7 @@ export default class Main extends Component {
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: List
+          component: SignIn
         }} />
     )
   }

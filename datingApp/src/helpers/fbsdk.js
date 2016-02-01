@@ -5,17 +5,19 @@ import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 let fb = {
 
 	fbProfile(callback){
-		var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
+		let fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
 		  if (error) {
 		    alert('Error making request.');
 		  } else {
 		    // Data from request is in result
 		    FBSDKAccessToken.getCurrentAccessToken((token) => {
-		      console.log(token.tokenString);
-		      var url = "https://graph.facebook.com/" + result.id + "?fields=id,name,age_range,email,first_name,gender,picture&access_token=" + token.tokenString;
+		      let url = "https://graph.facebook.com/" + result.id + "?fields=id,name,age_range,email,first_name,gender,picture&access_token=" + token.tokenString;
 		      fetch(url)
 		        .then(function (res) {
-		          callback(JSON.parse(res._bodyText));
+		        	let userInfo = JSON.parse(res._bodyText);
+		        	userInfo.access_token = token.tokenString;
+		        	userInfo.picture = userInfo.picture.data.url;
+		          callback(userInfo);
 		        })
 		        .catch(function (err) {
 		          console.log(err);
