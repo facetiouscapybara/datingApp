@@ -16,12 +16,13 @@ export default class Main extends Component {
   };
 
   render() {
+  console.log('here')
     return (
       <NavigatorIOS 
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: Splash
+          component: SignIn
         }} />
     )
   }

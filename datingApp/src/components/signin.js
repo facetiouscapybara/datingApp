@@ -7,8 +7,8 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native';
-//import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
-//import FBSDKShare from 'react-native-fbsdkshare/';
+import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
+import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import fbApi from '../helpers/fbsdk';
 import GameChanger from '../../ios/somehowFixesEverything.gif';
@@ -29,8 +29,8 @@ export default class SignIn extends Component {
 
   handleFBProfile() {
     fbApi.fbProfile((result) => {
-      let urlPath = host.SERVER_URL + '/api/login';
-      let queryObject = {
+      var urlPath = host.SERVER_URL + '/api/login';
+      var queryObject = {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -50,7 +50,8 @@ export default class SignIn extends Component {
       };
       fetch(urlPath, queryObject)
         .then(function(res){
-          let result = JSON.parse(res._bodyText);
+          var result = JSON.parse(res._bodyText);
+          console.log(result)
           this.setState({
             profile: result
           });

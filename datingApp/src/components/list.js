@@ -1,27 +1,12 @@
 //this will be the page the females see when they first log in showing them who is around them
 import React, { Component, View, Text, StyleSheet, TouchableHighlight, ListView, Image, ScrollView} from 'react-native';
 import ListItem from './listItem';
-import Swipeout from 'react-native-swipeout/';
+import Swipeout from 'react-native-swipeout';
 import Separator from '../helpers/separator';
-import Firebase from 'firebase/';
-import Geofire from 'geofire/'
 
 export default class List extends Component {
 
-  componentWillMount(){
-    console.log(this.props)
-    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
-    const geoFire = new Geofire(firebaseRef);
-    geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
-      .then(function(key){console.log('location set')})
-    const geoQuery = geoFire.query({
-      center: [this.props.locationLat, this.props.locationLon],
-      radius: 0.5 //kilometers
-    });
-    geoQuery.on("key_entered", function(key, location, distance) {
-      console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
-    });
-  }
+
 	render () {
 		return (
 			<View style={styles.container}>
@@ -41,7 +26,6 @@ export default class List extends Component {
 	}
 
 	users () {
-
 		let swipeBtns = [
 		  {
 		    text: 'Delete',
