@@ -1,7 +1,8 @@
 //this will be the page the females see when they first log in showing them who is around them
-import React, { Component, View, Text, StyleSheet, ListView, Image, ScrollView} from 'react-native';
-import ListItem from './listItem'
-
+import React, { Component, View, Text, StyleSheet, TouchableHighlight, ListView, Image, ScrollView} from 'react-native';
+import ListItem from './listItem';
+import Swipeout from 'react-native-swipeout';
+import Separator from '../helpers/separator';
 
 export default class List extends Component {
 
@@ -25,8 +26,35 @@ export default class List extends Component {
 	}
 
 	users () {
+		let swipeBtns = [
+		  {
+		    text: 'Delete',
+		    backgroundColor: 'red',
+		    underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+		    onPress: () => { this.deleteNote() }
+		 },
+		  {
+		    text: 'Duplicate',
+		    backgroundColor: 'blue',
+		    underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+		    onPress: () => { this.duplicateNote() }
+		 }
+		];
 		var userList = dudes.map(function(user){
-			return <ListItem user={user} key={user.fbID} style={styles.listItem}/>
+			return (
+				<Swipeout right={swipeBtns}
+				  autoClose='true'
+				  backgroundColor= 'transparent'>
+				  <TouchableHighlight
+				    underlayColor='rgba(192,192,192,1,0.6)'>
+				    <View>
+				      <View>
+								<ListItem user={user} key={user.fbID} style={styles.listItem}/>
+				      </View>
+				    </View>
+				  </TouchableHighlight>
+				</Swipeout>
+			)
 		})
 		return userList
 	}
@@ -35,7 +63,7 @@ export default class List extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex:1,
-		backgroundColor: 'green'
+    backgroundColor: '#48BBEC'
 	},
 	header: {
 		paddingTop: 5,
@@ -135,3 +163,16 @@ const dudes = [
 		dist: '800 miles'
 	}
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,12 +4,13 @@ import React, { Component, View, Text, Image, StyleSheet} from 'react-native';
 export default class Bio extends Component {
 	constructor(props) {
 	  super(props);
+	  console.log(this.props, "in the bio page");
 	  this.state = {
-	  	id: props.route.profile.id,
-	  	age: props.route.profile.age_range,
-	  	first_name: props.route.profile.first_name,
-	  	gender: props.route.profile.gender,
-	  	picture: props.route.profile.picture.data.url
+	  	id: props.profile.id,
+	  	age: props.profile.age_range,
+	  	first_name: props.profile.first_name,
+	  	gender: props.profile.gender,
+	  	picture: props.profile.picture.data.url
 	  };
 	}
 
