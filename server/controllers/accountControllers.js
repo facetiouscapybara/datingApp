@@ -143,10 +143,12 @@ signIn = function(req, res){
 			access_token: userData.access_token
 		};
             updateUser(newToken, function(updatedUser){
+            	updatedUser.row[0].isNewUser = false;
               res.status(201).json(updatedUser.row[0]);
             });
           } else {
             createNewUser(userData, function(newUser){
+            	newUser.results[0].data[0].row[0].isNewUser = true;
               res.status(201).json(newUser.results[0].data[0].row[0]);
             });
          }

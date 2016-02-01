@@ -51,7 +51,6 @@ export default class SignIn extends Component {
       fetch(urlPath, queryObject)
         .then(function(res){
           var result = JSON.parse(res._bodyText);
-          console.log(result)
           this.setState({
             profile: result
           });

@@ -2,7 +2,6 @@ import React, { StyleSheet, Navigator, NavigatorIOS, Component } from 'react-nat
 import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
 import SignIn from './components/signin'
-import SignUp from './components/signup'
 import Bio from './components/bio'
 import Chatroom from './components/chatRoom'
 import List from './components/list';
@@ -22,7 +21,7 @@ export default class Main extends Component {
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: SignIn
+          component: Splash
         }} />
     )
   }
