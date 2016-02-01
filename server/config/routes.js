@@ -14,7 +14,7 @@ module.exports = function(app, express) {
 	app.post('/api/getUsers', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.getEligibleUsersInArea);
 	app.post('/api/connections', passport.authenticate('bearer', {failureRedirect: '/login'}),relationshipControllers.getConnections);
 
-	app.post('api/login', accountControllers.signIn);
+	app.post('/api/login', accountControllers.signIn);
 
 	 app.get('/api/auth/facebook',
 	   passport.authenticate('facebook', { scope: ['public_profile'] }), function(req, res){});
