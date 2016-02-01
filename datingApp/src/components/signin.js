@@ -39,6 +39,7 @@ export default class SignIn extends Component {
         body: JSON.stringify({
           id: result.id,
           access_token: result.access_token,
+          first_name : result.first_name,
           name: result.name,
           age: result.age || 'null',
           picture: result.picture,
@@ -47,14 +48,13 @@ export default class SignIn extends Component {
           bio: "null"
         })
       };
-      console.log(urlPath)
       fetch(urlPath, queryObject)
         .then(function(res){
-          console.log('this is the res', res)
-      this.setState({
-        profile: result
-      });
-      this.handleRedirect();
+          let result = JSON.parse(res._bodyText);
+          this.setState({
+            profile: result
+          });
+          this.handleRedirect();
         });
     });
 
