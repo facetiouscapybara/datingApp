@@ -26,6 +26,12 @@ let fb = {
 		}, '/me?fields=id,age_range,email,first_name,gender');
 		fetchFriendsRequest.HTTPMethod = "GET";
 		return fetchFriendsRequest.start();
+	},
+
+	fbToken(callback){
+    return FBSDKAccessToken.getCurrentAccessToken((token) => {
+    	callback(token);
+		});
 	}
 
 }

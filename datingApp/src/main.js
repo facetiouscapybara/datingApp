@@ -1,4 +1,4 @@
-import React, { StyleSheet, Navigator, Component } from 'react-native';
+import React, { StyleSheet, Navigator, NavigatorIOS, Component } from 'react-native';
 import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
 //import Geofire from 'geofire/'
@@ -6,9 +6,10 @@ import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/bio'
 import Chatroom from './components/chatRoom'
-import List from './components/list'
-import Matches from './components/matches'
-import Splash from './components/splash'
+import List from './components/list';
+import Matches from './components/matches';
+import Splash from './components/splash';
+
 
 const ROUTES = {
   splash: Splash,
@@ -18,7 +19,8 @@ const ROUTES = {
   chatRoom: Chatroom,
   list: List,
   matches: Matches
-}
+};
+
 export default class Main extends Component {
   renderScene = (route, navigator) => {
     console.log("route list:",route);
@@ -28,13 +30,21 @@ export default class Main extends Component {
   };
 
   render() {
+    // return (
+    //   <Navigator
+    //     style={styles.container}
+    //     initialRoute={{ name: 'signin'}}
+    //     renderScene={this.renderScene}
+    //     configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
+    // );
     return (
-      <Navigator
-        style={styles.container}
-        initialRoute={{ name: 'signin'}}
-        renderScene={this.renderScene}
-        configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
-    );
+      <NavigatorIOS 
+        style={styles.container} 
+        initialRoute={{
+          title: 'TOLO',
+          component: List
+        }} />
+    )
   }
 };
 

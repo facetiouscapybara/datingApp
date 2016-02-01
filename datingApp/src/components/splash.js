@@ -1,9 +1,10 @@
 import React, { Component, View, Text, StyleSheet } from 'react-native'
 import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
-//import Geofire from 'geofire/'
 import Bio from './bio';
-import Firebase from 'firebase/'
-import Geofire from 'geofire/'
+import SignIn from './signin';
+import Firebase from 'firebase/';
+import fbApi from '../helpers/fbsdk';
+//import Geofire from 'geofire/'
 
 
 export default class Splash extends Component {
@@ -16,20 +17,44 @@ export default class Splash extends Component {
       } else {
         console.log(err);
       } 
-    })
+    });
+
   };
 
+  handleRedirect(component) {
+    if (component === 'bio') {
+      this.props.navigator.push({
+        component: Bio,
+        title: 'Profile',
+        passProps: {profile: this.state.profile}
+      });
+    }
+    else {
+     this.props.navigator.push({
+       component: SignIn,
+       title: 'Log In'
+     }); 
+    }
+  }  
+
+
+  handleFBProfile() {
+    fbApi.fbProfile((result) => {
+      this.setState({
+        profile: result
+      });
+      this.handleRedirect('bio');
+    });
+  }
+
   componentDidMount = () => {
-    FBSDKAccessToken.getCurrentAccessToken((token) => {
-      if(token){
-        tolkien = token.tokenString
-        console.log(this.props.navigator);
-        this.props.navigator.push({name: 'bio'});
+    fbApi.fbToken((token) => {
+      if (token) {
+        this.handleFBProfile();
       } else {
-        console.log('no token present, please sign in')
-        this.props.navigator.push({name: 'signin'})
+        this.handleRedirect('signin');
       }
-    })
+    });
   };
 
   render(){
@@ -40,6 +65,7 @@ export default class Splash extends Component {
     )
   }
 }
+
 
 let tolkien
 const styles = StyleSheet.create ({

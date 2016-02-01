@@ -7,21 +7,23 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native';
-import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
-import FBSDKShare from 'react-native-fbsdkshare/';
+//import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
+//import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import fbApi from '../helpers/fbsdk';
-import GameChanger from '../../ios/somehowFixesEverything.gif'
-
+import GameChanger from '../../ios/somehowFixesEverything.gif';
+import Bio from './bio';
 
 export default class SignIn extends Component {
 
     
   handleRedirect() {
     this.props.navigator.push({
-      name: 'bio',
-      profile: this.state.profile 
+      component: SignIn,
+      title: 'Log In',
+      passProps: {profile: this.state.profile}
     });
+
   }
 
   handleFBProfile() {
