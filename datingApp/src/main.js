@@ -1,7 +1,6 @@
 import React, { StyleSheet, Navigator, NavigatorIOS, Component } from 'react-native';
 import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Firebase from 'firebase/'
-//import Geofire from 'geofire/'
 import SignIn from './components/signin'
 import SignUp from './components/signup'
 import Bio from './components/bio'
@@ -22,32 +21,18 @@ const ROUTES = {
 };
 
 export default class Main extends Component {
-  renderScene = (route, navigator) => {
-    console.log("route list:",route);
-    var Component = ROUTES[route.name];
-    console.log(Component);
-    return <Component route={route} navigator={navigator} />
-  };
 
   render() {
-    // return (
-    //   <Navigator
-    //     style={styles.container}
-    //     initialRoute={{ name: 'signin'}}
-    //     renderScene={this.renderScene}
-    //     configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
-    // );
     return (
       <NavigatorIOS 
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: List
+          component: Splash
         }} />
     )
   }
 };
-
 
 const styles = StyleSheet.create({
   container: {

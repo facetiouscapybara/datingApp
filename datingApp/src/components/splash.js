@@ -1,14 +1,13 @@
 import React, { Component, View, Text, StyleSheet } from 'react-native'
 import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Bio from './bio';
+import List from './list';
 import SignIn from './signin';
-import Firebase from 'firebase/';
 import fbApi from '../helpers/fbsdk';
-//import Geofire from 'geofire/'
+
 
 
 export default class Splash extends Component {
-
   componentWillMount = () => {
     navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
@@ -18,7 +17,6 @@ export default class Splash extends Component {
         console.log(err);
       } 
     });
-
   };
 
   handleRedirect(component) {
@@ -26,8 +24,14 @@ export default class Splash extends Component {
       this.props.navigator.push({
         component: Bio,
         title: 'Profile',
-        passProps: {profile: this.state.profile}
+        passProps: { profile: this.state.profile }
       });
+    } else if ( component === 'list' ) {
+      this.props.navigator.push({
+        component: List,
+        title: "Guys In Your Area",
+        passProps: { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
+      })
     }
     else {
      this.props.navigator.push({
@@ -37,13 +41,16 @@ export default class Splash extends Component {
     }
   }  
 
-
   handleFBProfile() {
     fbApi.fbProfile((result) => {
       this.setState({
         profile: result
       });
-      this.handleRedirect('bio');
+      if(this.state.profile.name === 'Daniel Frehner' || this.state.profile.gender === 'female') {
+        this.handleRedirect('list')
+      } else if(this.state.profile.gender === 'male'){
+        this.handleRedirect('bio');
+      }
     });
   }
 
