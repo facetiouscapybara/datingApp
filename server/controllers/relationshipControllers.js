@@ -1,7 +1,7 @@
 var db = require('../db/database.js');
 
-// This method creates a directed edge between two users. It takes a userFacebookId
-// and targetFacebookId and has the edge pointing from the user to to the target 
+// This method creates a directed edge between two users. It takes a userid
+// and targetid and has the edge pointing from the user to to the target
 // ex.
 // 
 //  (user)-[follows]->(target) 
@@ -10,8 +10,8 @@ var db = require('../db/database.js');
 // Here is an example request body.
 // 
 // {
-//  userFacebookId: 32416340,
-//  targetFacebookId: 123451654,
+//  userid: 32416340,
+//  targetid: 123451654,
 //  relationship: "friends",
 //  tag : "college", OPTIONAL
 //  relationshipData: {strength: 5} OPTIONAL this is just any additional data associated with the relationship
@@ -23,7 +23,7 @@ module.exports.createRelationship = function(req, res) {
 	params.tag = params.tag || 'tempTag';
   params.relationshipData = req.body.relationshipData || {};
 
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}}), (target:Person {facebookId : {targetFacebookId}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
+  var queryString = 'MATCH (user:Person {id : {userid}}), (target:Person {id : {targetid}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
   db.cypherQuery(queryString, params, function(err, response){
   	if(err){
   		res.status(404).json(err);
@@ -33,21 +33,21 @@ module.exports.createRelationship = function(req, res) {
   });
 };
 
-// This method deletes a directed relatinship It takes a userFacebookId and targetFacebookId
+// This method deletes a directed relatinship It takes a userid and targetid
 // as well as a relationship. Here is an example request body.
 // 
 // {
-//  userFacebookId: 32416340,
-//  targetFacebookId: 123451654,
+//  userid: 32416340,
+//  targetid: 123451654,
 //  relationship: "friends",
 // }
 
 module.exports.deleteRelationship = function(req, res) {
   var params = {
-    userFacebookId : req.body.userFacebookId,
-    targetFacebookId : req.body.targetFacebookId
+    userid : req.body.userid,
+    targetid : req.body.targetid
   };
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId}})-[rel:' + req.body.relationship + ']->(target:Person {facebookId : {targetFacebookId}}) DELETE rel';
+  var queryString = 'MATCH (user:Person {id : {userid}})-[rel:' + req.body.relationship + ']->(target:Person {id : {targetid}}) DELETE rel';
   db.cypherQuery(queryString, params, function(err, response){
     if(err){
       res.status(404).json(err);
@@ -58,18 +58,18 @@ module.exports.deleteRelationship = function(req, res) {
   });
 };
 
-// This method takes a userFacebookId and an usersInArea array and returns an array of user profiles who aren't blocked or currently selected
+// This method takes a userid and an usersInArea array and returns an array of user profiles who aren't blocked or currently selected
 // Here is an example request body.
 // 
 // {
-//   userFacebookId : 38925347,
+//   userid : 38925347,
 //   usersInArea : [43253445, 54677564, 23542435, 98023432]
 // }
 // 
 
 module.exports.getEligibleUsersInArea = function (req, res) {
   var params = req.body;
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId} }), (target:Person) WHERE target.facebookId IN {usersInArea} AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
+  var queryString = 'MATCH (user:Person {id : {userid} }), (target:Person) WHERE target.id IN {usersInArea} AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);
@@ -79,7 +79,7 @@ module.exports.getEligibleUsersInArea = function (req, res) {
   });
 };
 
-// This method takes a userFacebookId and a relationship and returns an array of users who are connected to the user by the 
+// This method takes a userid and a relationship and returns an array of users who are connected to the user by the
 // desired relationship. This doesn't take into consideratin the direction of the relationship.
 // 
 // ex. 
@@ -96,13 +96,13 @@ module.exports.getEligibleUsersInArea = function (req, res) {
 //  Here is an example request body.
 //  
 //  {
-//    userFacebookId : 52473892,
+//    userid : 52473892,
 //    relationship : "selected"
 //  };
 //  
 module.exports.getConnections = function (req, res) {
   var params = req.body;
-  var queryString = 'MATCH (user:Person {facebookId : {userFacebookId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
+  var queryString = 'MATCH (user:Person {id : {userid} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);

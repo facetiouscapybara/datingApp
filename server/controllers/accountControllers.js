@@ -1,6 +1,6 @@
 var db = require('../db/database.js');
 
-module.exports.getAllUsers = function (req, res) {
+getAllUsers = function (req, res) {
 	var query = 'MATCH (user) RETURN user';
 	db.cypherQuery(queryString, function(err, response){
 		if(err){
@@ -15,21 +15,22 @@ module.exports.getAllUsers = function (req, res) {
 // The createNewUser method automatically creates a new user upon facebook 
 // authentication. Here is an example request body.
 // 
-// 	{
-// 	  facebookId: 12345234214,
-// 	  access_token: "alkfjqig1934094820jflkn23intjk3tfkj43344k"
-// 	  name: "Jack Sparrow",
-// 	  age: 45,
-// 	  picture: "https://scontent.xx.fbcdn.net/hprofile-xfa1",
-// 	  gender: "male",
-// 	  preference: "null",
-// 	  bio: "null"   
-// 	};
+	// {
+	//   id: 12345234214,
+	//   access_token: "alkfjqig1934094820jflkn23intjk3tfkj43344k"
+	//   name: "Jack Sparrow",
+	//   age: 45,
+	//   first_name: "Jack"
+	//   picture: "https://scontent.xx.fbcdn.net/hprofile-xfa1",
+	//   gender: "male",
+	//   preference: "null",
+	//   bio: "null"
+	// };
 
-module.exports.createNewUser = function (req, res) {
+createNewUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
 	userInfo.access_token = userInfo.access_token || '';
-  var queryString = 'CREATE (user:Person {name : {name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{facebookId}, picture:{picture}, access_token: {access_token}}) RETURN user';
+  var queryString = 'CREATE (user:Person {name : {name}, first_name : {first_name} age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, id:{id}, picture:{picture}, access_token: {access_token}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
 		if(typeof res === 'function'){
 			res(response);
@@ -43,30 +44,30 @@ module.exports.createNewUser = function (req, res) {
   });
 };
 
-// The request for this object needs to have a facebookId field as well as 
+// The request for this object needs to have a id field as well as
 // an access_token field. After the user is verified, you can update any field
 // that needs to be updated. Here is an example request body.
 // 
 //	{
-//		facebookId: 12345234214,
+//		id: 12345234214,
 //		access_token: "alkfjqig1934094820jflkn23intjk3tfkj43344k"
 //		bio: "A developer at Hack Reactor",
 //	}
 //	
-module.exports.updateUser = function (req, res) {
+updateUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
-	var params = {facebookId: userInfo.facebookId};
+	var params = {id: userInfo.id};
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
 		if(index === fields.length-1){
 			stringEnding = ' RETURN user';
-		} else if (field === 'facebookId'){
+		} else if (field === 'id'){
 			return memo;
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
-	}, 'MATCH (user:Person {facebookId : {facebookId}}) SET');
+	}, 'MATCH (user:Person {id : {id}}) SET');
 	
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
@@ -81,18 +82,18 @@ module.exports.updateUser = function (req, res) {
 	});
 };
 
-// This method takes in a user's facebookId and returns the user's profile.
+// This method takes in a user's id and returns the user's profile.
 // Here is an example request body.
 // 
 //  {
-// 		facebookId: 12345234214
+// 		id: 12345234214
 //  }
 //  
   
-module.exports.getUserById = function(req, res) {
-	var facebookId = req.body ? req.body.facebookId : req;
-	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) RETURN user';
-	var params = {facebookId: facebookId};
+getUserById = function(req, res) {
+	var id = req.body ? req.body.id : req;
+	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
+	var params = {id: id};
   db.cypherQuery(queryString, params, function (err, response) {
   		if(typeof res === 'function'){
   			res(response.results[0].data[0]);
@@ -111,13 +112,13 @@ module.exports.getUserById = function(req, res) {
 // Here is an example request body.
 // 
 //  {
-// 		facebookId: 12345234214
+// 		id: 12345234214
 //  }
 //  
 
-module.exports.deleteUser = function(req, res) {
-	var params = req.body ? {facebookId: req.body.facebookId} : req;
-	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) DETACH DELETE user';
+deleteUser = function(req, res) {
+	var params = req.body ? {id: req.body.id} : req;
+	var queryString = 'MATCH (user:Person {id : {id}}) DETACH DELETE user';
 	
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
@@ -130,4 +131,44 @@ module.exports.deleteUser = function(req, res) {
 			}
 		}
 	});
+};
+
+signIn = function(req, res){
+	var userData = req.body;
+	    process.nextTick(function () {
+        getUserById(userData.id, function(user){
+          if (user){
+		var newToken = {
+			id : userData.id,
+			access_token: userData.access_token
+		};
+            updateUser(newToken, function(res){
+              user.gender = userData._json.gender;
+              done(null, user);
+            });
+          } else {
+            createNewUser({
+              id: userData.id,
+              name: userData.name,
+              picture: userData.photo,
+              gender: userData.gender,
+              preference: "null",
+              bio: "null",
+              age: "null",
+              access_token : accessToken
+            }, function(newUser){
+		done(null, newUser);
+            });
+         }
+        });
+     });
+};
+
+module.exports = {
+	signIn : signIn,
+	deleteUser : deleteUser,
+	getUserById : getUserById,
+	createNewUser : createNewUser,
+	getAllUsers : getAllUsers,
+	updateUser : updateUser
 };
