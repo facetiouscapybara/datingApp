@@ -10,7 +10,7 @@ describe('The accounts controller', function() {
   it('should create a new user', function(done){
   	
   var newUser = {
-  	  facebookId: 345,
+  	  id: 345,
   	  name: "Jack Sparrow",
   	  age: 45,
 	    picture: "Good Photo",
@@ -31,7 +31,7 @@ describe('The accounts controller', function() {
 
   it('should select a single user when given a facebook id', function(done){
 
-  	var newUser = { facebookId : 345};
+  	var newUser = { id : 345};
   	chai.request(app)
   	  .post('/api/getUser')
   	  .send(newUser)
@@ -46,7 +46,7 @@ describe('The accounts controller', function() {
   it('should update a user', function(done){
 
   	var updatedInfo = {
-  		facebookId : 345,
+  		id : 345,
   		preference : 'women',
   		bio : 'likes long walks along the beach'
   	};
@@ -63,15 +63,15 @@ describe('The accounts controller', function() {
 
   it('should delete user accounts', function(done){
 
-  	var facebookId = {facebookId : 345};
+  	var id = {id : 345};
   	chai.request(app)
   		.delete('/api/account')
-  		.send(facebookId)
+  		.send(id)
   		.end(function (err, res) {
   			expect(err).to.be.null;
   			chai.request(app)
   				.post('/getUser')
-  				.send(facebookId)
+  				.send(id)
   				.end(function (getErr, getRes) {
   					expect(getErr).to.be.null;
   					expect(getRes.body.name).to.equal(undefined);
@@ -88,7 +88,7 @@ describe('The relationship controller', function(){
 
    var params = {
    neil : {
-   	  facebookId: 346,
+   	  id: 346,
    	  name: "Neil Degrass Tyson",
    	  age: 54,
  	    picture: "Kinda creepy photo",
@@ -97,7 +97,7 @@ describe('The relationship controller', function(){
  	    bio: "I love the universe"   
    	},
    	jack : {
-   	  facebookId: 347,
+   	  id: 347,
    	  name: "Jack Sparrow",
    	  age: 45,
  	    picture: "Good Photo",
@@ -106,7 +106,7 @@ describe('The relationship controller', function(){
  	    bio: "null"   
    	},
    	raw : {
-   	  facebookId: 348,
+   	  id: 348,
    	  name: "Raw Dog",
    	  age: 35,
  	    picture: "Sketchy Photo",
@@ -115,7 +115,7 @@ describe('The relationship controller', function(){
  	    bio: "Someone to stay away from"   
    	},
    	sweeny : {
-   	  facebookId: 349,
+   	  id: 349,
    	  name: "Sweeny",
    	  age: 24,
  	    picture: "Brian Sweeny",
@@ -138,14 +138,14 @@ describe('The relationship controller', function(){
  it('should create new relationships between nodes', function(done){
  		
 	var params = {raw : {
-	  userFacebookId: 346,
-	  targetFacebookId: 348,
+	  userid: 346,
+	  targetid: 348,
 	  relationship: "blocked",
 	  tag: 'creep'
  	},
 	  sweeny : {
-	  userFacebookId: 346,
-	  targetFacebookId: 349,
+	  userid: 346,
+	  targetid: 349,
 	  relationship: "selected",
 	  tag: 'cool'
  	}};
@@ -173,7 +173,7 @@ describe('The relationship controller', function(){
  it('should filter the users based on relationships', function(done){
  	
  	var params = {
- 		userFacebookId : 346,
+ 		userid : 346,
  		usersInArea : [347, 348, 349]
  	};
 
@@ -191,7 +191,7 @@ describe('The relationship controller', function(){
 it('should return user connections based on the relationship type', function(done){
 		
 		var params = {
-			userFacebookId : 348,
+			userid : 348,
 			relationship : 'blocked'
 		};
 		chai.request(app)
@@ -208,8 +208,8 @@ it('should return user connections based on the relationship type', function(don
 it('should delete user relatinships', function(done){
 		
 		var params = {
-			userFacebookId : 346,
-			targetFacebookId : 349,
+			userid : 346,
+			targetid : 349,
 			relationship : 'selected'
 		};
 		chai.request(app)
@@ -219,7 +219,7 @@ it('should delete user relatinships', function(done){
 		     expect(err).to.be.null;
 		     expect(res).to.have.status(201);
 		  	var params = {
-		  		facebookId : 346,
+		  		id : 346,
 		  		usersInArea : [347, 348, 349]
 		  	};
 		  	chai.request(app)
@@ -234,10 +234,10 @@ it('should delete user relatinships', function(done){
 		 });
 });
  after(function(done){
- 	deleteUser({facebookId : 346}, function(res){
- 		deleteUser({facebookId : 347}, function(res){
- 			deleteUser({facebookId : 348}, function(res){
- 				deleteUser({facebookId : 349}, function(res){
+ 	deleteUser({id : 346}, function(res){
+ 		deleteUser({id : 347}, function(res){
+ 			deleteUser({id : 348}, function(res){
+ 				deleteUser({id : 349}, function(res){
  					done();
  				}); 			
  			});
