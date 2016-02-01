@@ -30,14 +30,11 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		borderRadius: 10,
-		borderWidth: 2,
-		borderColor: 'black',
 		marginTop: 10,
 		marginLeft: 5,
 		marginRight: 5,
 		padding: 5,
-		backgroundColor: 'blue'
+    backgroundColor: '#48BBEC'
 	},
 	image : {
 		flex: 4,
