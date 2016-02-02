@@ -6,19 +6,19 @@ export default class ListItem extends Component {
 			
 			<View style={styles.container}>
 				<Image 
-					source={{uri: this.props.user.imageUrl}}
+					source={{uri: this.props.user.picture}}
         	style={styles.image} />
         <View style={styles.textBody}>
 		      <Text>
-		      	{this.props.user.name}, {this.props.user.age}
+		      	{this.props.user.name}
 		      </Text>
 		      <Text>
-		      	{this.props.user.description}
+		      	{this.props.user.bio}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
 		  	  <Text>
-		      	{this.props.user.dist}
+		      	distance
 		      </Text>
 		  	</View>
 	    </View>
