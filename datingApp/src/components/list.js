@@ -1,7 +1,7 @@
 //this will be the page the females see when they first log in showing them who is around them
 import React, { Component, View, Text, StyleSheet, TouchableHighlight, ListView, Image, ScrollView} from 'react-native';
 import ListItem from './listItem';
-import Swipeout from 'react-native-swipeout';
+import Swipeout from 'react-native-swipeout/';
 import Separator from '../helpers/separator';
 
 export default class List extends Component {
