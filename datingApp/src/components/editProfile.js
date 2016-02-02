@@ -1,7 +1,6 @@
 //edit user Profile
 import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight} from 'react-native';
 import host from './../../constants.js'
-import GameChanger from '../../ios/somehowFixesEverything.gif';
 
 let that;
 
@@ -14,7 +13,9 @@ export default class Matches extends Component {
 
 		let urlPath;
 
-		this.state = {}
+		this.state = {
+			text: ""
+		}
 	}
 
 
@@ -56,7 +57,7 @@ export default class Matches extends Component {
 			})
 	}
 
-	postData(event) {
+	postData() {
 		let queryObject = {  
       method: 'PUT',
       headers: {
@@ -73,10 +74,18 @@ export default class Matches extends Component {
     	.then(function(res){
     		console.log(res)
     		styles.saved.color = 'gray'
+    		that.onSavePress()
     	})
     	.catch(function(err){
     		console.log(res)
     	})
+	}
+
+	onSavePress(){
+		console.log('by jove you\'ve done it!')
+		this.setState({
+			text:"Saved"
+		})
 	}
 
 	render () {
@@ -97,7 +106,7 @@ export default class Matches extends Component {
     			multiline={true}
   			/>
   			<View style={styles.buttonBox}>
-  				<Text style={styles.saved}>Saved</Text>
+  				<Text style={styles.saved}>{this.state.text}</Text>
 	  			{this.button()}
   			</View>
       </View>
@@ -133,12 +142,13 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		height: 200, 
 		borderColor: 'gray', 
-		borderWidth: 1,
+		borderWidth: 2,
 		marginRight: 50,
 		marginLeft: 30,
 		borderRadius: 5,
 		fontSize: 15,
-		fontFamily: "HelveticaNeue-Light"	
+		fontFamily: "HelveticaNeue-Light"	,
+		backgroundColor: 'white'
 	},
 	imageBox: {
 		flex:2,
@@ -174,7 +184,8 @@ const styles = StyleSheet.create({
 	saved: {
 		padding: 3,
 		color: 'white',
-		fontStyle: 'italic'
+		fontStyle: 'italic',
+		paddingRight: 10
 	},
 	highlight: {
 		borderRadius:10,
