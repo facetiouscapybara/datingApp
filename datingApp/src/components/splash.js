@@ -15,22 +15,24 @@ export default class Splash extends Component {
         console.log(loc);
       } else {
         console.log(err);
-      } 
-    });
+      }
+    }); 
   };
 
   handleRedirect(component) {
+    const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
+
     if (component === 'matches') {
       this.props.navigator.push({
         component: Matches,
         title: 'Matches',
-        passProps: { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
+        passProps: props      
       });
     } else if ( component === 'list' ) {
       this.props.navigator.push({
         component: List,
         title: "Guys In Your Area",
-        passProps: { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
+        passProps: props
       })
     }
     else {
