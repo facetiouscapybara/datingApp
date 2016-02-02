@@ -5,6 +5,7 @@ import List from './list';
 import SignIn from './signin';
 import fbApi from '../helpers/fbsdk';
 import Matches from './matches';
+import EditProfile from './editProfile';
 
 
 export default class Splash extends Component {
