@@ -36,7 +36,6 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#48BBEC',
-    padding: 20,
-    marginTop: 50
+    marginTop: 60
   }
 });
