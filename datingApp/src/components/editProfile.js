@@ -12,13 +12,15 @@ export default class Matches extends Component {
 
 		that = this;
 
-		this.state = {
-			text: ""
-		}
+		let urlPath;
+
+		this.state = {}
 	}
 
+
+
 	componentWillMount (props) {
-		let urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
+		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
 		console.log(urlPath)
 		//need to set authorization header
 		let accessToken = JSON.stringify(this.props.access_token)
@@ -47,22 +49,40 @@ export default class Matches extends Component {
 				})
 			})
 			.catch(function(error){
-				console.log(typeof this.state.picture)
+				console.log(err, "error")
 			})
 			.then(function(res){
 				console.log(res);
 			})
 	}
 
-	test() {
-		console.log("Submitted")
+	postData(event) {
+		let queryObject = {  
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer CAAOXApvBWf4BAHae88R2hTkbE0kZBnPYioZBrzQUi50ZCZCitgpSSXJktnszhDCGyycdV3inwmij89ka3eLtZCZBx2u0SxlydJjY5zMSdG10ns28ivu8qVUPRpkJV7mYSpVRf1Gxt6EQBbpV6UJuHZA3LY5QFopG4723lFtQ0ThsPZAVM0abKFeTLv7ipRkGlI5tGkfCfGQgDR3ZC1JwqY5KgzXUzDnEBlDAZD'
+      },
+      body: JSON.stringify({
+      	bio:that.state.bio
+      })
+    }
+
+    fetch(urlPath, queryObject)
+    	.then(function(res){
+    		console.log(res)
+    	})
+    	.catch(function(err){
+    		console.log(res)
+    	})
 	}
 
 	render () {
 		return (
       <View style={styles.container}>
       	<View style={styles.imageBox}>
-	        <Image style={styles.image} source={{uri: this.state.picture}} />
+	        <Image style={styles.image} source={{uri:this.state.picture}}/>
       	</View>
   			<Text></Text>
   			<View style={styles.header}>
@@ -70,9 +90,10 @@ export default class Matches extends Component {
   			</View>
       	<TextInput
     			style={styles.bio}
-    			onChangeText={(bio) => this.setState({bio})}//changed to reset bio
-    			value={this.state.bio}//this.state.bio
+    			onChangeText={(bio) => this.setState({bio})}
+    			value={this.state.bio}
     			maxLength={500}
+    			multiline={true}
   			/>
   			<View style={styles.buttonBox}>
 	  			{this.button()}
@@ -83,7 +104,7 @@ export default class Matches extends Component {
 
 	button () {
 		return (
-			<TouchableHighlight underlayColor='gray' onSubmit={this.test}>
+			<TouchableHighlight underlayColor='gray' onPress={this.postData}>
 				<Text style={styles.button}>
 					Save
 				</Text>
@@ -113,7 +134,8 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		marginRight: 50,
 		marginLeft: 30,
-		borderRadius: 5
+		borderRadius: 5,
+		fontSize: 15
 	},
 	imageBox: {
 		flex:2,
@@ -135,7 +157,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',
 		alignItems: 'flex-start',
 		padding:20,
-		marginRight: 30,
+		marginRight: 30
 	},
 	button: {
 		borderRadius:10,
