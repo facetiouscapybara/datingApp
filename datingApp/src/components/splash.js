@@ -6,6 +6,7 @@ import SignIn from './signin';
 import fbApi from '../helpers/fbsdk';
 import Matches from './matches';
 import EditProfile from './editProfile';
+import Tab from './tabs';
 
 
 export default class Splash extends Component {
@@ -22,20 +23,12 @@ export default class Splash extends Component {
   handleRedirect(component) {
     const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
 
-    if (component === 'matches') {
+    if ( component === 'tab' ) {
       this.props.navigator.push({
-        component: Matches,
-        title: 'Matches',
-        passProps: props      
-      });
-    } else if ( component === 'list' ) {
-      this.props.navigator.push({
-        component: List,
-        title: "Guys In Your Area",
+        component: Tab,
         passProps: props
       })
-    }
-    else {
+    } else {
      this.props.navigator.push({
        component: SignIn,
        title: 'Log In'
@@ -48,12 +41,7 @@ export default class Splash extends Component {
       this.setState({
         profile: result
       });
-      console.log("......", this.state.profile.name);
-      if(this.state.profile.gender === 'female' || this.state.profile.name === 'Zelong  Ma') {
-        this.handleRedirect('list')
-      } else if(this.state.profile.gender === 'male'){
-        this.handleRedirect('matches');
-      }
+      this.handleRedirect('tab');
     });
   }
 
