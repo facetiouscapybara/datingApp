@@ -12,9 +12,6 @@ export default class ListItem extends Component {
 		      <Text>
 		      	{this.props.user.name}
 		      </Text>
-		      <Text>
-		      	{this.props.user.bio}
-		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
 		  	  <Text>
@@ -38,9 +35,9 @@ const styles = StyleSheet.create({
 	},
 	image : {
 		flex: 4,
-		borderWidth: 1,
-		borderRadius: 50,
-		height: 150
+		borderRadius: 25,
+		height: 100,
+		width: 100
 	},
 	textBody:{
 		paddingLeft: 5,
