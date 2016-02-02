@@ -15,10 +15,15 @@ export default class List extends Component {
   	};
   	that = this
   }
-
-  getUserData = function(key){ 
+  removeUser = (key) => {
+    let list = that.state.currentList, ind;
+    list.forEach(function(item, index){
+      
+    })
+  }
+  getUserData = (key, distance) => { 
   	let userObj;
-
+    distance = Math.floor(distance * 3280.84)
   	const queryObject = {
 		  method: "GET",
 		  headers: {
@@ -32,8 +37,8 @@ export default class List extends Component {
 
   	fetch(url, queryObject)
   	  .then(function(res){
-  	  	console.log(this)
         userObj = JSON.parse(res._bodyText);
+        userObj['distance'] = distance
 		    let newList = that.state.currentList.concat([userObj])
 	      that.setState({
 	        currentList: newList
@@ -56,11 +61,10 @@ export default class List extends Component {
     }, (err) => {console.log('error:', err)})
     
     geoQuery.on("key_entered", function(key, location, distance) {
-	  	that.getUserData(key)
-      console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
+	  	that.getUserData(key, distance)
     })
     geoQuery.on("key_exited", function(key, location, distance) {
-
+      that.removeUser(key)
     })
   }
 

@@ -4,18 +4,18 @@ export default class ListItem extends Component {
 	render () {
 		return (
 			
-			<View style={styles.container}>
+			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
         	style={styles.image} />
         <View style={styles.textBody}>
-		      <Text>
+		      <Text style={styles.text}>
 		      	{this.props.user.name}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
 		  	  <Text>
-		      	distance
+		      	{this.props.user.distance} ft away
 		      </Text>
 		  	</View>
 	    </View>
@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
 		flex: 5,
 		width: 195
 	}, 
+	text: {
+		fontSize: 20
+	},
 	distance: {
 		flex: 1,
 		minWidth: 50
