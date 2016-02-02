@@ -24,7 +24,7 @@ getAllUsers = function (req, res) {
 	//   picture: "https://scontent.xx.fbcdn.net/hprofile-xfa1",
 	//   gender: "male",
 	//   preference: "null",
-	//   bio: "null"
+	//   bio: "null"   
 	// };
 
 createNewUser = function (req, res) {
@@ -44,7 +44,7 @@ createNewUser = function (req, res) {
   });
 };
 
-// The request for this object needs to have a id field as well as
+// The request for this object needs to have a id field as well as 
 // an access_token field. After the user is verified, you can update any field
 // that needs to be updated. Here is an example request body.
 // 
@@ -56,7 +56,8 @@ createNewUser = function (req, res) {
 //	
 updateUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
-	var params = {id: userInfo.id};
+	var id = req.params ? req.params.id : req.id;
+	var params = { id: id };
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
@@ -91,7 +92,7 @@ updateUser = function (req, res) {
 //  
   
 getUserById = function(req, res) {
-	var id = req.body ? req.body.id : req;
+	var id = req.params ? req.params.id : req;
 	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
 	var params = {id: id};
   db.cypherQuery(queryString, params, function (err, response) {
@@ -117,9 +118,9 @@ getUserById = function(req, res) {
 //  
 
 deleteUser = function(req, res) {
-	var params = req.body ? {id: req.body.id} : req;
+	var id = req.params ? req.params.id : req;
 	var queryString = 'MATCH (user:Person {id : {id}}) DETACH DELETE user';
-	
+	var params = { id: id };
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
 			res(response);
@@ -138,15 +139,17 @@ signIn = function(req, res){
 	    process.nextTick(function () {
         getUserById(userData.id, function(user){
           if (user){
-		var newToken = {
-			id : userData.id,
-			access_token: userData.access_token
-		};
+						var newToken = {
+							id : userData.id,
+							access_token: userData.access_token
+						};
             updateUser(newToken, function(updatedUser){
+            	updatedUser.row[0].isNewUser = false;
               res.status(201).json(updatedUser.row[0]);
             });
           } else {
             createNewUser(userData, function(newUser){
+            	newUser.results[0].data[0].row[0].isNewUser = true;
               res.status(201).json(newUser.results[0].data[0].row[0]);
             });
          }

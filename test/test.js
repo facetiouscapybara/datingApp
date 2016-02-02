@@ -10,7 +10,8 @@ describe('The accounts controller', function() {
   it('should create a new user', function(done){
   	
   var newUser = {
-	  id: 345,
+
+  	  id: 345,
   	  name: "Jack Sparrow",
   	  age: 45,
 	    picture: "Good Photo",
@@ -31,7 +32,7 @@ describe('The accounts controller', function() {
 
   it('should select a single user when given a facebook id', function(done){
 
-	var newUser = { id : 345};
+  	var newUser = { id : 345};
   	chai.request(app)
   	  .post('/api/getUser')
   	  .send(newUser)
@@ -46,7 +47,7 @@ describe('The accounts controller', function() {
   it('should update a user', function(done){
 
   	var updatedInfo = {
-		id : 345,
+  		id : 345,
   		preference : 'women',
   		bio : 'likes long walks along the beach'
   	};
@@ -63,15 +64,15 @@ describe('The accounts controller', function() {
 
   it('should delete user accounts', function(done){
 
-	var id = {id : 345};
+  	var id = {id : 345};
   	chai.request(app)
   		.delete('/api/account')
-		.send(id)
+  		.send(id)
   		.end(function (err, res) {
   			expect(err).to.be.null;
   			chai.request(app)
   				.post('/getUser')
-				.send(id)
+  				.send(id)
   				.end(function (getErr, getRes) {
   					expect(getErr).to.be.null;
   					expect(getRes.body.name).to.equal(undefined);
@@ -88,7 +89,7 @@ describe('The relationship controller', function(){
 
    var params = {
    neil : {
-	  id: 346,
+   	  id: 346,
    	  name: "Neil Degrass Tyson",
    	  age: 54,
  	    picture: "Kinda creepy photo",
@@ -97,7 +98,7 @@ describe('The relationship controller', function(){
  	    bio: "I love the universe"   
    	},
    	jack : {
-	  id: 347,
+   	  id: 347,
    	  name: "Jack Sparrow",
    	  age: 45,
  	    picture: "Good Photo",
@@ -106,7 +107,7 @@ describe('The relationship controller', function(){
  	    bio: "null"   
    	},
    	raw : {
-	  id: 348,
+   	  id: 348,
    	  name: "Raw Dog",
    	  age: 35,
  	    picture: "Sketchy Photo",
@@ -115,7 +116,7 @@ describe('The relationship controller', function(){
  	    bio: "Someone to stay away from"   
    	},
    	sweeny : {
-	  id: 349,
+   	  id: 349,
    	  name: "Sweeny",
    	  age: 24,
  	    picture: "Brian Sweeny",
@@ -173,7 +174,7 @@ describe('The relationship controller', function(){
  it('should filter the users based on relationships', function(done){
  	
  	var params = {
-		userid : 346,
+ 		userid : 346,
  		usersInArea : [347, 348, 349]
  	};
 
@@ -219,7 +220,7 @@ it('should delete user relatinships', function(done){
 		     expect(err).to.be.null;
 		     expect(res).to.have.status(201);
 		  	var params = {
-				id : 346,
+		  		id : 346,
 		  		usersInArea : [347, 348, 349]
 		  	};
 		  	chai.request(app)
@@ -234,10 +235,10 @@ it('should delete user relatinships', function(done){
 		 });
 });
  after(function(done){
-	deleteUser({id : 346}, function(res){
-		deleteUser({id : 347}, function(res){
-			deleteUser({id : 348}, function(res){
-				deleteUser({id : 349}, function(res){
+ 	deleteUser(346, function(res){
+ 		deleteUser(347, function(res){
+ 			deleteUser(348, function(res){
+ 				deleteUser(349, function(res){
  					done();
  				}); 			
  			});
