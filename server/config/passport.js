@@ -7,7 +7,6 @@ var BearerStrategy = require('passport-http-bearer');
 	
 passport.use(new BearerStrategy(
   function(token, done) {
-  	console.log(token)
   	var query = "MATCH (user:Person {access_token : {token}}) RETURN user";
   	db.cypherQuery(query, {token : token}, function(err, response){
         if(err) {

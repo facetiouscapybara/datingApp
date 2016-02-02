@@ -7,7 +7,6 @@ var session = require('express-session');
 
 
 module.exports = function(app, express) {
-	// passportInit();
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());

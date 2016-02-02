@@ -93,7 +93,6 @@ updateUser = function (req, res) {
   
 getUserById = function(req, res) {
 	var id = req.params ? req.params.id : req;
-	console.log(id)
 	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
 	var params = {id: id};
   db.cypherQuery(queryString, params, function (err, response) {
@@ -101,10 +100,8 @@ getUserById = function(req, res) {
   			res(response.results[0].data[0]);
   		} else {
 	      if (err || !response.results[0].data[0]) {
-	      	console.log('error', response.results[0].columns)
 	      	res.status(404).json(err);
 	      } else {
-	      	console.log('not error')
 	      	res.status(200).json(response.results[0].data[0].row[0]);
 	      }
   		}
