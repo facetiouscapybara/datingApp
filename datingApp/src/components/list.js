@@ -91,11 +91,8 @@ export default class List extends Component {
 	users () {
 		var userList = this.state.currentList.map(function(user){
 			return (
-      <TouchableHighlight
-		    onPress={console.log('pressed')}>
-				<ListItem user={user} key={user.facebookId} style={styles.listItem}/>
-			</TouchableHighlight>
-	    )	
+				<ListItem user={user} key={user.facebookId} style={styles.listItem} />
+				)	
 		})
 		return userList
 	}

@@ -4,7 +4,7 @@ export default class ListItem extends Component {
 	render () {
 		return (
 		<TouchableHighlight
-		  onPress={console.log('pressed')}>
+		  onPress={(e) => console.log(e)}>
 			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
@@ -20,7 +20,7 @@ export default class ListItem extends Component {
 		      </Text>
 		  	</View>
 	    </View>
-	  </TouchableHighlight>  
+	  </TouchableHighlight>
 		)
 	}
 };
