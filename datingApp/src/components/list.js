@@ -28,7 +28,7 @@ export default class List extends Component {
     	})
     	console.log('watching:', loc)
     }, (err) => {console.log('error:', err)})
-    geoQuery.update
+    
     geoQuery.on("key_entered", function(key, location, distance) {
     	//fetch call for all the data from this list to the server, add to state
       console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
