@@ -61,8 +61,8 @@ export default class Matches extends Component {
       	<Text> Headline: </Text>
       	<TextInput
     			style={styles.headline}
-    			onChangeText={(text) => this.setState({text})}//also must be changed to reset headline
-    			value={this.state.text}//eventualy this.state.headline
+    			onChangeText={(headline) => this.setState({headline})}//also must be changed to reset headline
+    			value={this.state.headline}//eventualy this.state.headline
     			maxLength={100}
   			/>
   			<Text></Text>
@@ -71,8 +71,8 @@ export default class Matches extends Component {
   			<Text> Bio: </Text>
       	<TextInput
     			style={styles.bio}
-    			onChangeText={(text) => this.setState({text})}//changed to reset bio
-    			value={this.state.text}//this.state.bio
+    			onChangeText={(bio) => this.setState({bio})}//changed to reset bio
+    			value={this.state.bio}//this.state.bio
     			multiline= {true}
     			maxLength={500}
   			/>
