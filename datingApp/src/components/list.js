@@ -91,15 +91,11 @@ export default class List extends Component {
 	users () {
 		var userList = this.state.currentList.map(function(user){
 			return (
-				  <TouchableHighlight
-				    underlayColor='rgba(192,192,192,1,0.6)'>
-				    <View>
-				      <View>
-								<ListItem user={user} key={user.facebookId} style={styles.listItem}/>
-				      </View>
-				    </View>
-				  </TouchableHighlight>
-			)
+      <TouchableHighlight
+		    onPress={console.log('pressed')}>
+				<ListItem user={user} key={user.facebookId} style={styles.listItem}/>
+			</TouchableHighlight>
+	    )	
 		})
 		return userList
 	}

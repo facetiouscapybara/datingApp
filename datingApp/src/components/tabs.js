@@ -21,8 +21,8 @@ export default class Tab extends Component {
     } else {
       return (
           <ScrollableTabView style={styles.container}>
-            <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
             <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
+            <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
             <Bio tabLabel="Setting" profile={this.props.profile}/>
           </ScrollableTabView>
       )

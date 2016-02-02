@@ -1,9 +1,10 @@
-import React, { Component, View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 
 export default class ListItem extends Component {
 	render () {
 		return (
-			
+		<TouchableHighlight
+		  onPress={console.log('pressed')}>
 			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
@@ -19,6 +20,7 @@ export default class ListItem extends Component {
 		      </Text>
 		  	</View>
 	    </View>
+	  </TouchableHighlight>  
 		)
 	}
 };
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
 	},
 	image : {
 		flex: 4,
-		borderRadius: 25,
+		borderRadius: 10,
 		height: 100,
 		width: 100
 	},
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	distance: {
-		marginRight: 15,
+		marginRight: 10,
 		flex: 1,
 		minWidth: 50
 	}
