@@ -32,7 +32,7 @@ export default class Matches extends Component {
         'Content-Type': 'application/json',
 				'Authorization': 'Bearer CAAOXApvBWf4BAHae88R2hTkbE0kZBnPYioZBrzQUi50ZCZCitgpSSXJktnszhDCGyycdV3inwmij89ka3eLtZCZBx2u0SxlydJjY5zMSdG10ns28ivu8qVUPRpkJV7mYSpVRf1Gxt6EQBbpV6UJuHZA3LY5QFopG4723lFtQ0ThsPZAVM0abKFeTLv7ipRkGlI5tGkfCfGQgDR3ZC1JwqY5KgzXUzDnEBlDAZD'
 			}
-		}
+		};
 		fetch(urlPath, queryObject)
 			.then(function(res){
 				result = JSON.parse(res._bodyText)
