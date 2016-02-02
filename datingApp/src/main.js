@@ -9,10 +9,6 @@ import Matches from './components/matches';
 import Splash from './components/splash';
 
 export default class Main extends Component {
-  renderScene = (route, navigator) => {
-    var Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} />
-  };
 
   render() {
   console.log('here')

@@ -5,6 +5,36 @@ import Swipeout from 'react-native-swipeout';
 import Separator from '../helpers/separator';
 
 export default class List extends Component {
+  constructor(props){
+  	super(props);
+  	this.state = {
+  		currentList: []
+  	};
+  }
+
+  componentWillMount(){
+    console.log(this.props)
+    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
+    const geoFire = new Geofire(firebaseRef);
+    const geoQuery = geoFire.query({
+      center: [this.props.locationLat, this.props.locationLon],
+      radius: 1.0 //kilometers
+    });
+    navigator.geolocation.watchPosition((loc) => {
+    	geoQuery.updateCriteria({
+    		center: [loc.coords.latitude, loc.coords.longitude]
+    	})
+    	console.log('watching:', loc)
+    }, (err) => {console.log('error:', err)})
+    geoQuery.update
+    geoQuery.on("key_entered", function(key, location, distance) {
+    	//fetch call for all the data from this list to the server, add to state
+      console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
+    });
+    geoQuery.on("key_exited", function(key, location, distance) {
+    	//remove from state
+    })
+  }
 
 	render () {
 		return (

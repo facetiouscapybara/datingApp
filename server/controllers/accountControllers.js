@@ -145,7 +145,6 @@ signIn = function(req, res){
 						};
             updateUser(newToken, function(updatedUser){
             	updatedUser.row[0].isNewUser = false;
-
               res.status(201).json(updatedUser.row[0]);
             });
           } else {
