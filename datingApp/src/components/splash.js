@@ -48,7 +48,8 @@ export default class Splash extends Component {
       this.setState({
         profile: result
       });
-      if(this.state.profile.gender === 'female' || this.state.profile.name === 'Daniel Frehner') {
+      console.log("......", this.state.profile.name);
+      if(this.state.profile.gender === 'female' || this.state.profile.name === 'Zelong  Ma') {
         this.handleRedirect('list')
       } else if(this.state.profile.gender === 'male'){
         this.handleRedirect('matches');
