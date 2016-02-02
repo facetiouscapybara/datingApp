@@ -11,7 +11,7 @@ export default class Tab extends Component {
 
   render() {
     console.log("..........jdajkdhajhjqiuiehuqiuhfi", this.props);
-    if (this.props.profile.gender==="male") {
+    if (this.props.profile.gender==="female") {
       return (
           <ScrollableTabView style={styles.container}>
             <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
