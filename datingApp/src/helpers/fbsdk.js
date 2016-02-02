@@ -14,6 +14,7 @@ let fb = {
 		      fetch(url)
 		        .then(function (res) {
 		        	let userInfo = JSON.parse(res._bodyText);
+		        	console.log(userInfo);
 		        	userInfo.access_token = token.tokenString;
 		        	userInfo.picture = userInfo.picture.data.url;
 		          callback(userInfo);
