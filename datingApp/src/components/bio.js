@@ -10,7 +10,7 @@ export default class Bio extends Component {
 	  	age: props.profile.age_range,
 	  	first_name: props.profile.first_name,
 	  	gender: props.profile.gender,
-	  	picture: props.profile.picture.data.url
+	  	picture: props.profile.picture
 	  };
 	}
 

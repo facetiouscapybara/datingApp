@@ -68,12 +68,6 @@ export default class List extends Component {
 	render () {
 		return (
 			<View style={styles.container}>
-				<View style={styles.statusBar}/>
-				<View style={styles.header}>
-					<Text> 
-	      		Dudes nearby
-	      	</Text>
-	      </View>
 				<ScrollView
 	        automaticallyAdjustContentInsets={true}
 	        style={styles.scrollView}>
@@ -122,15 +116,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex:1,
     backgroundColor: '#48BBEC'
-	},
-	header: {
-		paddingTop: 5,
-		flexDirection:'row',
-		justifyContent: 'center',
-	},
-	statusBar:{
-		height:20,
-		backgroundColor:'pink'
 	},
 	scrollView: {
 		height: 300
