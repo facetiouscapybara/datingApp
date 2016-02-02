@@ -1,5 +1,5 @@
 import React, { Component, View, StyleSheet, Text, ScrollView, TabBarIOS } from 'react-native'; 
-import ScrollableTabView from 'react-native-scrollable-tab-view/';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 //var Icon = require('react-native-vector-icons/Ionicons/');
 import TabIcon from './tabicon';
 import List from './list';

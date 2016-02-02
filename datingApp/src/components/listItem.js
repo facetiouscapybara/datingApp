@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		marginTop: 10,
-		marginLeft: 5,
+		marginLeft: 0,
 		marginRight: 5,
 		padding: 5,
     backgroundColor: '#48BBEC'
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	distance: {
+		marginRight: 15,
 		flex: 1,
 		minWidth: 50
 	}

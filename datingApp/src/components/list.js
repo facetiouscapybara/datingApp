@@ -16,11 +16,17 @@ export default class List extends Component {
   	that = this
   }
   removeUser = (key) => {
-    let list = that.state.currentList, ind;
+    let list = that.state.currentList;
+    console.log(list)
     list.forEach(function(item, index){
-      
+      if(item.facebookId === key){
+      	list.splice(index, 1)
+      }
     })
-  }
+    that.setState({
+    	currentList: list
+    })
+  };
   getUserData = (key, distance) => { 
   	let userObj;
     distance = Math.floor(distance * 3280.84)
