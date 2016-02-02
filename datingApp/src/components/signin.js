@@ -45,12 +45,8 @@ export default class SignIn extends Component {
           picture: result.picture,
           gender: result.gender,
           preference: "null",
-<<<<<<< aeb5f86a5367ff6f88d08c8cbe12e82b35a2031f
-          bio: "null"   
-=======
-          bio: "null",
+          bio: "null",   
           headline: "null"
->>>>>>> deleted some unneeded files, added headline field to db, began work on editProfile Page
         })
       };
       fetch(urlPath, queryObject)
