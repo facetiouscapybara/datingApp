@@ -5,6 +5,7 @@ import Swipeout from 'react-native-swipeout/';
 import Separator from '../helpers/separator';
 import Firebase from 'firebase/';
  import Geofire from 'geofire/';
+ import host from './../../constants.js'
 
 export default class List extends Component {
   constructor(props){
@@ -15,7 +16,7 @@ export default class List extends Component {
   }
 
   componentWillMount(){
-    console.log(this.props)
+  	geoFireList = []
     const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
     const geoFire = new Geofire(firebaseRef);
     const geoQuery = geoFire.query({
@@ -30,6 +31,16 @@ export default class List extends Component {
     }, (err) => {console.log('error:', err)})
     
     geoQuery.on("key_entered", function(key, location, distance) {
+    	geoFireList.push(key)
+    	fetch( host + '/api/users/?id=' + this.props.profile.id + '&userInArea=' + key)
+    	  .then(function(res){
+          let result = JSON.parse(res._bodyText);
+          let newList = 
+          this.setState({
+            profile: result
+          });
+          this.handleRedirect();
+        });
     	//fetch call for all the data from this list to the server, add to state
       console.log("Facebook id:" + key + " found at " + location + " (" + (Math.round(distance / 3280.84)) + " ft away)");
     });
