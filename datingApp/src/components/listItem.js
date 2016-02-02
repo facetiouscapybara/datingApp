@@ -4,21 +4,18 @@ export default class ListItem extends Component {
 	render () {
 		return (
 			
-			<View style={styles.container}>
+			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
         	style={styles.image} />
         <View style={styles.textBody}>
-		      <Text>
+		      <Text style={styles.text}>
 		      	{this.props.user.name}
-		      </Text>
-		      <Text>
-		      	{this.props.user.bio}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
 		  	  <Text>
-		      	distance
+		      	{this.props.user.distance} ft away
 		      </Text>
 		  	</View>
 	    </View>
@@ -31,23 +28,27 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		marginTop: 10,
-		marginLeft: 5,
+		marginLeft: 0,
 		marginRight: 5,
 		padding: 5,
     backgroundColor: '#48BBEC'
 	},
 	image : {
 		flex: 4,
-		borderWidth: 1,
-		borderRadius: 50,
-		height: 150
+		borderRadius: 25,
+		height: 100,
+		width: 100
 	},
 	textBody:{
 		paddingLeft: 5,
 		flex: 5,
 		width: 195
 	}, 
+	text: {
+		fontSize: 20
+	},
 	distance: {
+		marginRight: 15,
 		flex: 1,
 		minWidth: 50
 	}
