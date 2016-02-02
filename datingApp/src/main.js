@@ -11,7 +11,6 @@ import Splash from './components/splash';
 export default class Main extends Component {
 
   render() {
-  console.log('here')
     return (
       <NavigatorIOS 
         style={styles.container} 
