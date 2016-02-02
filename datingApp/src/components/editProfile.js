@@ -17,7 +17,7 @@ export default class Matches extends Component {
 			}
 		}
 
-	componentDidMount (props) {
+	componentWillMount (props) {
 		let urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
 		console.log(urlPath)
 		//need to set authorization header
