@@ -14,7 +14,8 @@ export default class Matches extends Component {
 		let urlPath;
 
 		this.state = {
-			text: ""
+			text: "",
+			bio:""
 		}
 	}
 
@@ -82,7 +83,6 @@ export default class Matches extends Component {
 	}
 
 	onSavePress(){
-		console.log('by jove you\'ve done it!')
 		this.setState({
 			text:"Saved"
 		})
@@ -94,23 +94,28 @@ export default class Matches extends Component {
       	<View style={styles.imageBox}>
 	        <Image style={styles.image} source={{uri:this.state.picture}}/>
       	</View>
-  			<Text></Text>
-  			<View style={styles.header}>
-	  			<Text style={styles.headerText}> Bio: </Text>
-  			</View>
+  			{this.header()}
       	<TextInput
     			style={styles.bio}
     			onChangeText={(bio) => this.setState({bio})}
     			value={this.state.bio}
-    			maxLength={500}
+    			maxLength={255}
     			multiline={true}
   			/>
+  			{this.wordCount()}
   			<View style={styles.buttonBox}>
   				<Text style={styles.saved}>{this.state.text}</Text>
 	  			{this.button()}
   			</View>
       </View>
 		)
+	}
+	header () {
+		return (
+			<View style={styles.header}>
+		  	<Text style={styles.headerText}> Bio: </Text>
+	  	</View>
+	  )
 	}
 
 	button () {
@@ -120,6 +125,14 @@ export default class Matches extends Component {
 					Save
 				</Text>
 			</TouchableHighlight>)
+	}
+
+	wordCount () {
+		return (
+			<View style={styles.wordCount}>
+				<Text>{255 - this.state.bio.length} characters remaining</Text>
+			</View>
+		)
 	}
 };
 
