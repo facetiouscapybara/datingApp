@@ -72,11 +72,12 @@ module.exports.getUserInArea = function (req, res) {
     facebookId : req.query.id,
     targetId : req.query.userInArea
   };
-  var queryString = 'MATCH (user:Person {facebookId : {facebookId} }), (target:Person {facebookId: {targetId} }) AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
+  var queryString = 'MATCH (user:Person {facebookId : {facebookId} }), (target:Person {facebookId: {targetId} }) WHERE NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);
     } else {
+      console.log(response)
       res.status(200).json(response.results[0].data);
     }
   });
