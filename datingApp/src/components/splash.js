@@ -13,7 +13,6 @@ export default class Splash extends Component {
     navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
         this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-        console.log(loc);
       } else {
         console.log(err);
       }
@@ -76,8 +75,6 @@ export default class Splash extends Component {
   }
 }
 
-
-let tolkien
 const styles = StyleSheet.create ({
   logo: {
     fontSize: 75
