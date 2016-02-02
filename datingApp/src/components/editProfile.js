@@ -1,5 +1,5 @@
 //edit user Profile
-import React, { Component, View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight} from 'react-native';
 import host from './../../constants.js'
 import GameChanger from '../../ios/somehowFixesEverything.gif';
 
@@ -7,15 +7,15 @@ let that;
 
 export default class Matches extends Component {
 
-		constructor(props){
-			super(props)
+	constructor(props){
+		super(props)
 
-			that = this;
+		that = this;
 
-			this.state = {
-				text: ""
-			}
+		this.state = {
+			text: ""
 		}
+	}
 
 	componentWillMount (props) {
 		let urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
@@ -27,7 +27,7 @@ export default class Matches extends Component {
 			headers: {
 				'Accept': 'application/json',
         'Content-Type': 'application/json',
-				'Authorization': 'Bearer CAAOXApvBWf4BADK8rwcr4LB7oFtZBPvIKUOSB1aaSUNxDTHdOiNzCb9xkqi8nWxsNhoaCkEy42QI8C95KbZChrGbmZCK12K2T9vbNmyUhnNt0a9Wvw3BYEpac4tXj7eW70kyXqDFrGMKloc7py7xmzwKhWfgogGQHykpHQcMEiRouJFmkteNF1BRhhkZCHdbZCHIuwUJOtpHtdHzbuQ9fwPwfyGizsewZD'
+				'Authorization': 'Bearer CAAOXApvBWf4BAHae88R2hTkbE0kZBnPYioZBrzQUi50ZCZCitgpSSXJktnszhDCGyycdV3inwmij89ka3eLtZCZBx2u0SxlydJjY5zMSdG10ns28ivu8qVUPRpkJV7mYSpVRf1Gxt6EQBbpV6UJuHZA3LY5QFopG4723lFtQ0ThsPZAVM0abKFeTLv7ipRkGlI5tGkfCfGQgDR3ZC1JwqY5KgzXUzDnEBlDAZD'
 			}
 		}
 		fetch(urlPath, queryObject)
@@ -54,11 +54,16 @@ export default class Matches extends Component {
 			})
 	}
 
+	test() {
+		console.log("Submitted")
+	}
+
 	render () {
 		return (
       <View style={styles.container}>
-        <Image style={styles.image} source={{uri: this.state.picture}} />
-      
+      	<View style={styles.imageBox}>
+	        <Image style={styles.image} source={{uri: this.state.picture}} />
+      	</View>
   			<Text></Text>
   			<View style={styles.header}>
 	  			<Text> Bio: </Text>
@@ -67,11 +72,22 @@ export default class Matches extends Component {
     			style={styles.bio}
     			onChangeText={(bio) => this.setState({bio})}//changed to reset bio
     			value={this.state.bio}//this.state.bio
-    			multiline= {true}
     			maxLength={500}
   			/>
+  			<View style={styles.buttonBox}>
+	  			{this.button()}
+  			</View>
       </View>
 		)
+	}
+
+	button () {
+		return (
+			<TouchableHighlight underlayColor='gray' onSubmit={this.test}>
+				<Text style={styles.button}>
+					Save
+				</Text>
+			</TouchableHighlight>)
 	}
 };
 
@@ -90,6 +106,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5
 	},
 	bio: {
+		flex: 2,
 		paddingLeft: 5,
 		height: 200, 
 		borderColor: 'gray', 
@@ -97,15 +114,37 @@ const styles = StyleSheet.create({
 		marginRight: 50,
 		marginLeft: 30,
 		borderRadius: 5
-
+	},
+	imageBox: {
+		flex:2,
 	},
 	image: {
 		height: 125,
 		width: 125,
-		borderRadius: 65,
+		borderRadius: 50,
 		marginTop: 50,
 		alignSelf: 'center'
 	},
 	header: {
+		marginBottom: 10,
+		marginLeft: 2
+	},
+	buttonBox:{
+		flexDirection: 'row',
+		flex:2,
+		justifyContent: 'flex-end',
+		alignItems: 'flex-start',
+		padding:20,
+		marginRight: 30,
+	},
+	button: {
+		borderRadius:10,
+		borderWidth:1,
+		borderColor: 'black',
+		padding: 2
+	},
+	highlight: {
+		borderRadius:10,
+		borderWidth:1,
 	}
 })
