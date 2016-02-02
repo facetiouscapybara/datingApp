@@ -56,19 +56,17 @@ createNewUser = function (req, res) {
 //	
 updateUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
-	var id = req.params ? req.params.id : req.id;
-	var params = { id: id };
+	var facebookId = req.params ? req.params.id : req.id;
+	var params = { facebookId: facebookId };
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
 		if(index === fields.length-1){
 			stringEnding = ' RETURN user';
-		} else if (field === 'id'){
-			return memo;
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
-	}, 'MATCH (user:Person {id : {id}}) SET');
+	}, 'MATCH (user:Person {facebookId : {facebookId}}) SET');
 	
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
@@ -92,9 +90,9 @@ updateUser = function (req, res) {
 //  
   
 getUserById = function(req, res) {
-	var id = req.params ? req.params.id : req;
-	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
-	var params = {id: id};
+	var facebookId = req.params ? req.params.id : req;
+	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) RETURN user';
+	var params = {facebookId: facebookId};
   db.cypherQuery(queryString, params, function (err, response) {
   		if(typeof res === 'function'){
   			res(response.results[0].data[0]);
@@ -118,9 +116,9 @@ getUserById = function(req, res) {
 //  
 
 deleteUser = function(req, res) {
-	var id = req.params ? req.params.id : req;
-	var queryString = 'MATCH (user:Person {id : {id}}) DETACH DELETE user';
-	var params = { id: id };
+	var facebookId = req.params ? req.params.id : req;
+	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) DETACH DELETE user';
+	var params = { facebookId: facebookId };
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
 			res(response);
@@ -140,7 +138,7 @@ signIn = function(req, res){
         getUserById(userData.id, function(user){
           if (user){
 						var newToken = {
-							id : userData.id,
+							facebookId : userData.id,
 							access_token: userData.access_token
 						};
             updateUser(newToken, function(updatedUser){
