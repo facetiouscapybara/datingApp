@@ -72,6 +72,7 @@ export default class Matches extends Component {
     fetch(urlPath, queryObject)
     	.then(function(res){
     		console.log(res)
+    		styles.saved.color = 'gray'
     	})
     	.catch(function(err){
     		console.log(res)
@@ -86,7 +87,7 @@ export default class Matches extends Component {
       	</View>
   			<Text></Text>
   			<View style={styles.header}>
-	  			<Text> Bio: </Text>
+	  			<Text style={styles.headerText}> Bio: </Text>
   			</View>
       	<TextInput
     			style={styles.bio}
@@ -96,6 +97,7 @@ export default class Matches extends Component {
     			multiline={true}
   			/>
   			<View style={styles.buttonBox}>
+  				<Text style={styles.saved}>Saved</Text>
 	  			{this.button()}
   			</View>
       </View>
@@ -135,7 +137,8 @@ const styles = StyleSheet.create({
 		marginRight: 50,
 		marginLeft: 30,
 		borderRadius: 5,
-		fontSize: 15
+		fontSize: 15,
+		fontFamily: "HelveticaNeue-Light"	
 	},
 	imageBox: {
 		flex:2,
@@ -149,7 +152,10 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		marginBottom: 10,
-		marginLeft: 2
+		marginLeft: 2,
+	},
+	headerText: {
+		fontFamily: "HelveticaNeue-Medium"
 	},
 	buttonBox:{
 		flexDirection: 'row',
@@ -164,6 +170,11 @@ const styles = StyleSheet.create({
 		borderWidth:1,
 		borderColor: 'black',
 		padding: 2
+	},
+	saved: {
+		padding: 3,
+		color: 'white',
+		fontStyle: 'italic'
 	},
 	highlight: {
 		borderRadius:10,
