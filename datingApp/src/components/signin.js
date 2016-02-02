@@ -45,8 +45,7 @@ export default class SignIn extends Component {
           picture: result.picture,
           gender: result.gender,
           preference: "null",
-          bio: "null",   
-          headline: "null"
+          bio: "null"
         })
       };
       fetch(urlPath, queryObject)

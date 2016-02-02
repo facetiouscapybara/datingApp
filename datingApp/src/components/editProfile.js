@@ -58,17 +58,11 @@ export default class Matches extends Component {
 		return (
       <View style={styles.container}>
         <Image style={styles.image} source={{uri: this.state.picture}} />
-      	<Text> Headline: </Text>
-      	<TextInput
-    			style={styles.headline}
-    			onChangeText={(headline) => this.setState({headline})}//also must be changed to reset headline
-    			value={this.state.headline}//eventualy this.state.headline
-    			maxLength={100}
-  			/>
+      
   			<Text></Text>
-  			<Text></Text>
-
-  			<Text> Bio: </Text>
+  			<View style={styles.header}>
+	  			<Text> Bio: </Text>
+  			</View>
       	<TextInput
     			style={styles.bio}
     			onChangeText={(bio) => this.setState({bio})}//changed to reset bio
@@ -112,4 +106,6 @@ const styles = StyleSheet.create({
 		marginTop: 50,
 		alignSelf: 'center'
 	},
+	header: {
+	}
 })
