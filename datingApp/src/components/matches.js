@@ -31,6 +31,7 @@ export default class Matches extends Component {
           Thats it! Just hang out and when someone wants to message you it will appear on this screen!
         </Text>
       </View>
+      <View><TouchableHighlist</View>
 		)
 	}
 };
