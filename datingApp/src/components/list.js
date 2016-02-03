@@ -18,7 +18,6 @@ export default class List extends Component {
 
   removeUser = (key) => {
     let list = that.state.currentList;
-    console.log(list)
     list.forEach(function(item, index){
       if(item.facebookId === key){
       	list.splice(index, 1)

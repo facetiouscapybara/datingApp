@@ -93,8 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#48BBEC',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 30,
-    marginTop: 65
+    padding: 30
   },
   text: {
     fontSize: 30,

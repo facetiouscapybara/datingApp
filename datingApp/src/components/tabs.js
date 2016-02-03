@@ -10,7 +10,6 @@ import Match from './matches';
 export default class Tab extends Component {
 
   render() {
-    console.log("..........jdajkdhajhjqiuiehuqiuhfi", this.props);
     if (this.props.profile.gender==="female") {
       return (
           <ScrollableTabView style={styles.container}>
@@ -26,7 +25,6 @@ export default class Tab extends Component {
             <Bio tabLabel="Setting" profile={this.props.profile}/>
           </ScrollableTabView>
       )
-
     }
   }
 
