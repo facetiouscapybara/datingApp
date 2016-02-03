@@ -9,34 +9,34 @@ import Button from 'react-native-button';
 
 	export default class Chatroom extends Component {
 	  constructor(props){
-		super(props);
+	  	super(props);
 
-		this.state = {
-			bio : "",
-			firstName : this.props.first_name || 'Julianne'
-		};
+	  	this.state = {
+	  		bio : "",
+	  		firstName : this.props.first_name || 'Julianne'
+	  	};
 	  }
 	  componentWillMount(){
 
-		let roomNumber = this.props.roomNumber || '-K9ZSVb3HQucsVrBJ9Kj';
-		that = this;
-		chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + roomNumber);
-		chatroom.on('child_added', function(child) {
-			if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
-				that.handleReceive(child.val());
-			}
-		});
+	  	let roomNumber = this.props.roomNumber || '-K9ZSVb3HQucsVrBJ9Kj';
+	  	that = this;
+	  	chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + roomNumber);
+	  	chatroom.on('child_added', function(child) {
+	  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
+	  			that.handleReceive(child.val());
+	  		}
+	  	});
 	  };
 	  render() {
 	    return (
-		<View>
-			<View style = {styles.buttonBox}>
-				{this.button(null, 'Share Location', 'sendLocation')}
-				{this.button(this.block, 'Block User', 'blockUser')}
-			</View>
+	    	<View>
+	    		<View style = {styles.buttonBox}>
+	    			{this.button(null, 'Share Location', 'sendLocation')}
+	    			{this.button(this.block, 'Block User', 'blockUser')}
+	    		</View>
 	      <GiftedMessenger
 	        ref={(c) => this._GiftedMessenger = c}
-	      forceRenderImage= {true}
+   	      forceRenderImage= {true} 
 	        handleSend={this.handleSend}
 	        maxHeight={Dimensions.get('window').height - 124}
 	        loadEarlierMessagesButton = {true}
@@ -60,12 +60,10 @@ import Button from 'react-native-button';
 			// message.image = that.state.url || {uri: 'https://facebook.github.io/react/img/logo_og.png'};
 	  //   chatroom.push(message)
 	  }
-	 changeState(rowData, rowId) {
-		console.log(rowData)
-	 }
+
 	  handleReceive(message) {
 	    this._GiftedMessenger.appendMessage({
-	      text: message.text,
+	      text: message.text, 
 	      name: message.name,
 	      image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
 	      position: message.position
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
 		borderWidth:0,
 		borderColor: '#007aff',
 		backgroundColor: '#3abb3a'
-
+		
 	},
 	blockUser: {
 		width: 160,
@@ -142,7 +140,7 @@ const styles = StyleSheet.create({
 		borderWidth:0,
 		borderColor: '#007aff',
 		backgroundColor: '#bb3a3a'
-
+		
 	},
 
 	buttonFont: {
