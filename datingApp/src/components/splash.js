@@ -26,12 +26,14 @@ export default class Splash extends Component {
     if ( component === 'tab' ) {
       this.props.navigator.push({
         component: Tab,
-        passProps: props
+        passProps: props,
+        navigationBarHidden: true
       })
     } else {
      this.props.navigator.push({
        component: SignIn,
-       title: 'Log In'
+       title: 'Log In',
+       navigationBarHidden: true
      }); 
     }
   }  
@@ -72,9 +74,7 @@ const styles = StyleSheet.create ({
     flex: 1,
     backgroundColor: '#48BBEC',
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 30,
-    marginTop: 65
+    alignItems: 'center'
   }
 })
 
