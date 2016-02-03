@@ -20,7 +20,8 @@ export default class Matches extends Component {
 			education: "Loading...",
 			industry: "Loading...",
 			bio:"Loading...",
-			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif"
+			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif",
+			age: '?'
 		}
 	}
 
@@ -74,7 +75,8 @@ export default class Matches extends Component {
       body: JSON.stringify({
       	education: that.state.education,
       	industry: that.state.industry,
-      	bio:that.state.bio
+      	bio:that.state.bio,
+      	age: that.state.age
       })
     }
 
@@ -96,8 +98,30 @@ export default class Matches extends Component {
 	}
 
 	onBioChange (bio) {
+		console.log(bio)
 		that.setState({
 			bio
+		})
+	}
+
+	onAgeChange (age) {
+		console.log(age)
+		that.setState({
+			age
+		})
+	}
+
+	onIndustryChange (industry) {//There is 100% a way to prevent the repetition of these functions, but i've spent 40 minutes working on it, not worth it right now.
+		console.log(industry)
+		that.setState({
+			industry
+		})
+	}
+
+	onEducationChange (education) {
+		console.log(education)
+		that.setState({
+			education
 		})
 	}
 
@@ -110,13 +134,13 @@ export default class Matches extends Component {
   			<View style={styles.infoBox}>
   				<View style={styles.inputsBox}>
 	      	  {this.header("Industry:")}
-	      		{this.textInput(styles.smallBox, null, that.state.industry, 50, false)}
+	      		{this.textInput(styles.smallBox, that.onIndustryChange, that.state.industry, 50, false)}
 	  			</View>
       		<View style={styles.inputsBox}>
 	  			  {this.header("Education:")}
-	  			  {this.textInput(styles.smallerBox, null, that.state.education, 50, false)} 
+	  			  {this.textInput(styles.smallerBox, that.onEducationChange, that.state.education, 50, false)} 
 	  			  {this.header("Age:")}
-	  			  {this.textInput(styles.smallestBox, null, that.state.age, 2, false)}
+	  			  {this.textInput(styles.smallestBox, that.onAgeChange, that.state.age, 2, false)}
 	  			</View>
 	  			<View style={styles.inputsBox}>
 	  			  {this.header("Bio:")}
