@@ -3,9 +3,10 @@ import Bio from './bio'
 
 export default class ListItem extends Component {
 	render () {
-		let name = this.props.user.name.split(' ')[0];
 		return (
 		<TouchableHighlight
+      activeOpacity={0.3}
+		  underlayColor={'#48BBEC'}
 		  onPress={(e) => this.buttonPress()}>
 			<View style={styles.container} key={this.props.key}>
 				<Image 
@@ -13,7 +14,7 @@ export default class ListItem extends Component {
         	style={styles.image} />
         <View style={styles.textBody}>
 		      <Text style={styles.text}>
-		      	{name}
+		      	{this.props.user.first_name}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
@@ -26,10 +27,10 @@ export default class ListItem extends Component {
 		)
 	}
 	buttonPress = () => {
-		const props = { profile: this.props.user}
+		const props = { profile: this.props.user, navgation: this.props.navigator}
 		this.props.navigator.push({
 	    component: Bio,
-	    title: this.props.user.name + "'s About Me",
+	    title: this.props.user.first_name + "'s About Me",
 	    passProps: props,
 	    navigationBarHidden: false
     }); 

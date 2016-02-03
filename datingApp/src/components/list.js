@@ -14,6 +14,7 @@ export default class List extends Component {
   		currentList: []
   	};
   	that = this
+    console.log('list:', props)
   }
 
   removeUser = (key) => {
