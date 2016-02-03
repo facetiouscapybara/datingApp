@@ -128,7 +128,7 @@ export default class Matches extends Component {
 
 	button () {
 		return (
-			<TouchableHighlight underlayColor='gray' onPress={this.postData}>
+			<TouchableHighlight onPress={this.postData}>
 				<Text style={styles.button}>
 					Save
 				</Text>
