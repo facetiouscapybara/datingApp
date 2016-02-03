@@ -1,17 +1,19 @@
 import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import Bio from './bio'
 
 export default class ListItem extends Component {
 	render () {
+		let name = this.props.user.name.split(' ')[0];
 		return (
 		<TouchableHighlight
-		  onPress={(e) => console.log(e)}>
+		  onPress={(e) => this.buttonPress()}>
 			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
         	style={styles.image} />
         <View style={styles.textBody}>
 		      <Text style={styles.text}>
-		      	{this.props.user.name}
+		      	{name}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
@@ -23,8 +25,10 @@ export default class ListItem extends Component {
 	  </TouchableHighlight>
 		)
 	}
+	buttonPress = () => {
+		console.log(this.props)
+	};
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
