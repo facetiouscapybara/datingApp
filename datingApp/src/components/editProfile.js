@@ -1,7 +1,6 @@
 //edit user Profile
 import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight, PickerIOS} from 'react-native';
 import host from './../../constants.js';
-import DropDown, { Select, Option, OptionList, updatePosition } from 'react-native-dropdown';
 
 
 let that;
