@@ -55,9 +55,9 @@ createNewUser = function (req, res) {
 //	}
 //	
 updateUser = function (req, res) {
-	var userInfo = req.body ? req.body : req;
-	var facebookId = req.params ? req.params.id : req.id;
-	var params = { facebookId: facebookId };
+	var userInfo = req.body ? req.body : {access_token: req.access_token};
+	var facebookId = req.params ? req.params.id : req.facebookId;
+	var params = { facebookId: facebookId};
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
@@ -66,9 +66,9 @@ updateUser = function (req, res) {
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
-	}, 'MATCH (user:Person {facebookId : {facebookId}}) SET');
-	
+	}, 'MATCH (user:Person {facebookId:{facebookId}}) SET');	
 	db.cypherQuery(queryString, params, function (err, response) {
+		console.log(err)
 		if(typeof res === 'function'){
 			res(response.results[0].data[0]);
 		} else {

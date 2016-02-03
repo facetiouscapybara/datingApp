@@ -16,8 +16,8 @@ export default class Main extends Component {
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: Splash,
-          navigationBarHidden: true
+          component: SignIn
+          // navigationBarHidden: true
         }} />
     )
   }
