@@ -16,7 +16,8 @@ export default class Main extends Component {
         style={styles.container} 
         initialRoute={{
           title: 'TOLO',
-          component: Chatroom
+          component: Splash,
+          navigationBarHidden: true
         }} />
     )
   }

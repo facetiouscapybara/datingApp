@@ -5,9 +5,13 @@ export default class Message extends Component {
 		return (
 
 			<View style={styles.container}>
+				<View style={styles.textBody}>
+					<Text>Username</Text>
 		      <Text>
 						{this.props.data.message}
 		      </Text>
+
+		    </View>
 	    </View>
 		)
 	}
