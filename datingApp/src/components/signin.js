@@ -46,6 +46,8 @@ export default class SignIn extends Component {
           picture: result.picture,
           gender: result.gender,
           preference: "null",
+          education : "null",
+          industry : "null",
           bio: ""
         })
       };
