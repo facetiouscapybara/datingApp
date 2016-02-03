@@ -3,24 +3,36 @@ import React, { Component, View, Text, StyleSheet} from 'react-native';
 import host from './../../constants.js';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
+import Message from './message'
 
 export default class Chatroom extends Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-			text: ""
+			messages : []
 		};
 	}
+	componentWillMount(){
+		let that = this;
+		var chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/-K9ZSVb3HQucsVrBJ9Kj');
 
+		chatroom.on('child_added', function(child) {
+			let messages = that.state.messages;
+			messages.push(child.val());
+			that.setState({
+				messages: messages
+			});
+		});
+
+	};
 	render () {
-		console.log('Im here')
-		let text = "This is the chat room"
+		let messages = this.state.messages.map((message, index)=> {
+			return <Message data={message} key={index}/>
+		})
 		return (
       <View style={styles.container}>
-	  <Text>
-	    and red
-	</Text>
+	  		{messages}
       </View>
 		)
 	}
@@ -49,6 +61,7 @@ export default class Chatroom extends Component {
 }
 const styles = StyleSheet.create({
 	container: {
+		marginTop: 60,
 		flex:1
 	}
 })
