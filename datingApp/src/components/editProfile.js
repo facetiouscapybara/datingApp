@@ -1,6 +1,8 @@
 //edit user Profile
-import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight} from 'react-native';
+import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight, PickerIOS} from 'react-native';
 import host from './../../constants.js';
+import DropDown, { Select, Option, OptionList, updatePosition } from 'react-native-dropdown';
+
 
 let that;
 
@@ -15,14 +17,15 @@ export default class Matches extends Component {
 
 		this.state = {
 			text: "",
+			education: "Loading...",
+			industry: "Loading...",
 			bio:"Loading...",
 			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif"
 		}
 	}
 
 
-
-	componentDidMount (props) {
+	componentWillMount (props) {
 		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
 		console.log(urlPath)
 		//need to set authorization header
@@ -47,14 +50,15 @@ export default class Matches extends Component {
           gender: result.gender,
           preference: result.preference,
           bio: result.bio,
-          headline: result.headline 
+          headline: result.headline,
+          education: result.education,
+          industry: result.industry
 				})
 			})
 			.catch(function(error){
 				console.log(err, "error")
 			})
 			.then(function(res){
-				state
 				console.log(res);
 			})
 	}
@@ -68,6 +72,8 @@ export default class Matches extends Component {
         'Authorization': 'Bearer ' +  that.props.profile.access_token
       },
       body: JSON.stringify({
+      	education: that.state.education,
+      	industry: that.state.industry,
       	bio:that.state.bio
       })
     }
@@ -101,8 +107,22 @@ export default class Matches extends Component {
       	<View style={styles.imageBox}>
 	        <Image style={styles.image} source={{uri:this.state.picture}}/>
       	</View>
-  			{this.header()}
-  			{this.textInput()}
+  			<View style={styles.infoBox}>
+  				<View style={styles.inputsBox}>
+	      	  {this.header("Industry:")}
+	      		{this.textInput(styles.smallBox, null, that.state.industry, 50, false)}
+	  			</View>
+      		<View style={styles.inputsBox}>
+	  			  {this.header("Education:")}
+	  			  {this.textInput(styles.smallerBox, null, that.state.education, 50, false)} 
+	  			  {this.header("Age:")}
+	  			  {this.textInput(styles.smallestBox, null, that.state.age, 2, false)}
+	  			</View>
+	  			<View style={styles.inputsBox}>
+	  			  {this.header("Bio:")}
+		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 255, true)}
+		  		</View>
+	  		</View>
   			{this.wordCount()}
   			<View style={styles.buttonBox}>
   				<Text style={styles.saved}>
@@ -113,29 +133,30 @@ export default class Matches extends Component {
       </View>
 		)
 	}
-	header () {
+
+	header (text) {
 		return (
 			<View style={styles.header}>
-		  	<Text style={styles.headerText}> Bio: </Text>
+		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
 	  	</View>
 	  )
 	}
 
-	textInput () {
+	textInput (style, onChangeText, value, maxLength, multiline) {
 		return (
 			<TextInput
-    			style={styles.bio}
-    			onChangeText={this.onBioChange}
-    			value={this.state.bio}
-    			maxLength={255}
-    			multiline={true}
+    			style={style}
+    			onChangeText={onChangeText}
+    			value={value}
+    			maxLength={maxLength}
+    			multiline={multiline}
     	/>
 		)
 	}
 
 	button () {
 		return (
-			<TouchableHighlight onPress={this.postData}>
+			<TouchableHighlight onPress={this.postData} activeOpacity={0}>
 				<Text style={styles.button}>
 					Save
 				</Text>
@@ -156,6 +177,9 @@ const styles = StyleSheet.create({
 		marginTop: 65,
 		flex:1
 	},
+	imageBox: {
+		flex:1.5,
+	},
 	headline: {
 		paddingLeft: 5,
 		height: 40, 
@@ -165,21 +189,60 @@ const styles = StyleSheet.create({
 		marginLeft: 30,
 		borderRadius: 5
 	},
-	bio: {
-		flex: 2,
+	infoBox: {
+		flex: 2.2,
+	},
+	bigBox:{
+		flex: 1,
 		paddingLeft: 5,
-		height: 200, 
-		borderColor: 'gray', 
+		height: 100, 
+		borderColor: 'gray',
 		borderWidth: 2,
 		marginRight: 50,
-		marginLeft: 30,
 		borderRadius: 5,
+		backgroundColor: 'white',
 		fontSize: 15,
 		fontFamily: "HelveticaNeue-Light"	,
-		backgroundColor: 'white'
 	},
-	imageBox: {
-		flex:2,
+	smallBox:{
+		flex: 1,
+		marginRight:50,
+		height: 25,
+		paddingLeft: 5,
+		borderColor: 'gray', 
+		borderWidth: 2,
+		borderRadius: 5,
+		backgroundColor: 'white',
+		fontSize: 15,
+		fontFamily: "HelveticaNeue-Light"	
+	},
+	smallerBox: {
+		flex:1,
+		height: 25,
+		width: 100,
+		backgroundColor: 'white',
+		borderRadius: 5,
+		borderColor: 'gray',
+		borderWidth: 2,
+		paddingLeft: 5,
+		fontSize: 15,
+		fontFamily: "HelveticaNeue-Light"	
+	},
+	smallestBox:{
+		height: 25,
+		width: 50,
+		marginRight: 50,
+		backgroundColor: 'white',
+		borderRadius: 5,
+		borderColor: 'gray',
+		borderWidth: 2,
+		paddingLeft: 5,
+		fontSize: 15,
+		fontFamily: "HelveticaNeue-Light"	
+	},
+	inputsBox: {
+		flexDirection:'row',
+		marginTop: 5
 	},
 	image: {
 		height: 125,
@@ -188,7 +251,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	header: {
-		marginBottom: 10,
+		marginBottom: 5,
 		marginLeft: 2,
 	},
 	headerText: {
@@ -196,7 +259,7 @@ const styles = StyleSheet.create({
 	},
 	buttonBox:{
 		flexDirection: 'row',
-		flex:1.5,
+		flex:2,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-start',
 		paddingRight:20,
