@@ -88,6 +88,12 @@ export default class Matches extends Component {
 		})
 	}
 
+	onBioChange (bio) {
+		that.setState({
+			bio
+		})
+	}
+
 	render () {
 		return (
       <View style={styles.container}>
@@ -118,7 +124,7 @@ export default class Matches extends Component {
 		return (
 			<TextInput
     			style={styles.bio}
-    			onChangeText={(bio) => this.setState({bio})}
+    			onChangeText={this.onBioChange}
     			value={this.state.bio}
     			maxLength={255}
     			multiline={true}
@@ -178,7 +184,6 @@ const styles = StyleSheet.create({
 		height: 125,
 		width: 125,
 		borderRadius: 50,
-		marginTop: 50,
 		alignSelf: 'center'
 	},
 	header: {
@@ -190,7 +195,7 @@ const styles = StyleSheet.create({
 	},
 	buttonBox:{
 		flexDirection: 'row',
-		flex:2,
+		flex:1.5,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-start',
 		paddingRight:20,
