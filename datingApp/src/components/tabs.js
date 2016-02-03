@@ -5,6 +5,7 @@ import TabIcon from './tabicon';
 import List from './list';
 import Bio from './bio';
 import Match from './matches';
+import EditProfile from './editProfile';
 
 
 export default class Tab extends Component {
@@ -13,7 +14,7 @@ export default class Tab extends Component {
       return (
           <ScrollableTabView style={styles.container}>
             <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
-            <Bio tabLabel="Setting" profile={this.props.profile}/>
+            <EditProfile tabLabel="Setting" profile={this.props.profile}/>
           </ScrollableTabView>
       )
     } else {
@@ -21,7 +22,7 @@ export default class Tab extends Component {
           <ScrollableTabView style={styles.container}>
             <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
             <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
-            <Bio tabLabel="Setting" profile={this.props.profile}/>
+            <EditProfile tabLabel="Setting" profile={this.props.profile}/>
           </ScrollableTabView>
       )
     }
