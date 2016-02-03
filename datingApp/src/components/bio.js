@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex:1,
 		backgroundColor: '#48BBEC',
+		marginTop: 40,
 		paddingBottom: 10
 	},
 	image: {

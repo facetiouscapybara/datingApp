@@ -26,7 +26,13 @@ export default class ListItem extends Component {
 		)
 	}
 	buttonPress = () => {
-		console.log(this.props)
+		const props = { profile: this.props.user}
+		this.props.navigator.push({
+	    component: Bio,
+	    title: this.props.user.name + "'s About Me",
+	    passProps: props,
+	    navigationBarHidden: false
+    }); 
 	};
 };
 const styles = StyleSheet.create({
