@@ -31,7 +31,7 @@ export default class Matches extends Component {
 			headers: {
 				'Accept': 'application/json',
         'Content-Type': 'application/json',
-				'Authorization': 'Bearer CAAOXApvBWf4BAHae88R2hTkbE0kZBnPYioZBrzQUi50ZCZCitgpSSXJktnszhDCGyycdV3inwmij89ka3eLtZCZBx2u0SxlydJjY5zMSdG10ns28ivu8qVUPRpkJV7mYSpVRf1Gxt6EQBbpV6UJuHZA3LY5QFopG4723lFtQ0ThsPZAVM0abKFeTLv7ipRkGlI5tGkfCfGQgDR3ZC1JwqY5KgzXUzDnEBlDAZD'
+				'Authorization': 'Bearer ' +  this.props.profile.access_token
 			}
 		}
 		fetch(urlPath, queryObject)
@@ -39,7 +39,6 @@ export default class Matches extends Component {
 				result = JSON.parse(res._bodyText)
 				that.setState({
 					id: result.id,
-          access_token: result.access_token,
           first_name : result.first_name,
           name: result.name,
           age: result.age || 'null',
@@ -54,6 +53,7 @@ export default class Matches extends Component {
 				console.log(err, "error")
 			})
 			.then(function(res){
+				state
 				console.log(res);
 			})
 	}
@@ -64,7 +64,7 @@ export default class Matches extends Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer CAAOXApvBWf4BAHae88R2hTkbE0kZBnPYioZBrzQUi50ZCZCitgpSSXJktnszhDCGyycdV3inwmij89ka3eLtZCZBx2u0SxlydJjY5zMSdG10ns28ivu8qVUPRpkJV7mYSpVRf1Gxt6EQBbpV6UJuHZA3LY5QFopG4723lFtQ0ThsPZAVM0abKFeTLv7ipRkGlI5tGkfCfGQgDR3ZC1JwqY5KgzXUzDnEBlDAZD'
+        'Authorization': 'Bearer ' +  that.props.profile.access_token
       },
       body: JSON.stringify({
       	bio:that.state.bio
@@ -95,16 +95,12 @@ export default class Matches extends Component {
 	        <Image style={styles.image} source={{uri:this.state.picture}}/>
       	</View>
   			{this.header()}
-      	<TextInput
-    			style={styles.bio}
-    			onChangeText={(bio) => this.setState({bio})}
-    			value={this.state.bio}
-    			maxLength={255}
-    			multiline={true}
-  			/>
+  			{this.textInput()}
   			{this.wordCount()}
   			<View style={styles.buttonBox}>
-  				<Text style={styles.saved}>{this.state.text}</Text>
+  				<Text style={styles.saved}>
+  					{this.state.text}
+  				</Text>
 	  			{this.button()}
   			</View>
       </View>
@@ -116,6 +112,18 @@ export default class Matches extends Component {
 		  	<Text style={styles.headerText}> Bio: </Text>
 	  	</View>
 	  )
+	}
+
+	textInput () {
+		return (
+			<TextInput
+    			style={styles.bio}
+    			onChangeText={(bio) => this.setState({bio})}
+    			value={this.state.bio}
+    			maxLength={255}
+    			multiline={true}
+    	/>
+		)
 	}
 
 	button () {
@@ -185,7 +193,7 @@ const styles = StyleSheet.create({
 		flex:2,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-start',
-		padding:20,
+		paddingRight:20,
 		marginRight: 30
 	},
 	button: {
@@ -193,6 +201,10 @@ const styles = StyleSheet.create({
 		borderWidth:1,
 		borderColor: 'black',
 		padding: 2
+	},
+	wordCount: {
+		alignItems: 'flex-end',
+		paddingRight: 50
 	},
 	saved: {
 		padding: 3,
