@@ -1,3 +1,3 @@
 module.exports = {
-	SERVER_URL : 'http://localhost:3000'
+	SERVER_URL : 'https://powerful-sea-68331.herokuapp.com'
 };
