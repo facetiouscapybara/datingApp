@@ -2,15 +2,14 @@ import React, { Component, View, Text, StyleSheet, Image, ScrollView} from 'reac
 
 export default class Message extends Component {
 	render () {
+		let data = this.props.data;
 		return (
-
 			<View style={styles.container}>
 				<View style={styles.textBody}>
-					<Text>Username</Text>
+					<Text>{data.username}</Text>
 		      <Text>
-						{this.props.data.message}
+						{data.message}
 		      </Text>
-
 		    </View>
 	    </View>
 		)
