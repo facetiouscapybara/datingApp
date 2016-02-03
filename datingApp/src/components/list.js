@@ -15,9 +15,9 @@ export default class List extends Component {
   	};
   	that = this
   }
+
   removeUser = (key) => {
     let list = that.state.currentList;
-    console.log(list)
     list.forEach(function(item, index){
       if(item.facebookId === key){
       	list.splice(index, 1)
@@ -27,6 +27,7 @@ export default class List extends Component {
     	currentList: list
     })
   };
+
   getUserData = (key, distance) => { 
   	let userObj;
     distance = Math.floor(distance * 3280.84)
@@ -87,35 +88,11 @@ export default class List extends Component {
 	}
 
 	users () {
-		let swipeBtns = [
-		  {
-		    text: 'Delete',
-		    backgroundColor: 'red',
-		    underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-		    onPress: () => { this.deleteNote() }
-		 },
-		  {
-		    text: 'Duplicate',
-		    backgroundColor: 'blue',
-		    underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-		    onPress: () => { this.duplicateNote() }
-		 }
-		];
+    let nav = this.props.navigator
 		var userList = this.state.currentList.map(function(user){
 			return (
-				<Swipeout right={swipeBtns}
-				  autoClose='true'
-				  backgroundColor= 'transparent'>
-				  <TouchableHighlight
-				    underlayColor='rgba(192,192,192,1,0.6)'>
-				    <View>
-				      <View>
-								<ListItem user={user} key={user.facebookId} style={styles.listItem}/>
-				      </View>
-				    </View>
-				  </TouchableHighlight>
-				</Swipeout>
-			)
+				<ListItem navigator={nav} user={user} key={user.facebookId} style={styles.listItem}/>
+				)	
 		})
 		return userList
 	}

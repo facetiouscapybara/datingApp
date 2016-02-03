@@ -8,9 +8,7 @@ import Match from './matches';
 
 
 export default class Tab extends Component {
-
   render() {
-    console.log("..........jdajkdhajhjqiuiehuqiuhfi", this.props);
     if (this.props.profile.gender==="female") {
       return (
           <ScrollableTabView style={styles.container}>
@@ -21,12 +19,11 @@ export default class Tab extends Component {
     } else {
       return (
           <ScrollableTabView style={styles.container}>
+            <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
             <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
-            <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
             <Bio tabLabel="Setting" profile={this.props.profile}/>
           </ScrollableTabView>
       )
-
     }
   }
 

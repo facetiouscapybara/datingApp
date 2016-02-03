@@ -10,19 +10,9 @@ import Tab from './tabs';
 
 
 export default class Splash extends Component {
-  componentWillMount = () => {
-    navigator.geolocation.getCurrentPosition((loc, err) => {
-      if(!err){
-        this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-      } else {
-        console.log(err);
-      }
-    }); 
-  };
-
+  
   handleRedirect(component) {
     const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
-
     if ( component === 'tab' ) {
       this.props.navigator.push({
         component: Tab,
@@ -46,6 +36,17 @@ export default class Splash extends Component {
       this.handleRedirect('tab');
     });
   }
+
+  componentWillMount = () => {
+    navigator.geolocation.getCurrentPosition((loc, err) => {
+      if(!err){
+        this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
+      } else {
+        console.log(err);
+      }
+    }); 
+  };
+
 
   componentDidMount = () => {
     fbApi.fbToken((token) => {

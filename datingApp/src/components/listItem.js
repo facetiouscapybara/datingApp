@@ -1,16 +1,19 @@
-import React, { Component, View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import Bio from './bio'
 
 export default class ListItem extends Component {
 	render () {
+		let name = this.props.user.name.split(' ')[0];
 		return (
-			
+		<TouchableHighlight
+		  onPress={(e) => this.buttonPress()}>
 			<View style={styles.container} key={this.props.key}>
 				<Image 
 					source={{uri: this.props.user.picture}}
         	style={styles.image} />
         <View style={styles.textBody}>
 		      <Text style={styles.text}>
-		      	{this.props.user.name}
+		      	{name}
 		      </Text>
 		  	</View>
 		  	<View style={styles.distance}>
@@ -19,10 +22,19 @@ export default class ListItem extends Component {
 		      </Text>
 		  	</View>
 	    </View>
+	  </TouchableHighlight>
 		)
 	}
+	buttonPress = () => {
+		const props = { profile: this.props.user}
+		this.props.navigator.push({
+	    component: Bio,
+	    title: this.props.user.name + "'s About Me",
+	    passProps: props,
+	    navigationBarHidden: false
+    }); 
+	};
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
@@ -35,7 +47,7 @@ const styles = StyleSheet.create({
 	},
 	image : {
 		flex: 4,
-		borderRadius: 25,
+		borderRadius: 10,
 		height: 100,
 		width: 100
 	},
@@ -48,7 +60,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	distance: {
-		marginRight: 15,
+		marginRight: 10,
 		flex: 1,
 		minWidth: 50
 	}
