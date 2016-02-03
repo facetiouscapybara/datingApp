@@ -32,12 +32,11 @@ import Button from 'react-native-button';
 		<View>
 			<View style = {styles.buttonBox}>
 				{this.button(null, 'Share Location', 'sendLocation')}
-				{this.button(null, 'Block User', 'blockUser')}
+				{this.button(this.block, 'Block User', 'blockUser')}
 			</View>
 	      <GiftedMessenger
 	        ref={(c) => this._GiftedMessenger = c}
 	      forceRenderImage= {true}
-	      senderImage = {{image : {uri: 'https://facebook.github.io/react/img/logo_og.png'}}}
 	        handleSend={this.handleSend}
 	        maxHeight={Dimensions.get('window').height - 124}
 	        loadEarlierMessagesButton = {true}
@@ -89,7 +88,7 @@ import Button from 'react-native-button';
 			},
 			body : {
 				userId : this.props.userId,
-				targetId : 'target'
+				targetId : this.props.targetId
 			}
 		};
 		fetch(urlPath, queryObject)
