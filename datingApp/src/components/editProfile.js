@@ -1,6 +1,6 @@
 //edit user Profile
 import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight} from 'react-native';
-import host from './../../constants.js'
+import host from './../../constants.js';
 
 let that;
 
@@ -15,13 +15,14 @@ export default class Matches extends Component {
 
 		this.state = {
 			text: "",
-			bio:""
+			bio:"Loading...",
+			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif"
 		}
 	}
 
 
 
-	componentWillMount (props) {
+	componentDidMount (props) {
 		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
 		console.log(urlPath)
 		//need to set authorization header
