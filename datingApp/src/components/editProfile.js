@@ -33,7 +33,7 @@ export default class Matches extends Component {
         'Content-Type': 'application/json',
 				'Authorization': 'Bearer ' +  this.props.profile.access_token
 			}
-		}
+		};
 		fetch(urlPath, queryObject)
 			.then(function(res){
 				result = JSON.parse(res._bodyText)

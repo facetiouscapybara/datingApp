@@ -29,6 +29,7 @@ export default class SignIn extends Component {
 
   handleFBProfile() {
     fbApi.fbProfile((result) => {
+      console.log(result)
       let urlPath = host.SERVER_URL + '/api/login';
       let queryObject = {  
         method: 'POST',

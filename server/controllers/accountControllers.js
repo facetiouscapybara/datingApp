@@ -30,7 +30,7 @@ getAllUsers = function (req, res) {
 createNewUser = function (req, res) {
 	var userInfo = req.body ? req.body : req;
 	userInfo.access_token = userInfo.access_token || '';
-  var queryString = 'CREATE (user:Person {name : {name}, first_name : {first_name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, id:{id}, picture:{picture}, access_token: {access_token}}) RETURN user';
+  var queryString = 'CREATE (user:Person {name : {name}, first_name : {first_name}, age:{age}, preference:{preference}, bio:{bio}, gender:{gender}, facebookId:{id}, picture:{picture}, access_token: {access_token}}) RETURN user';
   db.cypherQuery(queryString, userInfo, function(err, response){
 		if(typeof res === 'function'){
 			res(response);
@@ -55,22 +55,21 @@ createNewUser = function (req, res) {
 //	}
 //	
 updateUser = function (req, res) {
+
 	var userInfo = req.body ? req.body : req;
-	var id = req.params ? req.params.id : req.id;
-	var params = { id: id };
+	var facebookId = req.params ? req.params.id : req.facebookId;
+	var params = { facebookId: facebookId };
 	var fields = Object.keys(userInfo);
 	var stringEnding = ',';
 	var queryString = fields.reduce(function(memo, field, index){
 		if(index === fields.length-1){
 			stringEnding = ' RETURN user';
-		} else if (field === 'id'){
-			return memo;
 		}
 		memo = memo.concat(' user.' + field + ' = "' + userInfo[field] + '"' + stringEnding);
 		return memo;
-	}, 'MATCH (user:Person {id : {id}}) SET');
-	
+	}, 'MATCH (user:Person {facebookId : {facebookId}}) SET');
 	db.cypherQuery(queryString, params, function (err, response) {
+		console.log(err)
 		if(typeof res === 'function'){
 			res(response.results[0].data[0]);
 		} else {
@@ -92,9 +91,9 @@ updateUser = function (req, res) {
 //  
   
 getUserById = function(req, res) {
-	var id = req.params ? req.params.id : req;
-	var queryString = 'MATCH (user:Person {id : {id}}) RETURN user';
-	var params = {id: id};
+	var facebookId = req.params ? req.params.id : req;
+	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) RETURN user';
+	var params = {facebookId: facebookId};
   db.cypherQuery(queryString, params, function (err, response) {
   		if(typeof res === 'function'){
   			res(response.results[0].data[0]);
@@ -118,9 +117,9 @@ getUserById = function(req, res) {
 //  
 
 deleteUser = function(req, res) {
-	var id = req.params ? req.params.id : req;
-	var queryString = 'MATCH (user:Person {id : {id}}) DETACH DELETE user';
-	var params = { id: id };
+	var facebookId = req.params ? req.params.id : req;
+	var queryString = 'MATCH (user:Person {facebookId : {facebookId}}) DETACH DELETE user';
+	var params = { facebookId: facebookId };
 	db.cypherQuery(queryString, params, function (err, response) {
 		if(typeof res === 'function'){
 			res(response);
@@ -140,7 +139,7 @@ signIn = function(req, res){
         getUserById(userData.id, function(user){
           if (user){
 						var newToken = {
-							id : userData.id,
+							facebookId : userData.id,
 							access_token: userData.access_token
 						};
             updateUser(newToken, function(updatedUser){

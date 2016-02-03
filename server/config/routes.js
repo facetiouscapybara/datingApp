@@ -4,7 +4,7 @@ var passport = require('passport');
 
 module.exports = function(app, express) {
 
-	app.get('/api/users', passport.authenticate('bearer', { session: false, failureRedirect: '/login' }),relationshipControllers.getEligibleUsersInArea);
+	app.get('/api/users/', passport.authenticate('bearer', { session: false, failureRedirect: '/login' }),relationshipControllers.getUserInArea);
 	app.get('/api/users/:id', passport.authenticate('bearer', { session: false, failureRedirect: '/login' }), accountControllers.getUserById);
 	app.put('/api/users/:id', passport.authenticate('bearer', { session: false, failureRedirect: '/login' }),accountControllers.updateUser);
 	app.delete('/api/users/:id', passport.authenticate('bearer', { session: false, failureRedirect: '/login' }),accountControllers.deleteUser);
@@ -34,6 +34,5 @@ module.exports = function(app, express) {
 	});
 
 };
-
 
 

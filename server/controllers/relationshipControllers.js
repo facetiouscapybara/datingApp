@@ -23,7 +23,7 @@ module.exports.createRelationship = function(req, res) {
 	params.tag = params.tag || 'tempTag';
   params.relationshipData = req.body.relationshipData || {};
 
-  var queryString = 'MATCH (user:Person {id : {userId}}), (target:Person {id : {targetId}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
+  var queryString = 'MATCH (user:Person {facebookId : {userId}}), (target:Person {facebookId : {targetId}}) CREATE (user)-[' + params.tag + ':' + params.relationship + ' {relationshipData}]-> (target) RETURN ' + params.tag;
   db.cypherQuery(queryString, params, function(err, response){
   	if(err){
   		res.status(404).json(err);
@@ -47,7 +47,7 @@ module.exports.deleteRelationship = function(req, res) {
     userId : req.body.userId,
     targetId : req.body.targetId
   };
-  var queryString = 'MATCH (user:Person {id : {userId}})-[rel:' + req.body.relationship + ']->(target:Person {id : {targetId}}) DELETE rel';
+  var queryString = 'MATCH (user:Person {facebookId : {userId}})-[rel:' + req.body.relationship + ']->(target:Person {facebookId : {targetId}}) DELETE rel';
   db.cypherQuery(queryString, params, function(err, response){
     if(err){
       res.status(404).json(err);
@@ -58,26 +58,26 @@ module.exports.deleteRelationship = function(req, res) {
   });
 };
 
-// This method takes a userId and an usersInArea array and returns an array of user profiles who aren't blocked or currently selected
+// This method takes a userId and an userInArea array and returns an array of user profiles who aren't blocked or currently selected
 // Here is an example request body.
 // 
 // {
 //   userId : 38925347,
-//   usersInArea : [43253445, 54677564, 23542435, 98023432]
+//   userInArea : [43253445, 54677564, 23542435, 98023432]
 // }
 // 
 
-module.exports.getEligibleUsersInArea = function (req, res) {
+module.exports.getUserInArea = function (req, res) {
   var params = {
-    id : req.query.id,
-    usersInArea : req.query.usersInArea
+    facebookId : req.query.id,
+    targetId : req.query.userInArea
   };
-  var queryString = 'MATCH (user:Person {id : {id} }), (target:Person) WHERE target.id IN {usersInArea} AND NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
+  var queryString = 'MATCH (user:Person {facebookId : {facebookId} }), (target:Person {facebookId: {targetId} }) WHERE NOT user-[:blocked]-target AND NOT user-[:selected]-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
-    if(err){
+    if(err || !response.results[0].data[0]){
       res.status(404).json(err);
     } else {
-      res.status(200).json(response.results[0].data);
+      res.status(200).json(response.results[0].data[0].row[0]);
     }
   });
 };
@@ -105,7 +105,7 @@ module.exports.getEligibleUsersInArea = function (req, res) {
 //  
 module.exports.getConnections = function (req, res) {
   var params = req.body;
-  var queryString = 'MATCH (user:Person {id : {userId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
+  var queryString = 'MATCH (user:Person {facebookId : {userId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);
