@@ -13,16 +13,16 @@ export default class Tab extends Component {
     if (this.props.profile.gender==="female") {
       return (
           <ScrollableTabView style={styles.container}>
-            <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
-            <EditProfile tabLabel="Setting" profile={this.props.profile}/>
+            <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
+            <EditProfile tabLabel="Settings" profile={this.props.profile}/>
           </ScrollableTabView>
       )
     } else {
       return (
           <ScrollableTabView style={styles.container}>
             <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
-            <Match tabLabel="Match" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
-            <EditProfile tabLabel="Setting" profile={this.props.profile}/>
+            <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile}/>
+            <EditProfile tabLabel="Settings" profile={this.props.profile}/>
           </ScrollableTabView>
       )
     }

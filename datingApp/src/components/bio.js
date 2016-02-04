@@ -5,6 +5,7 @@ export default class Bio extends Component {
 	constructor(props) {
 	  super(props);
 	  this.state = {
+	  	currentUserId: props.currentUserId,
 	  	facebookId: props.profile.facebookId,
 	  	age: props.profile.age_range,
 	  	first_name: props.profile.first_name,
@@ -17,12 +18,14 @@ export default class Bio extends Component {
 
   buttonSubmit = () => {
   	const firebaseChat = new Firebase('http://rawdog.firebaseio.com/chatroom/')
-  	const firebaseUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
+  	const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
+  	const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUserId)
     alert('message sent!')
     let ref = firebaseChat.push()
     ref.set({message: this.state.text})
     let room = ref.toString()
-    firebaseUser.push({room: room, userOne: 'someone'})
+    firechatRequestedUser.push({room: room, userOne: this.state.currentUserId})
+    firechatCurrentUser.push({room: room, userOne: this.state.facebookId})
     this.props.navigator.pop()
   };
 	render () {
