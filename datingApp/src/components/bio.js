@@ -7,7 +7,7 @@ export default class Bio extends Component {
 	  this.state = {
 	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
-	  	age: props.profile.age_range,
+	  	age: props.profile.age,
 	  	first_name: props.profile.first_name,
 	  	gender: props.profile.gender,
 	  	picture: props.profile.picture,
@@ -37,13 +37,15 @@ export default class Bio extends Component {
 	render () {
 		return (
       <View style={styles.container}>
-      	<ScrollView style={styles.bio}>
+      	<ScrollView style={styles.bioBox}>
 	      	<Image style={styles.image} source={{uri: this.state.picture}} />
-	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || 24}</Text>
-	      	<Text>{this.state.industry}</Text>
-	      	<Text>{this.state.education}</Text>
-	      	{this.header("Bio: ")}
-	      	<Text>{this.state.bio}</Text>
+	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
+	      	{this.header("Works in ")}
+	      		<Text style={styles.bio}>{this.state.industry}</Text>
+	      	{this.header("Went to school at ")}
+	      		<Text style={styles.bio}>{this.state.education}</Text>
+	      	{this.header("About " + this.state.first_name)}
+	      		<Text style={styles.bio}>{this.state.bio}</Text>
         </ScrollView>
         <View style={styles.inputView}>
           <TextInput 
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
 		marginTop: 40,
 		paddingBottom: 10
 	},
-	bio: {
+	bioBox: {
 		flex: 12
 	},
 	header:{
@@ -88,6 +90,9 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 
+	},
+	bio: {
+		paddingLeft: 30
 	},
 	buttons: {
 		flex: 1,
