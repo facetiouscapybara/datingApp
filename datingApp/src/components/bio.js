@@ -39,7 +39,7 @@ export default class Bio extends Component {
       <View style={styles.container}>
       	<ScrollView style={styles.bio}>
 	      	<Image style={styles.image} source={{uri: this.state.picture}} />
-	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || 24}</Text>
+	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
 	      	<Text>{this.state.industry}</Text>
 	      	<Text>{this.state.education}</Text>
 	      	{this.header("Bio: ")}
