@@ -14,6 +14,7 @@ export default class List extends Component {
   		currentList: []
   	};
   	that = this
+    console.log('list:', props)
   }
 
   removeUser = (key) => {
@@ -88,10 +89,11 @@ export default class List extends Component {
 	}
 
 	users () {
+    let currentUser = this.props.profile
     let nav = this.props.navigator
 		var userList = this.state.currentList.map(function(user){
 			return (
-				<ListItem navigator={nav} user={user} key={user.facebookId} style={styles.listItem}/>
+				<ListItem navigator={nav} user={user} key={user.facebookId} style={styles.listItem} currentUser={currentUser}/>
 				)	
 		})
 		return userList

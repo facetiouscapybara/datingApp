@@ -14,13 +14,14 @@ import fbApi from '../helpers/fbsdk';
 import GameChanger from '../../ios/somehowFixesEverything.gif';
 import Bio from './bio';
 import host from './../../constants.js'
+import Splash from './splash';
 
 export default class SignIn extends Component {
 
     
   handleRedirect() {
     this.props.navigator.push({
-      component: SignIn,
+      component: Splash,
       title: 'Log In',
       passProps: {profile: this.state.profile}
     });
@@ -78,6 +79,7 @@ export default class SignIn extends Component {
                 alert('Login cancelled.');
               } else {
                 alert('Logged in.');
+                console.log(this)
                 this.handleFBProfile()
               }
             }
