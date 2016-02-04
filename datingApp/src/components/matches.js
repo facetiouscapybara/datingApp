@@ -22,7 +22,7 @@ export default class Matches extends Component {
   }
 
   componentWillMount(){
-    console.log(this.props)
+    
     if(this.props.profile.gender === 'male'){
       geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
       navigator.geolocation.watchPosition((loc) => {
@@ -33,6 +33,7 @@ export default class Matches extends Component {
     }
 
     const firebaseUserRef = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
+    
     firebaseUserRef.on('child_added', (req) => {
       let reqObj = req.val()
       let reqKey = req.key()
@@ -40,7 +41,9 @@ export default class Matches extends Component {
       let oldReq = this.state.requestList
       oldReq.push(reqObj)
       this.setState({requestList: oldReq})
+      console.log(this.state)
     }).bind(this)
+
     firebaseUserRef.on('child_removed', (removed) => {
       let remKey = removed.key()
       let removeList = this.state.requestList
@@ -59,7 +62,7 @@ export default class Matches extends Component {
       return (
         <View style={styles.container}>
           <Text>
-            Thats it! Just hang out and when someone wants to message you it will appear on this screen!
+            Thats it! Just hang out and when someone wants to message you, it will appear on this screen!
           </Text>
         </View>
   		)
@@ -77,9 +80,11 @@ export default class Matches extends Component {
 	}
 
   requests = () => {
-    
-    reject = (key) => {
+
+    reject = (key, otherUserId, otherUserKey) => {
       let firebaseUserRefRemove = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + key)
+      let firebaseOtherUserRemove = new Firebase('http://rawdog.firebaseio.com/users/' + otherUserId + '/' + otherUserKey)
+      firebaseOtherUserRemove.remove()
       let removeFromState = this.state.requestList
       for(var i = 0; i < removeFromState.length; i++){
         if( removeFromState[i].key === key ){
@@ -88,9 +93,8 @@ export default class Matches extends Component {
       }
       this.setState({requestList: removeFromState})
       firebaseUserRefRemove.remove()
-    }
-    accept = (roomKey) => {
-      //ROOM KEY, USER NAME, NAVIGATOR
+    };
+    accept = (roomKey, reqKey, otherUserId, otherUserKey) => {
       let acceptProps = {
         first_name: this.state.currentUser.first_name, 
         roomNumber: roomKey, 
@@ -102,11 +106,11 @@ export default class Matches extends Component {
         passProps: acceptProps,
         navigationBarHidden: true
       })
-      console.log(acceptProps)
-    }
+      reject(reqKey)
+    };
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key
-      return <MatchesItem user={user} matchesState={this.state}/>
+      return <MatchesItem user={user} matchesState={this.state} key={user.id}/>
     })
     return <View>{requestUsers}</View>
   };

@@ -29,17 +29,23 @@ export default class Bio extends Component {
     const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
     const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
     firebaseChat.push({name: this.state.currentUser.first_name, text: this.state.text, isFirstMessage: true, image: this.state.currentUser.picture})
-    firechatRequestedUser.push({
+    let ref1 = firechatRequestedUser.push()
+    let ref2 = firechatCurrentUser.push()
+    
+    ref1.set({
       room: firebaseChat.key(), 
       id: this.state.currentUser.id,
       photo: this.state.currentUser.picture,
-      name: this.state.currentUser.first_name })
+      name: this.state.currentUser.first_name,
+      otherUserKey: ref2.key() })
 
-    firechatCurrentUser.push({
+    ref2.set({
       room: firebaseChat.key(), 
       id: this.state.facebookId,
       photo: this.state.picture,
-      name: this.state.first_name })
+      name: this.state.first_name, 
+      otherUserKey: ref1.key()})
+
     this.props.navigator.pop()
   };
 
