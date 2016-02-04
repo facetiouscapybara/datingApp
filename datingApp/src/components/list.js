@@ -11,7 +11,8 @@ export default class List extends Component {
   constructor(props){
   	super(props);
   	this.state = {
-  		currentList: []
+  		currentList: [],
+      isRefreshing: false
   	};
   	that = this
   }
@@ -86,6 +87,18 @@ export default class List extends Component {
       </View>
 		)
 	}
+
+  // refresh() {
+  //   this.setState({isRefreshing: true});
+  //   console.log("what the f");
+  //   setTimeout(() => {
+  //     // prepend 10 items
+  //     this.setState({
+  //       isRefreshing: false
+  //     });
+  //     console.log("inside the refreshing");
+  //   }, 2000);
+  // }
 
 	users () {
     let currentUser = this.props.profile
