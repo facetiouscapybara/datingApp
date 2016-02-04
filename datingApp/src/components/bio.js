@@ -7,7 +7,7 @@ export default class Bio extends Component {
 	  this.state = {
 	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
-	  	age: props.profile.age_range,
+	  	age: props.profile.age,
 	  	first_name: props.profile.first_name,
 	  	gender: props.profile.gender,
 	  	picture: props.profile.picture,
