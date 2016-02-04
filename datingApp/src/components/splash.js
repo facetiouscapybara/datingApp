@@ -12,8 +12,8 @@ import Tab from './tabs';
 export default class Splash extends Component {
   
   handleRedirect(component) {
-    const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
     if ( component === 'tab' ) {
+      const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
       this.props.navigator.push({
         component: Tab,
         passProps: props,
