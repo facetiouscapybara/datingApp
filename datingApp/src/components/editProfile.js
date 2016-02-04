@@ -27,7 +27,6 @@ export default class Matches extends Component {
 
 	componentWillMount (props) {
 		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
-		console.log(urlPath)
 		//need to set authorization header
 		// let accessToken = JSON.stringify(this.props.access_token)
 		let queryObject = {

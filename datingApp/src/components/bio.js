@@ -7,7 +7,7 @@ export default class Bio extends Component {
 	  this.state = {
 	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
-	  	age: props.profile.age_range,
+	  	age: props.profile.age,
 	  	first_name: props.profile.first_name,
 	  	gender: props.profile.gender,
 	  	picture: props.profile.picture,
@@ -22,28 +22,29 @@ export default class Bio extends Component {
 
   buttonSubmit = () => {
     alert('message sent!')
-  	const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/')
+    const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/')
     let ref = firebase.push()
     let room = ref.toString()
     const firebaseChat = new Firebase(room)
-  	const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
-  	const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
+    const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
+    const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
     firebaseChat.push({name: this.state.currentUser.first_name, text: this.state.text, isFirstMessage: true, image: this.state.currentUser.picture})
     firechatRequestedUser.push({
       room: firebaseChat.key(), 
-      userOne: this.state.currentUser.id,
+      id: this.state.currentUser.id,
       photo: this.state.currentUser.picture,
       name: this.state.currentUser.first_name })
 
     firechatCurrentUser.push({
       room: firebaseChat.key(), 
-      userOne: this.state.facebookId,
+      id: this.state.facebookId,
       photo: this.state.picture,
       name: this.state.first_name })
     this.props.navigator.pop()
   };
 
-	render () {
+  render () {
+    console.log(this.state)
 		return (
       <View style={styles.container}>
       	<ScrollView style={styles.bio}>

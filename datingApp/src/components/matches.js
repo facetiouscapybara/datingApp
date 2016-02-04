@@ -1,7 +1,8 @@
 //this will be the screen where both sexes can see who theyve matched with and/or if the other person has accepted or denied the request
-import React, { Component, View, Text, StyleSheet} from 'react-native';
+import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/'
+import MatchesItem from './matchesItem'
 
 const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
 const geoFire = new Geofire(firebaseRef);
@@ -23,23 +24,33 @@ export default class Matches extends Component {
     
     if(this.props.profile.gender === 'male'){
       geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
-        .then(function(key){console.log('guys location set')})
       navigator.geolocation.watchPosition((loc) => {
         geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude])
-        console.log('watching:', loc)
       }, (err) => {
         console.log('error getting location:', err)
       })
     }
 
     const firebaseUserRef = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
-    firebaseUserRef.on('child_added', (key) => {
+    firebaseUserRef.on('child_added', (req) => {
+      let reqObj = req.val()
+      let reqKey = req.key()
+      reqObj['key'] = reqKey
       let oldReq = this.state.requestList
-      oldReq.push(key.val())
-      console.log(key.val())
+      oldReq.push(reqObj)
       this.setState({requestList: oldReq})
     }).bind(this)
-    // firebaseUserRef.on('child_removed')
+    firebaseUserRef.on('child_removed', (removed) => {
+      let remKey = removed.key()
+      let removeList = this.state.requestList
+      for(var i = 0; i < removeList.length; i++){
+        if( removeList[i].key === remKey ){
+          removeList.splice(i, 1)
+        }
+      }
+      this.setState({requestList: removeList})
+    }).bind(this)
+
   }
 
   render () {
@@ -51,8 +62,6 @@ export default class Matches extends Component {
           </Text>
         </View>
   		)
-    } else if( this.props.profile.gender === 'male' ) {
-      return (<View style={styles.container}><Text>Something else here</Text></View>)
     } else if ( this.props.profile.gender === 'female' && this.state.requestList.length === 0){
       return (
         <View style={styles.container}>
@@ -61,14 +70,63 @@ export default class Matches extends Component {
           </Text>
         </View>
       )
+    } else {
+      return (<View style={styles.container}>{this.requests()}</View>)
     }
 	}
+
+  requests = () => {
+    
+    reject = (key) => {
+      let firebaseUserRefRemove = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + key)
+      let removeFromState = this.state.requestList
+      for(var i = 0; i < removeFromState.length; i++){
+        if( removeFromState[i].key === key ){
+          removeFromState.splice(i, 1)
+        }
+      }
+      this.setState({requestList: removeFromState})
+      firebaseUserRefRemove.remove()
+    }
+
+    let requestUsers = this.state.requestList.map((user) => {
+      let key = user.key
+      return <MatchesItem user={user} matchesState={this.state}/>
+    })
+    return <View>{requestUsers}</View>
+  };
+
+  reject = () => {
+    console.log(this.matchesState)
+  };
+
 };
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-	}
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
+	},
+  name: {
+    fontSize: 20
+  },
+  image : {
+    flex: 4,
+    borderRadius: 10,
+    height: 100,
+    width: 100
+  },
+  acceptButton: {
+    borderRadius: 5,
+    height: 20,
+    width: 100,
+    backgroundColor: 'green'
+  },
+  rejectButton: {
+    borderRadius: 5,
+    height: 20,
+    width: 100,
+    backgroundColor: 'red'
+  }
 })

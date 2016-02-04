@@ -4,7 +4,7 @@ import host from './../../constants.js';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import Message from './message';
-import GiftedMessenger from 'react-native-gifted-messenger/';
+import GiftedMessenger from 'react-native-gifted-messenger';
 
 	export default class Chatroom extends Component {
 	  constructor(props){

@@ -4,8 +4,8 @@ import ListItem from './listItem';
 import Swipeout from 'react-native-swipeout/';
 import Separator from '../helpers/separator';
 import Firebase from 'firebase/';
- import Geofire from 'geofire/';
- import host from './../../constants.js'
+import Geofire from 'geofire/';
+import host from './../../constants.js'
 
 export default class List extends Component {
   constructor(props){
