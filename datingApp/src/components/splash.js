@@ -69,7 +69,8 @@ export default class Splash extends Component {
 
 const styles = StyleSheet.create ({
   logo: {
-    fontSize: 75
+    fontSize: 75,
+    color: 'white'
   },
   container: {
     flex: 1,
