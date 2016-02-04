@@ -11,10 +11,14 @@ export default class Bio extends Component {
 	  	first_name: props.profile.first_name,
 	  	gender: props.profile.gender,
 	  	picture: props.profile.picture,
-	  	text: ' Hi! Want to meet up?'
+	  	bio: props.profile.bio,
+	  	distance: props.profile.distance,
+	  	education: props.profile.education,
+	  	industry: props.profile.industry,
+	  	text: ' Hi! Wanna head to the BoneZone?'
 	  };
 	  this.buttonSubmit = this.buttonSubmit.bind(this)
-	  console.log('inbio:',props)
+	  console.log('Sinbio:',props)
 	}
 
   buttonSubmit = () => {
@@ -35,7 +39,11 @@ export default class Bio extends Component {
       <View style={styles.container}>
       	<ScrollView style={styles.bio}>
 	      	<Image style={styles.image} source={{uri: this.state.picture}} />
-	      	<Text style={styles.name}>{this.state.first_name}</Text>
+	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || 24}</Text>
+	      	<Text>{this.state.industry}</Text>
+	      	<Text>{this.state.education}</Text>
+	      	{this.header("Bio: ")}
+	      	<Text>{this.state.bio}</Text>
         </ScrollView>
         <View style={styles.inputView}>
           <TextInput 
@@ -56,6 +64,14 @@ export default class Bio extends Component {
       </View>
 		)
 	}
+
+	header (text) {
+		return (
+			<View style={styles.header}>
+		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
+	  	</View>
+	  )
+	}
 };
 const styles = StyleSheet.create({
 	container: {
@@ -66,6 +82,12 @@ const styles = StyleSheet.create({
 	},
 	bio: {
 		flex: 12
+	},
+	header:{
+
+	},
+	headerText: {
+
 	},
 	buttons: {
 		flex: 1,
