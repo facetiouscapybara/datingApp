@@ -20,11 +20,12 @@ export default class Splash extends Component {
         navigationBarHidden: true
       })
     } else {
-     this.props.navigator.push({
-       component: SignIn,
-       title: 'Log In',
-       navigationBarHidden: true
-     }); 
+      this.props.navigator.push({
+        component: SignIn,
+        title: 'Log In',
+        navigationBarHidden: true,
+        passProps: {navigator: this.props.navigator}
+      }); 
     }
   }  
 
@@ -54,6 +55,7 @@ export default class Splash extends Component {
         this.handleFBProfile();
       } else {
         this.handleRedirect('signin');
+        console.log("no tokennnnnnnnn");
       }
     });
   };

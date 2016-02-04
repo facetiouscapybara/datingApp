@@ -1,7 +1,9 @@
 //edit user Profile
 import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight, PickerIOS} from 'react-native';
 import host from './../../constants.js';
-
+import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
+import SignIn from './signin';
+import Splash from './splash';
 
 let that;
 
@@ -149,8 +151,24 @@ export default class Matches extends Component {
   				</Text>
 	  			{this.button(this.postData, 'white', styles.buttonHighlight, "Save", styles.button)}
   			</View>
+  			<View style={styles.logout}>
+	  			<FBSDKLoginButton
+	  				onLoginFinished={() => {
+	  				  alert("Logged out.");
+	  				}}
+	  			  onLogoutFinished={() => {
+	  			  	console.log("hello world !!!!!!!!!!!!!!!");
+		  			  this.handleLogout();	
+	  			  }}/>
+	  		</View>
       </View>
 		)
+	}
+
+	handleLogout() {
+		this.props.navigator.replace({
+	  	component: Splash
+		});
 	}
 
 	header (text) {
@@ -304,5 +322,9 @@ const styles = StyleSheet.create({
 		color: 'white',
 		fontStyle: 'italic',
 		paddingRight: 10
+	},
+	logout: {
+		alignItems: 'center',
+		marginBottom: 20
 	}
 })

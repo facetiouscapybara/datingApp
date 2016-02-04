@@ -15,21 +15,30 @@ import GameChanger from '../../ios/somehowFixesEverything.gif';
 import Bio from './bio';
 import host from './../../constants.js'
 import Splash from './splash';
+import Tab from './tabs';
 
 export default class SignIn extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      profile : {}
+    };
+  }
+
 
     
   handleRedirect() {
-    this.props.navigator.push({
-      component: Splash,
-      title: 'Log In',
-      passProps: {profile: this.state.profile}
+    this.props.navigator.replace({
+      component: Splash
     });
 
   }
 
   handleFBProfile() {
+    let that = this;
     fbApi.fbProfile((result) => {
+      console.log("inside this one ?????", result);
       let urlPath = host.SERVER_URL + '/api/login';
       let queryObject = {  
         method: 'POST',
@@ -54,13 +63,19 @@ export default class SignIn extends Component {
       fetch(urlPath, queryObject)
         .then(function(res){
           let result = JSON.parse(res._bodyText);
-          this.setState({
-            profile: result
-          });
-          this.handleRedirect();
-        });
+          that.handleSetState(result);
+        }).catch((err) => {
+          console.log("err is here", err);
+        })
     });
 
+  }
+
+  handleSetState(result) {
+    this.setState({
+      profile: result
+    });
+    this.handleRedirect();
   }
 
 
@@ -78,12 +93,13 @@ export default class SignIn extends Component {
                 alert('Login cancelled.');
               } else {
                 alert('Logged in.');
-                console.log(this)
                 this.handleFBProfile()
               }
             }
           }}
-          onLogoutFinished={() => alert('Logged out.')}
+          onLogoutFinished={() => {
+            alert("Logged out.");
+          }}
           readPermissions={['public_profile','user_friends', 'email']}
           publishPermissions={['publish_actions']}/>
       </View>
