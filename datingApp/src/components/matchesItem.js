@@ -2,8 +2,9 @@ import React, {Component, Text, View, Image, TouchableHighlight, StyleSheet} fro
 
 export default class MatchesItem extends Component {
   render() {
+    console.log(this.props)
     return (
-      <View key={this.props.user.id}>
+      <View key={this.props.key}>
         <Image 
           source={{uri: this.props.user.photo}}
           style={styles.image}/>
@@ -13,13 +14,13 @@ export default class MatchesItem extends Component {
           </Text>
         </View>
         <TouchableHighlight
-          onPress={(e) => accept(this.props.user.room)}
+          onPress={(e) => accept(this.props.user.room, this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
           underlayColor={'green'}
           style={styles.acceptButton}>
           <Text style={styles.name}>ACCEPT</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          onPress={(e) => reject(this.props.user.key)}
+          onPress={(e) => reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
           underlayColor={'red'}
           style={styles.rejectButton}>
           <Text style={styles.name}>Reject</Text>
