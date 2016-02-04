@@ -95,25 +95,29 @@ export default class Matches extends Component {
 
 	onBioChange (bio) {
 		that.setState({
-			bio
+			bio: bio,
+			text: ""
 		})
 	}
 
 	onAgeChange (age) {
 		that.setState({
-			age
+			age: age,
+			text: ""
 		})
 	}
 
 	onIndustryChange (industry) {//There is 100% a way to prevent the repetition of these functions, but i've spent 40 minutes working on it, not worth it right now.
 		that.setState({
-			industry
+			industry: industry,
+			text: ""
 		})
 	}
 
 	onEducationChange (education) {
 		that.setState({
-			education
+			education: education,
+			text: ""
 		})
 	}
 
@@ -144,7 +148,7 @@ export default class Matches extends Component {
   				<Text style={styles.saved}>
   					{this.state.text}
   				</Text>
-	  			{this.button()}
+	  			{this.button(this.postData, 'white', styles.buttonHighlight, "Save", styles.button)}
   			</View>
       </View>
 		)
@@ -170,11 +174,11 @@ export default class Matches extends Component {
 		)
 	}
 
-	button () {
+	button (onPress, underlayColor, highlightStyle, buttonText, textStyle) {
 		return (
-			<TouchableHighlight onPress={this.postData} underlayColor={'white'} style={styles.buttonHighlight}>
-				<Text style={styles.button}>
-					Save
+			<TouchableHighlight onPress={onPress} underlayColor={underlayColor} style={highlightStyle}>
+				<Text style={textStyle}>
+					{buttonText}
 				</Text>
 			</TouchableHighlight>)
 	}
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5
 	},
 	infoBox: {
-		flex: 2.2,
+		flex: 1.5,
 	},
 	bigBox:{
 		flex: 1,
@@ -281,22 +285,23 @@ const styles = StyleSheet.create({
 		paddingRight:20,
 		marginRight: 30
 	},
-	button: {
-		borderRadius:10,
-		borderWidth:1,
-		borderColor: 'black',
-		padding: 2
+	button:{
+		fontSize:15,
+		fontFamily: "HelveticaNeue-Medium"
 	},
 	buttonHighlight: {
-		borderRadius: 5,
-		borderWidth: 0
+		borderRadius:10,
+		borderWidth: 1, 
+		borderColor: '#0796D3',
+		padding: 10,
+		backgroundColor: '#A1DDF8'
 	},
 	wordCount: {
 		alignItems: 'flex-end',
 		paddingRight: 50
 	},
 	saved: {
-		padding: 3,
+		padding: 10,
 		color: 'white',
 		fontStyle: 'italic',
 		paddingRight: 10
