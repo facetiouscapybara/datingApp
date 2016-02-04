@@ -27,7 +27,7 @@ export default class ListItem extends Component {
 		)
 	}
 	buttonPress = () => {
-		const props = { profile: this.props.user, navgation: this.props.navigator, currentUserId: this.props.currentUserId}
+		const props = { profile: this.props.user, navgation: this.props.navigator, currentUser: this.props.currentUser}
 		this.props.navigator.push({
 	    component: Bio,
 	    title: this.props.user.first_name + "'s About Me",

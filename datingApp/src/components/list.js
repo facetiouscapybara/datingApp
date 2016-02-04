@@ -89,11 +89,11 @@ export default class List extends Component {
 	}
 
 	users () {
-    let currentUserId = this.props.profile.id
+    let currentUser = this.props.profile
     let nav = this.props.navigator
 		var userList = this.state.currentList.map(function(user){
 			return (
-				<ListItem navigator={nav} user={user} key={user.facebookId} style={styles.listItem} currentUserId={currentUserId}/>
+				<ListItem navigator={nav} user={user} key={user.facebookId} style={styles.listItem} currentUser={currentUser}/>
 				)	
 		})
 		return userList

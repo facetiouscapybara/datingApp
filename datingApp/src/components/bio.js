@@ -5,7 +5,7 @@ export default class Bio extends Component {
 	constructor(props) {
 	  super(props);
 	  this.state = {
-	  	currentUserId: props.currentUserId,
+	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
 	  	age: props.profile.age_range,
 	  	first_name: props.profile.first_name,
@@ -14,17 +14,19 @@ export default class Bio extends Component {
 	  	text: ' Hi! Want to meet up?'
 	  };
 	  this.buttonSubmit = this.buttonSubmit.bind(this)
+	  console.log('inbio:',props)
 	}
 
   buttonSubmit = () => {
-  	const firebaseChat = new Firebase('http://rawdog.firebaseio.com/chatroom/')
-  	const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
-  	const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUserId)
     alert('message sent!')
-    let ref = firebaseChat.push()
-    ref.set({message: this.state.text})
+  	const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/')
+    let ref = firebase.push()
     let room = ref.toString()
-    firechatRequestedUser.push({room: room, userOne: this.state.currentUserId})
+    const firebaseChat = new Firebase(room)
+  	const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
+  	const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
+    firebaseChat.push({name: this.state.currentUser.first_name, text: this.state.text, isFirstMessage: true, image: this.state.currentUser.picture})
+    firechatRequestedUser.push({room: room, userOne: this.state.currentUser.id})
     firechatCurrentUser.push({room: room, userOne: this.state.facebookId})
     this.props.navigator.pop()
   };
@@ -46,7 +48,7 @@ export default class Bio extends Component {
           <TouchableHighlight
             style={styles.button}
             activeOpacity={0.7}
-            underlayColor={'#48BBDC'}
+            underlayColor={'#3ABB3A'}
             onPress={this.buttonSubmit}>
             <Text style={styles.buttonText}>Send Request!</Text>
           </TouchableHighlight>
@@ -73,10 +75,11 @@ const styles = StyleSheet.create({
 	button: {
     width: 200,
     height: 40,
-    borderRadius: 5,
-    backgroundColor: 'white'
+    borderRadius: 20,
+    backgroundColor: 'green'
 	},
 	buttonText: {
+		color: 'white',
 		fontSize: 25,
 		paddingTop: 5,
 		alignSelf: 'center'
