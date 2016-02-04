@@ -3,6 +3,7 @@ import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} fr
 import Firebase from 'firebase/';
 import Geofire from 'geofire/'
 import MatchesItem from './matchesItem'
+import ChatRoom from './chatRoom'
 
 const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
 const geoFire = new Geofire(firebaseRef);
@@ -21,7 +22,7 @@ export default class Matches extends Component {
   }
 
   componentWillMount(){
-    
+    console.log(this.props)
     if(this.props.profile.gender === 'male'){
       geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
       navigator.geolocation.watchPosition((loc) => {
@@ -88,16 +89,26 @@ export default class Matches extends Component {
       this.setState({requestList: removeFromState})
       firebaseUserRefRemove.remove()
     }
+    accept = (roomKey) => {
+      //ROOM KEY, USER NAME, NAVIGATOR
+      let acceptProps = {
+        first_name: this.state.currentUser.first_name, 
+        roomNumber: roomKey, 
+        navigator: this.props.navigator
+      }
 
+      this.props.navigator.push({
+        component: ChatRoom,
+        passProps: acceptProps,
+        navigationBarHidden: true
+      })
+      console.log(acceptProps)
+    }
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key
       return <MatchesItem user={user} matchesState={this.state}/>
     })
     return <View>{requestUsers}</View>
-  };
-
-  reject = () => {
-    console.log(this.matchesState)
   };
 
 };

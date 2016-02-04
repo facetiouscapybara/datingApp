@@ -87,6 +87,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	 		name: 'TOLO'
 	 	}
 	 	chatroom.push(message)
+	 	that.props.navigator.pop()
 	 // this needs the props to work
 	 // 
 	 //	this.props.navigator.pop();

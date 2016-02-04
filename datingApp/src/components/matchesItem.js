@@ -13,7 +13,7 @@ export default class MatchesItem extends Component {
           </Text>
         </View>
         <TouchableHighlight
-          onPress={this.accept}
+          onPress={(e) => accept(this.props.user.room)}
           underlayColor={'green'}
           style={styles.acceptButton}>
           <Text style={styles.name}>ACCEPT</Text>
