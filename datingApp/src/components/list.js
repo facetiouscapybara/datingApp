@@ -88,18 +88,6 @@ export default class List extends Component {
 		)
 	}
 
-  // refresh() {
-  //   this.setState({isRefreshing: true});
-  //   console.log("what the f");
-  //   setTimeout(() => {
-  //     // prepend 10 items
-  //     this.setState({
-  //       isRefreshing: false
-  //     });
-  //     console.log("inside the refreshing");
-  //   }, 2000);
-  // }
-
 	users () {
     let currentUser = this.props.profile
     let nav = this.props.navigator
