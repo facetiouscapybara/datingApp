@@ -15,7 +15,6 @@ let fb = {
 		        .then(function (res) {
 		        	let userInfo = JSON.parse(res._bodyText);
 		        	userInfo.access_token = token.tokenString;
-		        	//userInfo.picture = userInfo.picture.data.url;
 		        	var pictureUrl = "https://graph.facebook.com/" + result.id + "/picture?type=large&redirect=false&access_token=" + token.tokenString;
 		        	fetch(pictureUrl)
 		        		.then(function (response) {

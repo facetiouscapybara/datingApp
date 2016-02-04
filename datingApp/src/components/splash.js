@@ -12,19 +12,20 @@ import Tab from './tabs';
 export default class Splash extends Component {
   
   handleRedirect(component) {
-    const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
     if ( component === 'tab' ) {
+      const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
       this.props.navigator.push({
         component: Tab,
         passProps: props,
         navigationBarHidden: true
       })
     } else {
-     this.props.navigator.push({
-       component: SignIn,
-       title: 'Log In',
-       navigationBarHidden: true
-     }); 
+      this.props.navigator.push({
+        component: SignIn,
+        title: 'Log In',
+        navigationBarHidden: true,
+        passProps: {navigator: this.props.navigator}
+      }); 
     }
   }  
 
@@ -54,6 +55,7 @@ export default class Splash extends Component {
         this.handleFBProfile();
       } else {
         this.handleRedirect('signin');
+        console.log("no tokennnnnnnnn");
       }
     });
   };
@@ -69,7 +71,8 @@ export default class Splash extends Component {
 
 const styles = StyleSheet.create ({
   logo: {
-    fontSize: 75
+    fontSize: 75,
+    color: 'white'
   },
   container: {
     flex: 1,

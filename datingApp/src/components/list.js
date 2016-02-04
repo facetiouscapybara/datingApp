@@ -11,7 +11,8 @@ export default class List extends Component {
   constructor(props){
   	super(props);
   	this.state = {
-  		currentList: []
+  		currentList: [],
+      isRefreshing: false
   	};
   	that = this
   }
@@ -99,6 +100,35 @@ export default class List extends Component {
 					style={styles.listItem} 
 					currentUser={currentUser}/>
 				)	
+		// let swipeBtns = [
+		//   {
+		//     text: 'Delete',
+		//     backgroundColor: 'red',
+		//     underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+		//     onPress: () => { this.deleteNote() }
+		//  },
+		//   {
+		//     text: 'Duplicate',
+		//     backgroundColor: 'blue',
+		//     underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+		//     onPress: () => { this.duplicateNote() }
+		//  }
+		// ];
+				// <Swipeout right={swipeBtns}
+				//   autoClose='true'
+				//   backgroundColor= 'transparent'>
+				// </Swipeout>
+		// var userList = this.state.currentList.map(function(user){
+		// 	return (
+		// 		  <TouchableHighlight
+		// 		    underlayColor='rgba(192,192,192,1,0.6)'>
+		// 		    <View>
+		// 		      <View>
+		// 						<ListItem user={user} key={user.facebookId} style={styles.listItem}/>
+		// 		      </View>
+		// 		    </View>
+		// 		  </TouchableHighlight>
+		// 	)
 		})
 		return userList
 	}

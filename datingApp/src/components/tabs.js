@@ -14,7 +14,7 @@ export default class Tab extends Component {
       return (
           <ScrollableTabView style={styles.container}>
             <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
-            <EditProfile tabLabel="Settings" profile={this.props.profile}/>
+            <EditProfile tabLabel="Settings" profile={this.props.profile} navigator={this.props.navigator}/>
           </ScrollableTabView>
       )
     } else {
@@ -22,7 +22,7 @@ export default class Tab extends Component {
           <ScrollableTabView style={styles.container}>
             <List tabLabel="List" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
             <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
-            <EditProfile tabLabel="Settings" profile={this.props.profile}/>
+            <EditProfile tabLabel="Settings" profile={this.props.profile} navigator={this.props.navigator}/>
           </ScrollableTabView>
       )
     }
