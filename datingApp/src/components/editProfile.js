@@ -29,7 +29,7 @@ export default class Matches extends Component {
 		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
 		console.log(urlPath)
 		//need to set authorization header
-		let accessToken = JSON.stringify(this.props.access_token)
+		// let accessToken = JSON.stringify(this.props.access_token)
 		let queryObject = {
 			method: "GET",
 			headers: {
@@ -38,7 +38,7 @@ export default class Matches extends Component {
 				'Authorization': 'Bearer ' +  this.props.profile.access_token
 			}
 		};
-		fetch(urlPath, queryObject)
+		fetch(urlPath, queryObject)//trim newline characters out
 			.then(function(res){
 				result = JSON.parse(res._bodyText)
 				that.setState({
@@ -57,9 +57,6 @@ export default class Matches extends Component {
 			})
 			.catch(function(error){
 				console.log(err, "error")
-			})
-			.then(function(res){
-				console.log(res);
 			})
 	}
 
@@ -97,28 +94,24 @@ export default class Matches extends Component {
 	}
 
 	onBioChange (bio) {
-		console.log(bio)
 		that.setState({
 			bio
 		})
 	}
 
 	onAgeChange (age) {
-		console.log(age)
 		that.setState({
 			age
 		})
 	}
 
 	onIndustryChange (industry) {//There is 100% a way to prevent the repetition of these functions, but i've spent 40 minutes working on it, not worth it right now.
-		console.log(industry)
 		that.setState({
 			industry
 		})
 	}
 
 	onEducationChange (education) {
-		console.log(education)
 		that.setState({
 			education
 		})
@@ -179,7 +172,7 @@ export default class Matches extends Component {
 
 	button () {
 		return (
-			<TouchableHighlight onPress={this.postData} activeOpacity={0}>
+			<TouchableHighlight onPress={this.postData} underlayColor={'white'} style={styles.buttonHighlight}>
 				<Text style={styles.button}>
 					Save
 				</Text>
@@ -294,6 +287,10 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		padding: 2
 	},
+	buttonHighlight: {
+		borderRadius: 5,
+		borderWidth: 0
+	},
 	wordCount: {
 		alignItems: 'flex-end',
 		paddingRight: 50
@@ -303,9 +300,5 @@ const styles = StyleSheet.create({
 		color: 'white',
 		fontStyle: 'italic',
 		paddingRight: 10
-	},
-	highlight: {
-		borderRadius:10,
-		borderWidth:1,
 	}
 })
