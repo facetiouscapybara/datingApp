@@ -1,11 +1,10 @@
 //as the name implies the screen that hold the messages between the two, this will reference the firebase chat room
-import React, { Component, View, Text, StyleSheet, TextInput, ScrollView, TouchableHighlight, Dimensions} from 'react-native';
+import React, { Component, AlertIOS, View, Text, StyleSheet, TextInput, ScrollView, TouchableHighlight, Dimensions} from 'react-native';
 import host from './../../constants.js';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import Message from './message';
-import GiftedMessenger from 'react-native-gifted-messenger';
-import Button from 'react-native-button/';
+import GiftedMessenger from 'react-native-gifted-messenger/';
 
 	export default class Chatroom extends Component {
 	  constructor(props){
@@ -23,7 +22,9 @@ import Button from 'react-native-button/';
 	  	chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + roomNumber);
 	  	chatroom.on('child_added', function(child) {
 	  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
-	  			that.handleReceive(child.val());
+	  			let message = child.val();
+	  			message.position = message.isFirstMessage ? "right" : "left";
+	  			that.handleReceive(message);
 	  		}
 	  	});
 	  };
@@ -31,8 +32,7 @@ import Button from 'react-native-button/';
 	    return (
 	    	<View>
 	    		<View style = {styles.buttonBox}>
-	    			{this.button(null, 'Share Location', 'sendLocation')}
-	    			{this.button(this.block, 'Block User', 'blockUser')}
+	    			{this.button(this.leavingAlert, 'Leave Chat', 'leaveChat')}
 	    		</View>
 	      <GiftedMessenger
 	        ref={(c) => this._GiftedMessenger = c}
@@ -56,13 +56,10 @@ import Button from 'react-native-button/';
 	    );
 	  }
 	handleSend(message = {}, rowID = null) {
-			// message.name = that.state.firstName;
-			// message.image = that.state.url || {uri: 'https://facebook.github.io/react/img/logo_og.png'};
-	  //   chatroom.push(message)
+			message.name = that.state.firstName;
+			message.image = that.state.url || {uri: 'https://facebook.github.io/react/img/logo_og.png'};
+	    chatroom.push(message)
 	  }
-	 changeState(rowData, rowId) {
-	 	console.log(rowData)
-	 }
 	  handleReceive(message) {
 	    this._GiftedMessenger.appendMessage({
 	      text: message.text, 
@@ -76,30 +73,28 @@ import Button from 'react-native-button/';
 
 	 }
 
-	block () {
-		let urlPath = host.SERVER_URL + '/api/relationship/' + this.props.profile.id;
-		let accessToken = JSON.stringify(this.props.access_token);
-		let queryObject = {
-			method: "POST",
-			headers: {
-				'Accept': 'application/json',
-	      'Content-Type': 'application/json',
-				'Authorization': 'Bearer ' + this.props.accessToken
-			},
-			body : {
-				userId : this.props.userId,
-				targetId : this.props.targetId
-			}
-		};
-		fetch(urlPath, queryObject)
-			.then(function(res){
-				result = JSON.parse(res._bodyText);
-				console.log(result);
-			});
-		}
+	 leavingAlert () {
+	 	AlertIOS.alert(
+	 		"You can't come back.",
+	 	  'Are you sure you want to leave?',
+	 	  [{text: 'Leave', onPress: that.leaveChat}, {text: 'Stay'}],
+	 	  null
+	 	)
+	 }
+	 leaveChat () {
+	 	var message = {
+	 		text: that.state.firstName + " has left the chat.",
+	 		name: 'TOLO'
+	 	}
+	 	chatroom.push(message)
+	 // this needs the props to work
+	 // 
+	 //	this.props.navigator.pop();
+
+	 }
 	button (callback, text, style) {
 		return (
-			<TouchableHighlight style = {styles[style]} underlayColor='gray' onPress={callback}>
+			<TouchableHighlight style = {styles[style]} underlayColor='#ffeeee' onPress={callback}>
 				<Text style = {styles.buttonFont}>
 					{text}
 				</Text>
@@ -112,9 +107,8 @@ const styles = StyleSheet.create({
 		marginTop: 40,
 		flexDirection: 'row',
 		flex:2,
-		justifyContent: 'center'
 	},
-	sendLocation: {
+	leaveChat: {
 		width: 160,
 		paddingLeft: 10,
 		paddingRight: 10,
@@ -124,29 +118,13 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		marginLeft: 10,
 		marginRight: 10,
-		borderWidth:0,
-		borderColor: '#007aff',
-		backgroundColor: '#3abb3a'
+		borderWidth:1,
+		borderColor: '#ff7777',
+		backgroundColor: '#fff'
 		
 	},
-	blockUser: {
-		width: 160,
-		paddingLeft: 10,
-		paddingRight: 10,
-		paddingTop: 7,
-		paddingBottom: 7,
-		borderRadius: 15,
-		alignSelf: 'center',
-		marginLeft: 10,
-		marginRight: 10,
-		borderWidth:0,
-		borderColor: '#007aff',
-		backgroundColor: '#bb3a3a'
-		
-	},
-
 	buttonFont: {
-		color : 'white',
+		color : '#ff7777',
 		fontSize : 17,
 		textAlign: 'center'
 	},
