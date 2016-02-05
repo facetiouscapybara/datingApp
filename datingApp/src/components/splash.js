@@ -1,4 +1,4 @@
-import React, { Component, View, Text, StyleSheet } from 'react-native'
+import React, { Component, View, Text, StyleSheet, Image } from 'react-native'
 import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
 import Bio from './bio';
 import List from './list';
@@ -7,7 +7,7 @@ import fbApi from '../helpers/fbsdk';
 import Matches from './matches';
 import EditProfile from './editProfile';
 import Tab from './tabs';
-
+import logo from '../styles/LogoPerch2.png';
 
 export default class Splash extends Component {
   
@@ -57,7 +57,7 @@ export default class Splash extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>TOLO</Text>
+        <Image style={styles.logo} source={logo} />
       </View>
     )
   }
@@ -65,12 +65,11 @@ export default class Splash extends Component {
 
 const styles = StyleSheet.create ({
   logo: {
-    fontSize: 75,
-    color: 'white'
+    
   },
   container: {
     flex: 1,
-    backgroundColor: '#48BBEC',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center'
   }

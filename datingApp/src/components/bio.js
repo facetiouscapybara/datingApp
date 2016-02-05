@@ -52,7 +52,7 @@ export default class Bio extends Component {
   render () {
     console.log(this.state)
 		return (
-      <View style={styles.container}>
+      <View style={styles.container} onMagicTap={this.buttonSubmit}>
       	<ScrollView style={styles.bioBox}>
 	      	<Image style={styles.image} source={{uri: this.state.picture}} />
 	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
