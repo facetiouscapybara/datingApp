@@ -12,7 +12,8 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 
 	  	this.state = {
 	  		bio : "",
-	  		firstName : this.props.first_name || 'Julianne'
+	  		firstName : this.props.first_name || 'Julianne',
+	  		url: this.props.picture
 	  	};
 	  }
 	  componentWillMount(){
@@ -55,7 +56,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	      </View>
 	    );
 	  }
-	handleSend(message = {}, rowID = null) {
+	  handleSend(message = {}, rowID = null) {
 			message.name = that.state.firstName;
 			message.image = that.state.url || {uri: 'https://facebook.github.io/react/img/logo_og.png'};
 	    chatroom.push(message)
