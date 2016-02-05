@@ -7,6 +7,8 @@ import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import host from './../../constants.js'
 
+let that;
+
 export default class List extends Component {
   constructor(props){
   	super(props);
