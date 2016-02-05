@@ -65,7 +65,8 @@ export default class Tab extends Component {
   }
 
   render() {
-    if (this.props.profile.gender==="female") {
+    this.props.profile.gender = 'female'
+    if (this.props.profile.gender==="male") {
       return (
         <TabBarIOS
         tintColor="white"

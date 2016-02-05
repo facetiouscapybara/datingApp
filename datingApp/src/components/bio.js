@@ -50,7 +50,6 @@ export default class Bio extends Component {
   };
 
   render () {
-    console.log(this.state)
 		return (
       <View style={styles.container} onMagicTap={this.buttonSubmit}>
       	<ScrollView style={styles.bioBox}>
@@ -129,9 +128,9 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	image: {
-		height: 125,
-		width: 125,
-		borderRadius: 65,
+		height: 140,
+		width: 140,
+		borderRadius: 70,
 		alignSelf: 'center'
 	},
 	name: {

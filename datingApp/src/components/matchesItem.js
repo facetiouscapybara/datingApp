@@ -33,8 +33,7 @@ export default class MatchesItem extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    justifyContent: 'space-between'
   },
   name: {
     fontSize: 20
@@ -42,8 +41,8 @@ const styles = StyleSheet.create({
   image : {
     flex: 4,
     borderRadius: 10,
-    height: 100,
-    width: 100
+    height: 200,
+    width: 200
   },
   acceptButton: {
     borderRadius: 5,

@@ -36,7 +36,9 @@ export default class ListItem extends Component {
 	    component: Bio,
 	    title: this.props.user.first_name + "'s About Me",
 	    passProps: props,
-	    navigationBarHidden: false
+	    barTintColor: 'rgba(72,187,236,0)',
+	    translucent: true,
+	    tintColor: 'rgb(0,0,0)'
     }); 
 	};
 };

@@ -12,21 +12,24 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 
 	  	this.state = {
 	  		bio : "",
-	  		firstName : this.props.first_name || 'Julianne'
+	  		firstName : this.props.first_name || 'Julianne',
+	  		url: this.props.picture
 	  	};
 	  }
+
+	  addMessage = (child) => {
+  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
+  			let message = child.val();
+  			message.position = message.isFirstMessage ? "right" : "left";
+  			that.handleReceive(message);
+  		}
+	  }; 
 	  componentWillMount(){
 
 	  	let roomNumber = this.props.roomNumber || '-K9ZSVb3HQucsVrBJ9Kj';
 	  	that = this;
 	  	chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + roomNumber);
-	  	chatroom.on('child_added', function(child) {
-	  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
-	  			let message = child.val();
-	  			message.position = message.isFirstMessage ? "right" : "left";
-	  			that.handleReceive(message);
-	  		}
-	  	});
+	  	chatroom.on('child_added', this.addMessage)
 	  };
 	  render() {
 	    return (
@@ -55,7 +58,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	      </View>
 	    );
 	  }
-	handleSend(message = {}, rowID = null) {
+	  handleSend(message = {}, rowID = null) {
 			message.name = that.state.firstName;
 			message.image = that.state.url || {uri: 'https://facebook.github.io/react/img/logo_og.png'};
 	    chatroom.push(message)
@@ -87,6 +90,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	 		name: 'TOLO'
 	 	}
 	 	chatroom.push(message)
+	 	chatroom.off('child_added', this.addMessage)
 	 	that.props.navigator.pop()
 	 // this needs the props to work
 	 // 

@@ -24,7 +24,6 @@ export default class Matches extends Component {
   componentWillMount(){
 
     if(this.props.profile.gender === 'male'){
-      geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
       navigator.geolocation.watchPosition((loc) => {
         geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude])
       }, (err) => {
