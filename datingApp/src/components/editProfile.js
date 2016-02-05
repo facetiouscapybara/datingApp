@@ -211,8 +211,9 @@ export default class Matches extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 65,
-		flex:1
+		paddingTop: 65,
+		flex:1,
+    backgroundColor: '#48BBEC'
 	},
 	imageBox: {
 		flex:1.5,
@@ -325,6 +326,6 @@ const styles = StyleSheet.create({
 	},
 	logout: {
 		alignItems: 'center',
-		marginBottom: 20
+		paddingBottom: 80
 	}
 })
