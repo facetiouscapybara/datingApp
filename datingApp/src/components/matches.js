@@ -121,7 +121,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingTop: 40,
+    backgroundColor: '#48BBEC'
 	},
   name: {
     fontSize: 20
