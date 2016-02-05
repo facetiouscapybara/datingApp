@@ -9,13 +9,49 @@ import EditProfile from './editProfile';
 
 
 export default class Tab extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      selectedTab: 'Match'
+    }
+  }
+
   render() {
     if (this.props.profile.gender==="female") {
+      // return (
+      //     <ScrollableTabView style={styles.container}>
+      //       <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+      //       <EditProfile tabLabel="Settings" profile={this.props.profile} navigator={this.props.navigator}/>
+      //     </ScrollableTabView>
+      // )
       return (
-          <ScrollableTabView style={styles.container}>
+        <TabBarIOS
+        tintColor="white"
+        barTintColor="darkslateblue">
+          <TabBarIOS.Item
+            title="Match"
+            systemIcon="contacts"
+            selected={this.state.selectedTab === 'Match'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'Match'
+              });
+            }}>
             <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+          </TabBarIOS.Item>
+          <TabBarIOS.Item
+            title="Settings"
+            systemIcon="more"
+            selected={this.state.selectedTab === 'Settings'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'Settings'
+              });
+            }}>
             <EditProfile tabLabel="Settings" profile={this.props.profile} navigator={this.props.navigator}/>
-          </ScrollableTabView>
+          </TabBarIOS.Item>
+
+
       )
     } else {
       return (
