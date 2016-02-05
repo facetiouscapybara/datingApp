@@ -16,18 +16,20 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	  		url: this.props.picture
 	  	};
 	  }
+
+	  addMessage = (child) => {
+  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
+  			let message = child.val();
+  			message.position = message.isFirstMessage ? "right" : "left";
+  			that.handleReceive(message);
+  		}
+	  }; 
 	  componentWillMount(){
 
 	  	let roomNumber = this.props.roomNumber || '-K9ZSVb3HQucsVrBJ9Kj';
 	  	that = this;
 	  	chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + roomNumber);
-	  	chatroom.on('child_added', function(child) {
-	  		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
-	  			let message = child.val();
-	  			message.position = message.isFirstMessage ? "right" : "left";
-	  			that.handleReceive(message);
-	  		}
-	  	});
+	  	chatroom.on('child_added', this.addMessage)
 	  };
 	  render() {
 	    return (
@@ -88,6 +90,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	 		name: 'TOLO'
 	 	}
 	 	chatroom.push(message)
+	 	chatroom.off('child_added', this.addMessage)
 	 	that.props.navigator.pop()
 	 // this needs the props to work
 	 // 

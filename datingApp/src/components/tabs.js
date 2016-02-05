@@ -65,6 +65,7 @@ export default class Tab extends Component {
   }
 
   render() {
+    this.props.profile.gender = 'female'
     if (this.props.profile.gender==="male") {
       return (
         <TabBarIOS
