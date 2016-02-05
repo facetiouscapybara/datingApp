@@ -39,13 +39,7 @@ export default class Splash extends Component {
   }
 
   componentWillMount = () => {
-    navigator.geolocation.getCurrentPosition((loc, err) => {
-      if(!err){
-        this.setState({longitude: loc.coords.longitude, latitude: loc.coords.latitude})
-      } else {
-        console.log(err);
-      }
-    }); 
+        this.setState({longitude: -122.4092637, latitude: 37.783772899999995}) 
   };
 
 

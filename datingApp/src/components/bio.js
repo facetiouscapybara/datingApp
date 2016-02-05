@@ -15,7 +15,7 @@ export default class Bio extends Component {
 	  	distance: props.profile.distance,
 	  	education: props.profile.education,
 	  	industry: props.profile.industry,
-	  	text: ' Hi! Wanna head to the BoneZone?'
+	  	text: ' Hi! Wanna grab a coffee?'
 	  };
 	  this.buttonSubmit = this.buttonSubmit.bind(this)
 	}
