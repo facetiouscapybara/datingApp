@@ -55,25 +55,32 @@ export default class List extends Component {
   };
 
   componentWillMount(){
-    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
-    const geoFire = new Geofire(firebaseRef);
-    const geoQuery = geoFire.query({
-      center: [this.props.locationLat, this.props.locationLon],
-      radius: 1.0 //kilometers
-    });
+  	 navigator.geolocation.getCurrentPosition((loc, err) => {
+      if(!err){
+		    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
+		    const geoFire = new Geofire(firebaseRef);
+		    const geoQuery = geoFire.query({
+		      center: [loc.coords.latitude, loc.coords.longitude],
+		      radius: 1.0 //kilometers
+		    })
+		      
+		    navigator.geolocation.watchPosition((loc) => {
+		    	geoQuery.updateCriteria({
+		    		center: [loc.coords.latitude, loc.coords.longitude]
+		    	})
+		    }, (err) => {console.log('error:', err)})
+		    
+		    geoQuery.on("key_entered", function(key, location, distance) {
+			  	that.getUserData(key, distance)
+		    })
+		    geoQuery.on("key_exited", function(key, location, distance) {
+		      that.removeUser(key)
+		    });
+      } else {
+        console.log(err);
+      }
+    }); 
 
-    navigator.geolocation.watchPosition((loc) => {
-    	geoQuery.updateCriteria({
-    		center: [loc.coords.latitude, loc.coords.longitude]
-    	})
-    }, (err) => {console.log('error:', err)})
-    
-    geoQuery.on("key_entered", function(key, location, distance) {
-	  	that.getUserData(key, distance)
-    })
-    geoQuery.on("key_exited", function(key, location, distance) {
-      that.removeUser(key)
-    })
   }
 
 	render () {

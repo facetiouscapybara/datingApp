@@ -4,7 +4,7 @@ import Firebase from 'firebase/';
 import Geofire from 'geofire/'
 import MatchesItem from './matchesItem'
 import ChatRoom from './chatRoom'
-
+var BackgroundGeolocation = require('react-native-background-geolocation');
 const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
 const geoFire = new Geofire(firebaseRef);
 
@@ -22,7 +22,7 @@ export default class Matches extends Component {
   }
 
   componentWillMount(){
-    
+
     if(this.props.profile.gender === 'male'){
       geoFire.set(this.props.profile.id, [this.props.locationLat, this.props.locationLon])
       navigator.geolocation.watchPosition((loc) => {
