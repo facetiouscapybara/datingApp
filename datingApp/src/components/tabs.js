@@ -78,7 +78,8 @@ export default class Tab extends Component {
             onPress={() => {
               this.setState({
                 selectedTab: 'List',
-                isHereYet: true
+                isHereYet: true,
+                notifCount: 0
               });
             }}>
             <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
@@ -120,7 +121,8 @@ export default class Tab extends Component {
             onPress={() => {
               this.setState({
                 selectedTab: 'Match',
-                isHereYet: true
+                isHereYet: true,
+                notifCount: 0
               });
             }}>
             <Match tabLabel="Matches" locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
