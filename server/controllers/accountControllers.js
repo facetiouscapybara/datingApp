@@ -69,7 +69,6 @@ updateUser = function (req, res) {
 		return memo;
 	}, 'MATCH (user:Person {facebookId : {facebookId}}) SET');
 	db.cypherQuery(queryString, params, function (err, response) {
-		console.log(err)
 		if(typeof res === 'function'){
 			res(response.results[0].data[0]);
 		} else {

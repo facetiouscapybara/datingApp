@@ -104,12 +104,16 @@ module.exports.getUserInArea = function (req, res) {
 //  };
 //  
 module.exports.getConnections = function (req, res) {
-  var params = req.body;
-  var queryString = 'MATCH (user:Person {facebookId : {userId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
+  var params = {
+    facebookId : req.query.id,
+    relationship : req.query.relationship
+  };
+  var queryString = 'MATCH (user:Person {facebookId : {facebookId} }), (target:Person) WHERE user-[:' + params.relationship + ']-target return target';
   db.cypherQuery(queryString, params, function (err, response) {
     if(err){
       res.status(404).json(err);
     } else {
+      console.log(response)
       res.status(200).json(response.results[0].data);
     }
   });

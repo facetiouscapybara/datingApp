@@ -4,7 +4,6 @@ import Firebase from 'firebase/';
 import Geofire from 'geofire/'
 import MatchesItem from './matchesItem'
 import ChatRoom from './chatRoom'
-var BackgroundGeolocation = require('react-native-background-geolocation');
 const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
 const geoFire = new Geofire(firebaseRef);
 

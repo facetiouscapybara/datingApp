@@ -61,7 +61,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	  handleSend(message = {}, rowID = null) {
 	  	console.log(that.props)
 			message.name = that.state.firstName;
-			message.image = {uri: that.state.url} || 'https://facebook.github.io/react/img/logo_og.png';
+			message.image = {uri :that.state.url};
 	    chatroom.push(message)
 	  }
 

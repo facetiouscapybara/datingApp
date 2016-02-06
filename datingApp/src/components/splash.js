@@ -38,8 +38,6 @@ export default class Splash extends Component {
     });
   }
 
-
-
   componentDidMount = () => {
     fbApi.fbToken((token) => {
       if (token) {
