@@ -139,9 +139,10 @@ export default class Matches extends Component {
 	  			  {this.header("Age:")}
 	  			  {this.textInput(styles.smallestBox, that.onAgeChange, that.state.age, 2, false)}
 	  			</View>
-	  			<View style={styles.inputsBox}>
-	  			  {this.header("Bio:")}
-		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 255, true)}
+	  			<View>
+	  			  {this.header("Pick up line:")}
+	  			  <Text></Text>
+		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 50, false)}
 		  		</View>
 	  		</View>
   			{this.wordCount()}
@@ -186,7 +187,8 @@ export default class Matches extends Component {
     			onChangeText={onChangeText}
     			value={value}
     			maxLength={maxLength}
-    			multiline={multiline}/>
+    			multiline={multiline}
+    	/>
 		)
 	}
 
@@ -202,7 +204,7 @@ export default class Matches extends Component {
 	wordCount () {
 		return (
 			<View style={styles.wordCount}>
-				<Text>{255 - this.state.bio.length} characters remaining</Text>
+				<Text>{50 - this.state.bio.length} characters remaining</Text>
 			</View>
 		)
 	}
@@ -231,8 +233,9 @@ const styles = StyleSheet.create({
 	},
 	bigBox:{
 		flex: 1,
+		marginLeft: 30,
 		paddingLeft: 5,
-		height: 100, 
+		height: 25, 
 		borderColor: 'gray',
 		borderWidth: 2,
 		marginRight: 50,
@@ -288,7 +291,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	header: {
-		marginBottom: 5,
+		marginTop: 5,
 		marginLeft: 2,
 	},
 	headerText: {
