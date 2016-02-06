@@ -133,6 +133,7 @@ export default class Matches extends Component {
       let key = user.key
       return <MatchesItem user={user} key={user.id}/>
     })
+    
     return <View>{requestUsers}</View>
   };
 
