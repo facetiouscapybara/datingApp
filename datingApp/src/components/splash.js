@@ -38,11 +38,6 @@ export default class Splash extends Component {
     });
   }
 
-  componentWillMount = () => {
-        this.setState({longitude: -122.4092637, latitude: 37.783772899999995}) 
-  };
-
-
   componentDidMount = () => {
     fbApi.fbToken((token) => {
       if (token) {
