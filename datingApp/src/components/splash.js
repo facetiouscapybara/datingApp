@@ -1,11 +1,12 @@
-import React, { Component, View, Text, StyleSheet, Image } from 'react-native'
-import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
-import Bio from './bio';
-import List from './list';
-import SignIn from './signin';
+import React, { 
+  Component,
+  View,
+  Text, 
+  StyleSheet, 
+  Image
+} from 'react-native';
 import fbApi from '../helpers/fbsdk';
-import Matches from './matches';
-import EditProfile from './editProfile';
+import SignIn from './signin';
 import Tab from './tabs';
 import logo from '../styles/LogoPerch2.png';
 
@@ -38,29 +39,29 @@ export default class Splash extends Component {
     });
   }
 
-
-
-  componentDidMount = () => {
+  componentDidMount() {
     fbApi.fbToken((token) => {
       if (token) {
         this.handleFBProfile();
       } else {
         this.handleRedirect('signin');
-        console.log("no tokennnnnnnnn");
       }
+
     });
   };
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={logo} />
       </View>
     )
   }
-}
+
+};
 
 const styles = StyleSheet.create ({
+  
   logo: {
     
   },
@@ -70,7 +71,8 @@ const styles = StyleSheet.create ({
     justifyContent: 'center',
     alignItems: 'center'
   }
-})
+
+});
 
 
 
