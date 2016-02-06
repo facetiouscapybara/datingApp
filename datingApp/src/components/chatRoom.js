@@ -3,6 +3,7 @@ import React, { Component, AlertIOS, View, Text, StyleSheet, TextInput, ScrollVi
 import host from './../../constants.js';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
+import Match from './matches';
 
 import GiftedMessenger from 'react-native-gifted-messenger';
 
@@ -84,6 +85,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		}
 
 		leaveChat () {
+
 		 	var message = {
 		 		text: that.state.firstName + " has left the chat.",
 		 		name: 'TOLO',
@@ -91,8 +93,16 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		 		image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}
 		 	}
 		 	chatroom.push(message)
-		 	chatroom.off('child_added', this.addMessage)
-		 	that.props.navigator.pop()
+		 	chatroom.off('child_added', this.addMessage);
+
+		 	// that.props.navigator.replacePreviousAndPop({
+		 	// 	component: Match,
+		 	// 	passProps: {
+
+		 	// 	},
+		 	// 	navigationBarHidden: true
+		 	// });
+			that.props.navigator.pop();
 		}
 
 		button (callback, text, style) {
