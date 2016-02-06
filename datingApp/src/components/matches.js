@@ -114,7 +114,7 @@ export default class Matches extends Component {
     };
     accept = (roomKey, reqKey, otherUserId, otherUserKey) => {
       let acceptFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + otherUserId + '/' + otherUserKey)
-      acceptFirebase.update({accept: true})
+      acceptFirebase.update({accepted: true})
       let acceptProps = {
         first_name: this.state.currentUser.first_name, 
         roomNumber: roomKey, 
@@ -133,6 +133,7 @@ export default class Matches extends Component {
       let key = user.key
       return <MatchesItem user={user} key={user.id}/>
     })
+    
     return <View>{requestUsers}</View>
   };
 
