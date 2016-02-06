@@ -2,7 +2,6 @@ import React, {Component, Text, View, Image, TouchableHighlight, StyleSheet} fro
 
 export default class MatchesItem extends Component {
   render() {
-    console.log(this.props)
     return (
       <View key={this.props.key}>
         <Image 
