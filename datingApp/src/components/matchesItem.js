@@ -55,7 +55,12 @@ export default class MatchesItem extends Component {
             <Text style={styles.name}>
               {this.props.user.name}, {this.props.user.age}
             </Text>
-            {femaleComponent}
+            <TouchableHighlight
+              onPress={(e) => this.props.reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
+              underlayColor={'red'}
+              style={styles.rejectButton}>
+              <Text style={styles.name}>Reject</Text>
+            </TouchableHighlight>
           </View>
         </View>
       );

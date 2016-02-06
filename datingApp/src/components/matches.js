@@ -39,6 +39,7 @@ export default class Matches extends Component {
       console.log("inside the match Marlon is current user", req.val());
       let reqObj = req.val()
       let reqKey = req.key()
+      console.log("Marlon is current User, what is this key from added request", reqKey);
       reqObj['key'] = reqKey
       let oldReq = this.state.requestList
       oldReq.push(reqObj)
@@ -60,6 +61,22 @@ export default class Matches extends Component {
           navigator: this.props.navigator,
           picture: this.state.currentUser.picture
         }
+
+        let removeFromState = this.state.requestList
+        console.log("what is this newReq key", request.key());
+        console.log("what is this ///////////", newReq.otherUserKey);
+        for(var i = 0; i < removeFromState.length; i++){
+          if( removeFromState[i].key === request.key() ){
+            removeFromState.splice(i, 1)
+          }
+        }  
+
+        this.setState({requestList: removeFromState})
+        currentUserFirebase.remove();
+        let testFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + request.key());
+        testFirebase.remove()
+
+
         this.props.navigator.push({
           component: ChatRoom,
           passProps: newProps,
@@ -130,6 +147,19 @@ export default class Matches extends Component {
       navigator: this.props.navigator,
       picture: this.state.currentUser.picture
     }
+
+
+    let removeFromState = this.state.requestList
+    for(var i = 0; i < removeFromState.length; i++){
+      if( removeFromState[i].key === reqKey ){
+        removeFromState.splice(i, 1)
+      }
+    }
+    this.setState({requestList: removeFromState})
+
+    let currentFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + reqKey);
+    currentFirebase.remove()
+
 
     this.props.navigator.push({
       component: ChatRoom,
