@@ -186,8 +186,7 @@ export default class Matches extends Component {
     			onChangeText={onChangeText}
     			value={value}
     			maxLength={maxLength}
-    			multiline={multiline}
-    	/>
+    			multiline={multiline}/>
 		)
 	}
 
