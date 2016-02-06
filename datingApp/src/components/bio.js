@@ -33,7 +33,8 @@ export default class Bio extends Component {
       name: this.state.currentUser.first_name, 
       text: this.state.text, 
       isFirstMessage: true, 
-      image: this.state.currentUser.picture})
+      image: {uri: this.state.currentUser.picture}
+    })
 
     let ref1 = firechatRequestedUser.push()
     let ref2 = firechatCurrentUser.push()

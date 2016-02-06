@@ -69,7 +69,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	    this._GiftedMessenger.appendMessage({
 	      text: message.text, 
 	      name: message.name,
-	      image: message.image,
+	      image: {uri: message.image.uri},
 	      position: message.position
 	    });
 	  }
