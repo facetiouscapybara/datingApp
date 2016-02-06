@@ -61,7 +61,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	  handleSend(message = {}, rowID = null) {
 	  	console.log(that.props)
 			message.name = that.state.firstName;
-			message.image = that.state.url || 'https://facebook.github.io/react/img/logo_og.png';
+			message.image = {uri :that.state.url};
 	    chatroom.push(message)
 	  }
 
@@ -86,7 +86,8 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		leaveChat () {
 		 	var message = {
 		 		text: that.state.firstName + " has left the chat.",
-		 		name: 'TOLO'
+		 		name: 'TOLO',
+		 		image : { uri: 'https://facebook.github.io/react/img/logo_og.png'}
 		 	}
 		 	chatroom.push(message)
 		 	chatroom.off('child_added', this.addMessage)
