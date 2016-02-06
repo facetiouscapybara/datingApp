@@ -44,14 +44,16 @@ export default class Bio extends Component {
       id: this.state.currentUser.id,
       photo: this.state.currentUser.picture,
       name: this.state.currentUser.first_name,
-      otherUserKey: ref2.key() })
+      otherUserKey: ref2.key() ,
+      accepted: false})
 
     ref2.set({
       room: firebaseChat.key(), 
       id: this.state.facebookId,
       photo: this.state.picture,
       name: this.state.first_name, 
-      otherUserKey: ref1.key()})
+      otherUserKey: ref1.key(),
+      accepted: false})
 
     this.props.navigator.pop()
   };

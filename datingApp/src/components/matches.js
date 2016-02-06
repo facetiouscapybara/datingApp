@@ -41,6 +41,26 @@ export default class Matches extends Component {
       oldReq.push(reqObj)
       this.setState({requestList: oldReq})
     }).bind(this)
+    
+    firebaseUserRef.on('child_changed', function(request, something){
+      console.log('anything?')
+      let newReq = request.val()
+      console.log(newReq)
+      if(newReq.accepted === true){
+        console.log(newReq)
+        let newProps = {
+          first_name: this.state.currentUser.first_name, 
+          roomNumber: newReq.room, 
+          navigator: this.props.navigator,
+          picture: this.state.currentUser.picture
+        }
+        this.props.navigator.push({
+          component: ChatRoom,
+          passProps: newProps,
+          navigationBarHidden: true
+        })
+      }
+    }).bind(this);
 
     firebaseUserRef.on('child_removed', (removed) => {
       let remKey = removed.key()
@@ -93,6 +113,8 @@ export default class Matches extends Component {
       firebaseUserRefRemove.remove()
     };
     accept = (roomKey, reqKey, otherUserId, otherUserKey) => {
+      let acceptFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + otherUserId + '/' + otherUserKey)
+      acceptFirebase.update({accept: true})
       let acceptProps = {
         first_name: this.state.currentUser.first_name, 
         roomNumber: roomKey, 

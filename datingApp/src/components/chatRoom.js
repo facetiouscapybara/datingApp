@@ -47,11 +47,11 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		        styles={{
 		          bubbleLeft: {
 		            backgroundColor: '#e6e6eb',
-		            marginRight: 70,
+		            marginRight: 70
 		          },
 		          bubbleRight: {
 		            backgroundColor: '#007aff',
-		            marginLeft: 70,
+		            marginLeft: 70
 		          },
 		        }}/>
 	      </View>
