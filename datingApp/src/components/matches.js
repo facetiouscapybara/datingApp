@@ -39,7 +39,6 @@ export default class Matches extends Component {
       let oldReq = this.state.requestList
       oldReq.push(reqObj)
       this.setState({requestList: oldReq})
-      console.log(this.state)
     }).bind(this)
 
     firebaseUserRef.on('child_removed', (removed) => {
@@ -96,7 +95,8 @@ export default class Matches extends Component {
       let acceptProps = {
         first_name: this.state.currentUser.first_name, 
         roomNumber: roomKey, 
-        navigator: this.props.navigator
+        navigator: this.props.navigator,
+        picture: this.state.currentUser.picture
       }
 
       this.props.navigator.push({
@@ -108,7 +108,7 @@ export default class Matches extends Component {
     };
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key
-      return <MatchesItem user={user} matchesState={this.state} key={user.id}/>
+      return <MatchesItem user={user} key={user.id}/>
     })
     return <View>{requestUsers}</View>
   };

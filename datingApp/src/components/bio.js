@@ -28,7 +28,14 @@ export default class Bio extends Component {
     const firebaseChat = new Firebase(room)
     const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
     const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
-    firebaseChat.push({name: this.state.currentUser.first_name, text: this.state.text, isFirstMessage: true, image: this.state.currentUser.picture})
+    
+    firebaseChat.push({
+      name: this.state.currentUser.first_name, 
+      text: this.state.text, 
+      isFirstMessage: true, 
+      image: {uri: this.state.currentUser.picture}
+    })
+
     let ref1 = firechatRequestedUser.push()
     let ref2 = firechatCurrentUser.push()
     
@@ -50,7 +57,6 @@ export default class Bio extends Component {
   };
 
   render () {
-    console.log(this.state)
 		return (
       <View style={styles.container} onMagicTap={this.buttonSubmit}>
       	<ScrollView style={styles.bioBox}>
@@ -129,9 +135,9 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	image: {
-		height: 125,
-		width: 125,
-		borderRadius: 65,
+		height: 140,
+		width: 140,
+		borderRadius: 70,
 		alignSelf: 'center'
 	},
 	name: {
