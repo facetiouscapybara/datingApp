@@ -87,7 +87,8 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		 	var message = {
 		 		text: that.state.firstName + " has left the chat.",
 		 		name: 'TOLO',
-		 		image : { uri: 'https://facebook.github.io/react/img/logo_og.png'}
+		 		//put TOLO logo in here eventually
+		 		image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}
 		 	}
 		 	chatroom.push(message)
 		 	chatroom.off('child_added', this.addMessage)
