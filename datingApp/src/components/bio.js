@@ -4,6 +4,7 @@ import Firebase from 'firebase'
 export default class Bio extends Component {
 	constructor(props) {
 	  super(props);
+    console.log("this is inside the bio page where send request", props.currentUser);
 	  this.state = {
 	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
@@ -17,7 +18,9 @@ export default class Bio extends Component {
 	  	industry: props.profile.industry,
 	  	text: ' Hi! Wanna grab a coffee?'
 	  };
-	  this.buttonSubmit = this.buttonSubmit.bind(this)
+	  this.buttonSubmit = this.buttonSubmit.bind(this);
+    console.log("who is currentUser",this.props.currentUser);
+    console.log("who is profile", this.props.profile);
 	}
 
   buttonSubmit = () => {
@@ -25,8 +28,10 @@ export default class Bio extends Component {
     const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/')
     let ref = firebase.push()
     let room = ref.toString()
-    const firebaseChat = new Firebase(room)
+    const firebaseChat = new Firebase(room);
+    //this is eric / brian who get marlon request
     const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
+    //this is marlon who sent request
     const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
     
     firebaseChat.push({
@@ -35,10 +40,12 @@ export default class Bio extends Component {
       isFirstMessage: true, 
       image: {uri: this.state.currentUser.picture}
     })
-
+    //this is eric / brian who get marlon request, create new child under eric/brain's name
     let ref1 = firechatRequestedUser.push()
+    //this is marlon who sent request, create new child under marlon's name
     let ref2 = firechatCurrentUser.push()
-    
+
+    //this is eric / brian who get marlon request, create new child under eric/brain's name
     ref1.set({
       room: firebaseChat.key(), 
       id: this.state.currentUser.id,
@@ -47,6 +54,8 @@ export default class Bio extends Component {
       otherUserKey: ref2.key() ,
       accepted: false})
 
+    
+    //this is marlon who sent request, create new child under marlon's name
     ref2.set({
       room: firebaseChat.key(), 
       id: this.state.facebookId,
