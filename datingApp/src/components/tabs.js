@@ -53,8 +53,8 @@ export default class Tab extends Component {
   handleMatch(tab) {
     var component = (
       <TabBarIOS.Item
-        title="Match"
-        systemIcon="favorites"
+        icon={require('../styles/iheart.png')}
+        title="MATCH"
         badge={this.handleBadge(tab)}
         selected={this.state.selectedTab === tab}
         onPress={() => {
@@ -75,8 +75,8 @@ export default class Tab extends Component {
 
     var settingsComponent = (
       <TabBarIOS.Item
-        title="Settings"
-        systemIcon="more"
+        icon={require('../styles/igear.png')}
+        title="YOU"
         selected={this.state.selectedTab === 'Settings'}
         onPress={() => {
           this.setState({
@@ -102,8 +102,8 @@ export default class Tab extends Component {
         tintColor="white"
         barTintColor="#48BBEC">
           <TabBarIOS.Item
-            title="List"
-            systemIcon="contacts"
+            icon={require('../styles/ipeople.png')}
+            title="FIND"
             selected={this.state.selectedTab === 'List'}
             onPress={() => {
               this.setState({
