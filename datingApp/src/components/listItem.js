@@ -34,8 +34,8 @@ export default class ListItem extends Component {
 		  </TouchableHighlight>
 		);
 	}
+
 	buttonPress() {
-		console.log("this is inside list item currentUser is", this.props.currentUser);
 		const props = { 
 			profile: this.props.user, 
 			navgation: this.props.navigator, 
@@ -52,7 +52,6 @@ export default class ListItem extends Component {
 	}
 
 };
-
 
 const styles = StyleSheet.create({
 	container: {

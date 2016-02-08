@@ -1,5 +1,14 @@
 //edit user Profile
-import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight, PickerIOS} from 'react-native';
+import React, { 
+	Component, 
+	View, 
+	Text, 
+	StyleSheet, 
+	TextInput, 
+	Image, 
+	TouchableHighlight, 
+	PickerIOS
+} from 'react-native';
 import host from './../../constants.js';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import SignIn from './signin';
@@ -10,7 +19,7 @@ let that;
 export default class Matches extends Component {
 
 	constructor(props){
-		super(props)
+		super(props);
 
 		that = this;
 
@@ -23,12 +32,12 @@ export default class Matches extends Component {
 			bio:"Loading...",
 			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif",
 			age: '?'
-		}
+		};
 	}
 
 
 	componentWillMount (props) {
-		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
+		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id;
 		//need to set authorization header
 		// let accessToken = JSON.stringify(this.props.access_token)
 		let queryObject = {
@@ -58,7 +67,7 @@ export default class Matches extends Component {
 			})
 			.catch(function(error){
 				console.log(err, "error")
-			})
+			});
 	}
 
 	postData() {
@@ -75,7 +84,7 @@ export default class Matches extends Component {
       	bio:that.state.bio,
       	age: that.state.age
       })
-    }
+    };
 
     fetch(urlPath, queryObject)
     	.then(function(res){
@@ -85,41 +94,41 @@ export default class Matches extends Component {
     	})
     	.catch(function(err){
     		console.log(res)
-    	})
+    	});
 	}
 
 	onSavePress(){
 		this.setState({
 			text:"Saved"
-		})
+		});
 	}
 
 	onBioChange (bio) {
 		that.setState({
 			bio: bio,
 			text: ""
-		})
+		});
 	}
 
 	onAgeChange (age) {
 		that.setState({
 			age: age,
 			text: ""
-		})
+		});
 	}
 
 	onIndustryChange (industry) {//There is 100% a way to prevent the repetition of these functions, but i've spent 40 minutes working on it, not worth it right now.
 		that.setState({
 			industry: industry,
 			text: ""
-		})
+		});
 	}
 
 	onEducationChange (education) {
 		that.setState({
 			education: education,
 			text: ""
-		})
+		});
 	}
 
 	render () {
@@ -158,7 +167,6 @@ export default class Matches extends Component {
 	  				  alert("Logged out.");
 	  				}}
 	  			  onLogoutFinished={() => {
-	  			  	console.log("hello world !!!!!!!!!!!!!!!");
 		  			  this.handleLogout();	
 	  			  }}/>
 	  		</View>
@@ -177,7 +185,7 @@ export default class Matches extends Component {
 			<View style={styles.header}>
 		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
 	  	</View>
-	  )
+	  );
 	}
 
 	textInput (style, onChangeText, value, maxLength, multiline) {
@@ -189,7 +197,7 @@ export default class Matches extends Component {
     			maxLength={maxLength}
     			multiline={multiline}
     	/>
-		)
+		);
 	}
 
 	button (onPress, underlayColor, highlightStyle, buttonText, textStyle) {
@@ -198,7 +206,8 @@ export default class Matches extends Component {
 				<Text style={textStyle}>
 					{buttonText}
 				</Text>
-			</TouchableHighlight>)
+			</TouchableHighlight> 
+		);
 	}
 
 	wordCount () {
@@ -206,7 +215,7 @@ export default class Matches extends Component {
 			<View style={styles.wordCount}>
 				<Text>{50 - this.state.bio.length} characters remaining</Text>
 			</View>
-		)
+		);
 	}
 };
 
@@ -330,4 +339,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingBottom: 80
 	}
-})
+});
+
+
+
+
+

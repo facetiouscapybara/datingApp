@@ -1,10 +1,20 @@
 //this will be the screen where, upon signing up the user is taken to write a short bio of themselves
-import React, { Component, View, Text, Image, StyleSheet, TouchableHighlight, ScrollView, TextInput} from 'react-native';
-import Firebase from 'firebase'
+import React, { 
+  Component, 
+  View, 
+  Text, 
+  Image, 
+  StyleSheet, 
+  TouchableHighlight, 
+  ScrollView, 
+  TextInput
+} from 'react-native';
+import Firebase from 'firebase';
+
 export default class Bio extends Component {
+
 	constructor(props) {
 	  super(props);
-    console.log("this is inside the bio page where send request", props.currentUser);
 	  this.state = {
 	  	currentUser: props.currentUser,
 	  	facebookId: props.profile.facebookId,
@@ -19,66 +29,63 @@ export default class Bio extends Component {
 	  	text: ' Hi! Wanna grab a coffee?'
 	  };
 	  this.buttonSubmit = this.buttonSubmit.bind(this);
-    console.log("who is currentUser",this.props.currentUser);
-    console.log("who is profile", this.props.profile);
 	}
 
-  buttonSubmit = () => {
-    alert('message sent!')
-    const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/')
-    let ref = firebase.push()
-    let room = ref.toString()
+  buttonSubmit() {
+    alert('message sent!');
+    const firebase = new Firebase('http://rawdog.firebaseio.com/chatroom/');
+    let ref = firebase.push();
+    let room = ref.toString();
     const firebaseChat = new Firebase(room);
-    //this is eric / brian who get marlon request
-    const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId)
-    //this is marlon who sent request
-    const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
+
+    const firechatRequestedUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.facebookId);
+
+    const firechatCurrentUser = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id);
     
     firebaseChat.push({
       name: this.state.currentUser.first_name, 
       text: this.state.text, 
       isFirstMessage: true, 
       image: {uri: this.state.currentUser.picture}
-    })
-    //this is eric / brian who get marlon request, create new child under eric/brain's name
-    let ref1 = firechatRequestedUser.push()
-    //this is marlon who sent request, create new child under marlon's name
-    let ref2 = firechatCurrentUser.push()
+    });
 
-    //this is eric / brian who get marlon request, create new child under eric/brain's name
+    let ref1 = firechatRequestedUser.push();
+
+    let ref2 = firechatCurrentUser.push();
+
     ref1.set({
       room: firebaseChat.key(), 
       id: this.state.currentUser.id,
       photo: this.state.currentUser.picture,
       name: this.state.currentUser.first_name,
       otherUserKey: ref2.key() ,
-      accepted: false})
+      accepted: false
+    });
 
-    
-    //this is marlon who sent request, create new child under marlon's name
     ref2.set({
       room: firebaseChat.key(), 
       id: this.state.facebookId,
       photo: this.state.picture,
       name: this.state.first_name, 
       otherUserKey: ref1.key(),
-      accepted: false})
+      accepted: false
+    });
 
-    this.props.navigator.pop()
-  };
+    this.props.navigator.pop();
+  }
 
-  render () {
+  render() {
 		return (
       <View style={styles.container} onMagicTap={this.buttonSubmit}>
       	<ScrollView style={styles.bioBox}>
 	      	<Image style={styles.image} source={{uri: this.state.picture}} />
 	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
 	      	{this.header("Works in ")}
-	      		<Text style={styles.bio}>{this.state.industry}</Text>
+	      	<Text style={styles.bio}>{this.state.industry}</Text>
 	      	{this.header("Went to school at ")}
-	      		<Text style={styles.bio}>{this.state.education}</Text>
+	      	<Text style={styles.bio}>{this.state.education}</Text>
 	      	{this.header("About " + this.state.first_name)}
-	      		<Text style={styles.bio}>{this.state.bio}</Text>
+	      	<Text style={styles.bio}>{this.state.bio}</Text>
         </ScrollView>
         <View style={styles.inputView}>
           <TextInput 
@@ -100,7 +107,7 @@ export default class Bio extends Component {
 		)
 	}
 
-	header (text) {
+	header(text) {
 		return (
 			<View style={styles.header}>
 		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
@@ -168,4 +175,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 5
 	}
-})
+});
+
+
+
+
+
+
+

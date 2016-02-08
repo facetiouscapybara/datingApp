@@ -38,7 +38,7 @@ export default class Tab extends Component {
 
     firebaseUserRef.on('child_removed', (removed) => {
       if (this.state.selectedTab !== tab) {
-        this.setState({notifCount: this.state.notifCount-1, isHereYet: false })
+        this.setState({isHereYet: false })
       }
     }).bind(this);
   }

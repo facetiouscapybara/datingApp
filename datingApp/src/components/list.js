@@ -103,9 +103,8 @@ export default class List extends Component {
 	}
 
 	users() {
-    let currentUser = this.props.profile
-    console.log("in the list Component props profile", currentUser);
-    let nav = this.props.navigator
+    let currentUser = this.props.profile;
+    let nav = this.props.navigator;
 		var userList = this.state.currentList.map(function(user){
 			return (
 				<ListItem 
