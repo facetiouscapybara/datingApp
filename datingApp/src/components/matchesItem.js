@@ -1,4 +1,11 @@
-import React, {Component, Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native'
+import React, {
+  Component, 
+  Text, 
+  View, 
+  Image, 
+  TouchableHighlight, 
+  StyleSheet
+} from 'react-native';
 
 export default class MatchesItem extends Component {
 
@@ -8,7 +15,6 @@ export default class MatchesItem extends Component {
       <View>
       <TouchableHighlight
         onPress={(e) => {
-          console.log("this!!!!!!!!!!!!!!!!!!!!!!");
           this.props.accept(this.props.user.room, this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
         }
         underlayColor={'green'}
@@ -30,7 +36,6 @@ export default class MatchesItem extends Component {
       </View>  
     ); 
 
-    console.log("Inside MatchItem Component=================", this.props);
     if (this.props.profile.gender === "male") {
       return (
         <View key={this.props.key}>
@@ -67,7 +72,7 @@ export default class MatchesItem extends Component {
     }
 
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -95,4 +100,10 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: 'red'
   }
-})
+});
+
+
+
+
+
+

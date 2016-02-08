@@ -7,38 +7,19 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native';
-import FBSDKCore , { FBSDKGraphRequest, FBSDKAccessToken } from 'react-native-fbsdkcore/';
-import FBSDKShare from 'react-native-fbsdkshare/';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import fbApi from '../helpers/fbsdk';
-import GameChanger from '../../ios/somehowFixesEverything.gif';
-import Bio from './bio';
-import host from './../../constants.js'
+import host from './../../constants.js';
 import Splash from './splash';
-import Tab from './tabs';
+import GameChanger from '../../ios/somehowFixesEverything.gif';
 
 export default class SignIn extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      profile : {}
-    };
-  }
-
-
-    
-  handleRedirect() {
-    this.props.navigator.replace({
-      component: Splash
-    });
-
-  }
 
   handleFBProfile() {
     let that = this;
+
     fbApi.fbProfile((result) => {
-      console.log("inside this one ?????", result);
+
       let urlPath = host.SERVER_URL + '/api/login';
       let queryObject = {  
         method: 'POST',
@@ -60,24 +41,22 @@ export default class SignIn extends Component {
           bio: ""
         })
       };
+
       fetch(urlPath, queryObject)
         .then(function(res){
-          let result = JSON.parse(res._bodyText);
-          that.handleSetState(result);
+          that.handleRedirect();
         }).catch((err) => {
-          console.log("err is here", err);
+          console.log("Error When Fetch User Profile", err);
         })
     });
 
   }
 
-  handleSetState(result) {
-    this.setState({
-      profile: result
+  handleRedirect() {
+    this.props.navigator.replace({
+      component: Splash
     });
-    this.handleRedirect();
   }
-
 
   render(){
     return (
@@ -92,20 +71,23 @@ export default class SignIn extends Component {
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
-                alert('Logged in.');
                 this.handleFBProfile()
               }
             }
           }}
+
           onLogoutFinished={() => {
             alert("Logged out.");
           }}
+
           readPermissions={['public_profile','user_friends', 'email']}
           publishPermissions={['publish_actions']}/>
       </View>
     )
   }
-}
+
+};
+
 
 const styles = StyleSheet.create({
   container: {
