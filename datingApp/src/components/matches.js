@@ -53,6 +53,7 @@ export default class Matches extends Component {
       let newReq = request.val();
 
       if(newReq.accepted === true){
+        console.log(newReq);
         let currentUserFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + newReq.id + '/' + newReq.otherUserKey);
         currentUserFirebase.update({accepted: true});
         
@@ -131,7 +132,6 @@ export default class Matches extends Component {
 
   }
 
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.chattingCount === this.state.chattingCount) {
       this.setState({trackingCount: nextProps.chattingCount});
@@ -140,7 +140,6 @@ export default class Matches extends Component {
 
 
   render() {
-
     if(this.props.profile.gender === 'male' && this.state.requestList.length === 0) {
       return (
         <View style={styles.container}>
