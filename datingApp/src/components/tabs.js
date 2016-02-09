@@ -7,7 +7,6 @@ import Firebase from 'firebase/';
 import List from './list';
 import Match from './matches';
 import EditProfile from './editProfile';
-//var Icon = require('react-native-vector-icons/Ionicons/');
 
 export default class Tab extends Component {
   
@@ -17,7 +16,7 @@ export default class Tab extends Component {
       selectedTab: 'List',
       notifCount: 0,
       isHereYet: false,
-      isChatting: false
+      chattingCount: 0
     }
   }
 
@@ -65,16 +64,15 @@ export default class Tab extends Component {
             notifCount: 0
           });
         }}>
-        <Match profile={this.props.profile} isChatting={this.state.isChatting} navigator={this.props.navigator}/>
+        <Match profile={this.props.profile} chattingCount={this.state.chattingCount} navigator={this.props.navigator}/>
       </TabBarIOS.Item>
     );
     return component;
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("what is next in the tabs page props",nextProps);
-    if (!nextProps.isChatting) {
-      this.setState({isChatting: false});
+    if (nextProps.chattingCount && nextProps.chattingCount !== this.state.chattingCount) {
+      this.setState({chattingCount: nextProps.chattingCount});
     }
   }
 

@@ -20,7 +20,8 @@ export default class Matches extends Component {
     this.state = {
       requestList: [],
       currentUser: props.profile,
-      isChatting: props.isChatting
+      chattingCount: props.chattingCount,
+      trackingCount: props.chattingCount
     };
   }
 
@@ -52,11 +53,10 @@ export default class Matches extends Component {
       let newReq = request.val();
 
       if(newReq.accepted === true){
-        console.log(newReq);
         let currentUserFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + newReq.id + '/' + newReq.otherUserKey);
         currentUserFirebase.update({accepted: true});
         
-        let newProps = {
+        var newProps = {
           first_name: this.state.currentUser.first_name, 
           roomNumber: newReq.room, 
           navigator: this.props.navigator,
@@ -76,29 +76,41 @@ export default class Matches extends Component {
         let requestedUserFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + request.key());
         requestedUserFirebase.remove();
 
-        if(!this.state.isChatting){
-          this.setState({isChatting: true});
-          console.log("what is this", this.state);
+        if(this.state.chattingCount === this.state.trackingCount){
+          this.state.chattingCount = this.state.chattingCount + 1;
+          newProps["chattingCount"] = this.state.chattingCount;
           this.props.navigator.push({
             component: ChatRoom,
             passProps: newProps,
             navigationBarHidden: true
           });
         } else {
-          console.log("is here");
           AlertIOS.alert(
             "Looks Like " + newReq.name + " has accepted your request",
             "Do you want to chat with him right now or wait a moment?",
             [{text: 'OK', onPress: () => {
-              this.props.navigator.replacePreviousAndPop({
+              this.props.navigator.replace({
                 component: ChatRoom,
                 passProps: newProps,
                 navigationBarHidden: true
               });
             }}, 
             {text: 'Wait a moment', onPress: () => {
-              console.log('Wait a moment');
-              setTimeout(() => console.log("hello world"), 2000);
+              var that = this;
+              setTimeout(() => {
+                AlertIOS.alert(
+                  "You are going to message with " + newReq.name + " right now!",
+                  null,
+                  [{text: 'OK', onPress: () => {
+                    that.props.navigator.replace({
+                      component: ChatRoom,
+                      passProps: newProps,
+                      navigationBarHidden: true
+                    });  
+                  }}],
+                  null
+                );
+              }, 6000);
             }}],
             null
           );
@@ -119,20 +131,16 @@ export default class Matches extends Component {
 
   }
 
-  handleRedirect() {
-
-  }
 
   componentWillReceiveProps(nextProps) {
-    console.log("what is next props",nextProps);
-    if (!nextProps.isChatting) {
-      this.setState({isChatting: false});
+    if (nextProps.chattingCount === this.state.chattingCount) {
+      this.setState({trackingCount: nextProps.chattingCount});
     }
   }
 
 
   render() {
-    console.log(this.props);
+
     if(this.props.profile.gender === 'male' && this.state.requestList.length === 0) {
       return (
         <View style={styles.container}>
@@ -179,7 +187,8 @@ export default class Matches extends Component {
       roomNumber: roomKey, 
       navigator: this.props.navigator,
       picture: this.state.currentUser.picture,
-      profile: this.props.profile
+      profile: this.props.profile,
+      chattingCount: this.state.chattingCount
     };
 
     let removeFromState = this.state.requestList;

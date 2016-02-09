@@ -24,7 +24,8 @@ export default class Chatroom extends Component {
   	this.state = {
   		bio : "",
   		firstName : this.props.first_name || 'Julianne',
-  		url: this.props.picture
+  		url: this.props.picture,
+      chattingCount: this.props.chattingCount
   	};
   }
 
@@ -108,11 +109,10 @@ export default class Chatroom extends Component {
       component: Tabs,
       passProps: {
         profile: that.props.profile,
-        isChatting: false
+        chattingCount: that.state.chattingCount
       },
       navigationBarHidden: true,
     });
-    //that.props.navigator.pop();
 	}
 
 	button (callback, text, style) {
