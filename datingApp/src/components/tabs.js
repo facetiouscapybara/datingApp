@@ -7,7 +7,6 @@ import Firebase from 'firebase/';
 import List from './list';
 import Match from './matches';
 import EditProfile from './editProfile';
-//var Icon = require('react-native-vector-icons/Ionicons/');
 
 export default class Tab extends Component {
   
@@ -16,7 +15,8 @@ export default class Tab extends Component {
     this.state = {
       selectedTab: 'List',
       notifCount: 0,
-      isHereYet: false
+      isHereYet: false,
+      chattingCount: 0
     }
   }
 
@@ -64,10 +64,16 @@ export default class Tab extends Component {
             notifCount: 0
           });
         }}>
-        <Match locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+        <Match profile={this.props.profile} chattingCount={this.state.chattingCount} navigator={this.props.navigator}/>
       </TabBarIOS.Item>
     );
     return component;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.chattingCount && nextProps.chattingCount !== this.state.chattingCount) {
+      this.setState({chattingCount: nextProps.chattingCount});
+    }
   }
 
   render() {
@@ -110,7 +116,7 @@ export default class Tab extends Component {
                 selectedTab: 'List'
               });
             }}>
-            <List locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+            <List profile={this.props.profile} navigator={this.props.navigator}/>
           </TabBarIOS.Item>
           {this.handleMatch('Match')}
           {settingsComponent}
