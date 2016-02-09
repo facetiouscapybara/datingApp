@@ -149,7 +149,7 @@ export default class Matches extends Component {
 	  			  {this.textInput(styles.smallestBox, that.onAgeChange, that.state.age, 2, false)}
 	  			</View>
 	  			<View>
-	  			  {this.header("Pick up line:")}
+	  			  {this.header("Pick up line:", styles.pickUp, styles.pickUpHeaderText)}
 	  			  <Text></Text>
 		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 50, false)}
 		  		</View>
@@ -180,10 +180,10 @@ export default class Matches extends Component {
 		});
 	}
 
-	header (text) {
+	header (text, additionalBoxStyling, additionalTextStyling) {
 		return (
-			<View style={styles.header}>
-		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
+			<View style={[styles.header, additionalBoxStyling]}>
+		  	<Text style={[styles.headerText, additionalTextStyling]}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
 	  	</View>
 	  );
 	}
@@ -303,8 +303,15 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		marginLeft: 2,
 	},
+	pickUp: {
+		flexDirection: "row",
+		alignSelf: 'center',
+	},
 	headerText: {
 		fontFamily: "HelveticaNeue-Medium"
+	},
+	pickUpHeaderText: {
+		fontSize: 25
 	},
 	buttonBox:{
 		flexDirection: 'row',

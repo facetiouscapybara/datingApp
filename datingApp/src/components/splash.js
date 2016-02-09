@@ -8,7 +8,7 @@ import React, {
 import fbApi from '../helpers/fbsdk';
 import SignIn from './signin';
 import Tab from './tabs';
-import logo from '../styles/LogoPerch2.png';
+import logo from '../styles/splash.gif';
 
 export default class Splash extends Component {
   
@@ -40,14 +40,17 @@ export default class Splash extends Component {
   }
 
   componentDidMount() {
-    fbApi.fbToken((token) => {
-      if (token) {
-        this.handleFBProfile();
-      } else {
-        this.handleRedirect('signin');
-      }
-
-    });
+    let that = this
+    setTimeout(function(){
+      fbApi.fbToken((token) => {
+        if (token) {
+          that.handleFBProfile();
+        } else {
+          that.handleRedirect('signin');
+        }
+      })
+    }, 1000
+    )
   };
 
   render() {
@@ -63,7 +66,8 @@ export default class Splash extends Component {
 const styles = StyleSheet.create ({
   
   logo: {
-    
+    width: 550,
+    height: 780
   },
   container: {
     flex: 1,
