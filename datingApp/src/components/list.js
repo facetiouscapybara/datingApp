@@ -92,14 +92,13 @@ export default class List extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<ScrollView
-	        automaticallyAdjustContentInsets={true}
-	        style={styles.scrollView}>
-	      	{this.users()}
-      	</ScrollView>
-      </View>
-		);
+        <ScrollView
+          style={styles.scrollView}>
+          <View style={styles.container}>
+            {this.users()}
+          </View>
+        </ScrollView>
+		)
 	}
 
 	users() {
@@ -112,8 +111,7 @@ export default class List extends Component {
 					user={user} 
 					key={user.facebookId} 
 					style={styles.listItem} 
-					currentUser={currentUser}
-        />
+					currentUser={currentUser}/>
 			);	
 		});
 		return userList;
@@ -122,12 +120,14 @@ export default class List extends Component {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex:1,
-    backgroundColor: '#48BBEC'
-	},
-	scrollView: {
-		height: 300
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#3CAE8E'
+  },
+  container: {
+    flex:1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
 	}
 });
 

@@ -125,7 +125,9 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#48BBEC',
-    paddingTop: 20
+    paddingTop: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });
 
