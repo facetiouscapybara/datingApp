@@ -296,7 +296,7 @@ ul.sections > li > div {
   #background {
     position: absolute;
     top: 0; bottom: 0;
-    width: 350px;
+    width: 95%;
     background: #fff;
     border-left: 1px solid #e5e5ee;
     -webkit-box-shadow: inset 0 0 5px #e5e5ee;
@@ -316,8 +316,8 @@ ul.sections > li > div {
   }
 
   ul.sections > li > div.annotation {
-    max-width: 350px;
-    min-width: 350px;
+    max-width: 90%;
+    min-width: 90%;
     min-height: 5px;
     padding: 13px;
     overflow-x: hidden;
