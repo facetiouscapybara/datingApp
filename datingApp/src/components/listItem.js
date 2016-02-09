@@ -7,7 +7,7 @@ import React, {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
-import Bio from './bio'
+import Bio from './bio';
 
 const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {

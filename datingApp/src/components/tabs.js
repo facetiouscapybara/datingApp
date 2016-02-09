@@ -16,7 +16,8 @@ export default class Tab extends Component {
     this.state = {
       selectedTab: 'List',
       notifCount: 0,
-      isHereYet: false
+      isHereYet: false,
+      isChatting: false
     }
   }
 
@@ -64,10 +65,17 @@ export default class Tab extends Component {
             notifCount: 0
           });
         }}>
-        <Match locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+        <Match profile={this.props.profile} isChatting={this.state.isChatting} navigator={this.props.navigator}/>
       </TabBarIOS.Item>
     );
     return component;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("what is next in the tabs page props",nextProps);
+    if (!nextProps.isChatting) {
+      this.setState({isChatting: false});
+    }
   }
 
   render() {
@@ -110,7 +118,7 @@ export default class Tab extends Component {
                 selectedTab: 'List'
               });
             }}>
-            <List locationLat={this.props.locationLat} locationLon={this.props.locationLon} profile={this.props.profile} navigator={this.props.navigator}/>
+            <List profile={this.props.profile} navigator={this.props.navigator}/>
           </TabBarIOS.Item>
           {this.handleMatch('Match')}
           {settingsComponent}

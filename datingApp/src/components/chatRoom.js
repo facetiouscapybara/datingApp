@@ -14,6 +14,7 @@ import host from './../../constants.js';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import Match from './matches';
+import Tabs from './tabs';
 
 import GiftedMessenger from 'react-native-gifted-messenger';
 
@@ -103,7 +104,15 @@ export default class Chatroom extends Component {
 	 	};
 	 	chatroom.push(message);
 	 	chatroom.off('child_added', this.addMessage);
-		that.props.navigator.pop();
+		that.props.navigator.replacePreviousAndPop({
+      component: Tabs,
+      passProps: {
+        profile: that.props.profile,
+        isChatting: false
+      },
+      navigationBarHidden: true,
+    });
+    //that.props.navigator.pop();
 	}
 
 	button (callback, text, style) {
