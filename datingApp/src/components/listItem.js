@@ -4,7 +4,8 @@ import React, {
   Text, 
   StyleSheet, 
   Image, 
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import Bio from './bio'
 
@@ -12,13 +13,12 @@ const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {
 
 	render () {
-    console.log(deviceWidth)
 		return (
 		<View style={[ { width: deviceWidth / 2, height: 250 } ]}>	
-				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10 }]}>
+				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10, marginBottom:10 }]}>
 				<TouchableHighlight
-		      activeOpacity={0.3}
-				  underlayColor={'#48BBEC'}
+		      activeOpacity={0.5}
+				  underlayColor={'#93E1CB'}
 				  onPress={(e) => this.buttonPress()}
 				  style={[ { backgroundColor: 'white', flex:1, borderRadius: 3, padding:10  }, styles.shadow ]}>
 					<View key={this.props.key}>
@@ -26,7 +26,7 @@ export default class ListItem extends Component {
 							source={{uri: this.props.user.picture}} 
 							style={styles.photo}/>
 		        <View >
-				      <Text style={[ {fontSize: 24} ]}>
+				      <Text style={[ {fontSize: 24, fontFamily: 'verdana'} ]}>
 				      	{this.props.user.first_name}
 				      </Text>
 				  	</View>

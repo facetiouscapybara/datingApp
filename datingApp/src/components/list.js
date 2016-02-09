@@ -2,6 +2,7 @@
 import React, { 
   Component, 
   View, 
+  Text,
   StyleSheet, 
   ScrollView
 } from 'react-native';
@@ -19,7 +20,10 @@ export default class List extends Component {
   	super(props);
   	this.state = {
   		currentList: [],
-      isRefreshing: false
+      isRefreshing: false,
+      bioText:  <Text style={{fontSize: 24, fontFamily: 'verdana', alignSelf: 'center', color: '#fff'}}>
+                  Tap on a photo to see their Bio
+                </Text>
   	};
   	that = this;
   }
@@ -93,7 +97,9 @@ export default class List extends Component {
 	render() {
 		return (
         <ScrollView
-          style={styles.scrollView}>
+          style={styles.scrollView}
+          onScroll={() => this.setState({bioText: <View></View>})}>
+          {this.state.bioText}  
           <View style={styles.container}>
             {this.users()}
           </View>
@@ -122,7 +128,7 @@ export default class List extends Component {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: '#3CAE8E'
+    backgroundColor: '#16F5D0'
   },
   container: {
     flex:1,
