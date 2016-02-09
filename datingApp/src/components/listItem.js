@@ -4,35 +4,42 @@ import React, {
   Text, 
   StyleSheet, 
   Image, 
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import Bio from './bio'
 
+const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {
-	
-	render() {
+
+	render () {
 		return (
-			<TouchableHighlight
-	      activeOpacity={0.3}
-			  underlayColor={'#48BBEC'}
-			  onPress={(e) => this.buttonPress()}>
-				<View style={styles.container} key={this.props.key}>
-					<Image 
-						source={{uri: this.props.user.picture}}
-	        	style={styles.image} />
-	        <View style={styles.textBody}>
-			      <Text style={styles.text}>
-			      	{this.props.user.first_name}
-			      </Text>
-			  	</View>
-			  	<View style={styles.distance}>
-			  	  <Text>
-			      	{this.props.user.distance} ft away
-			      </Text>
-			  	</View>
-		    </View>
-		  </TouchableHighlight>
-		);
+		<View style={[ { width: deviceWidth / 2, height: 250 } ]}>	
+				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10, marginBottom:10 }]}>
+				<TouchableHighlight
+		      activeOpacity={0.5}
+				  underlayColor={'#93E1CB'}
+				  onPress={(e) => this.buttonPress()}
+				  style={[ { backgroundColor: 'white', flex:1, borderRadius: 3, padding:10  }, styles.shadow ]}>
+					<View key={this.props.key}>
+						<Image 
+							source={{uri: this.props.user.picture}} 
+							style={styles.photo}/>
+		        <View >
+				      <Text style={[ {fontSize: 24, fontFamily: 'verdana'} ]}>
+				      	{this.props.user.first_name}
+				      </Text>
+				  	</View>
+				  	<View>
+				  	  <Text>
+				      	{this.props.user.distance} ft away
+				      </Text>
+				  	</View>
+			    </View>
+			  </TouchableHighlight>
+			</View>  
+		</View>  
+		)
 	}
 
 	buttonPress() {
@@ -54,36 +61,16 @@ export default class ListItem extends Component {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginTop: 10,
-		marginLeft: 0,
-		marginRight: 5,
-		padding: 5,
-    backgroundColor: '#48BBEC'
+	photo: {
+    height: 170
 	},
-
-	image : {
-		flex: 4,
-		borderRadius: 10,
-		height: 100,
-		width: 100
-	},
-
-	textBody:{
-		paddingLeft: 5,
-		flex: 5,
-		width: 195
-	},
-
-	text: {
-		fontSize: 20
-	},
-
-	distance: {
-		marginRight: 10,
-		flex: 1,
-		minWidth: 50
+	shadow: {
+		shadowColor: "#000000",
+    shadowOpacity: 0.7,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
 	}
 });

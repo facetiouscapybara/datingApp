@@ -2,6 +2,7 @@
 import React, { 
   Component, 
   View, 
+  Text,
   StyleSheet, 
   ScrollView
 } from 'react-native';
@@ -19,7 +20,10 @@ export default class List extends Component {
   	super(props);
   	this.state = {
   		currentList: [],
-      isRefreshing: false
+      isRefreshing: false,
+      bioText:  <Text style={{fontSize: 24, fontFamily: 'verdana', alignSelf: 'center', color: '#fff'}}>
+                  Tap on a photo to see their Bio
+                </Text>
   	};
   	that = this;
   }
@@ -92,14 +96,15 @@ export default class List extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<ScrollView
-	        automaticallyAdjustContentInsets={true}
-	        style={styles.scrollView}>
-	      	{this.users()}
-      	</ScrollView>
-      </View>
-		);
+        <ScrollView
+          style={styles.scrollView}
+          onScroll={() => this.setState({bioText: <View></View>})}>
+          {this.state.bioText}  
+          <View style={styles.container}>
+            {this.users()}
+          </View>
+        </ScrollView>
+		)
 	}
 
 	users() {
@@ -112,8 +117,7 @@ export default class List extends Component {
 					user={user} 
 					key={user.facebookId} 
 					style={styles.listItem} 
-					currentUser={currentUser}
-        />
+					currentUser={currentUser}/>
 			);	
 		});
 		return userList;
@@ -122,12 +126,14 @@ export default class List extends Component {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex:1,
-    backgroundColor: '#48BBEC'
-	},
-	scrollView: {
-		height: 300
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#16F5D0'
+  },
+  container: {
+    flex:1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
 	}
 });
 

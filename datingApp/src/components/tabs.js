@@ -91,7 +91,7 @@ export default class Tab extends Component {
       return (
         <TabBarIOS
         tintColor="white"
-        barTintColor="#48BBEC">
+        barTintColor="#3CAE8E">
           {this.handleMatch('List')}
           {settingsComponent}
         </TabBarIOS>
@@ -100,7 +100,7 @@ export default class Tab extends Component {
       return (
         <TabBarIOS
         tintColor="white"
-        barTintColor="#48BBEC">
+        barTintColor="#0C8362">
           <TabBarIOS.Item
             icon={require('../styles/ipeople.png')}
             title="FIND"
@@ -125,7 +125,9 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#48BBEC',
-    paddingTop: 20
+    paddingTop: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });
 
