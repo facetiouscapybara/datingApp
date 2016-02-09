@@ -15,7 +15,6 @@ const geoFire = new Geofire(firebaseRef);
 
 export default class Matches extends Component {
   constructor(props){
-    console.log("in the matches");
     super(props);
     this.state = {
       requestList: [],
