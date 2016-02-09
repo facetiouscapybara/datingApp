@@ -69,7 +69,7 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	    this._GiftedMessenger.appendMessage({
 	      text: message.text, 
 	      name: message.name,
-	      image: {uri: message.image.uri},
+	      image: {uri: message.image ? message.image.uri : 'https://facebook.github.io/react/img/logo_og.png'},
 	      position: message.position
 	    });
 	  }

@@ -22,7 +22,7 @@ export default class Matches extends Component {
 
   componentWillMount(){
 
-    if(this.props.profile.gender === 'male'){
+    if(this.props.profile.gender === 'female'){
       navigator.geolocation.watchPosition((loc) => {
         geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude])
       }, (err) => {
@@ -30,7 +30,7 @@ export default class Matches extends Component {
       })
     }
 
-    const firebaseUserRef = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id)
+    const firebaseUserRef = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id);
     
     firebaseUserRef.on('child_added', (req) => {
       let reqObj = req.val()
@@ -113,20 +113,20 @@ export default class Matches extends Component {
     };
     accept = (roomKey, reqKey, otherUserId, otherUserKey) => {
       let acceptFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + otherUserId + '/' + otherUserKey)
-      acceptFirebase.update({accept: true})
+      acceptFirebase.update({accepted: true})
       let acceptProps = {
         first_name: this.state.currentUser.first_name, 
         roomNumber: roomKey, 
         navigator: this.props.navigator,
         picture: this.state.currentUser.picture
       }
+      reject(reqKey)
 
       this.props.navigator.push({
         component: ChatRoom,
         passProps: acceptProps,
         navigationBarHidden: true
       })
-      reject(reqKey)
     };
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key

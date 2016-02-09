@@ -17,6 +17,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
     "passport-http-bearer": "^1.0.1",
+    "path": "^0.12.7",
     "react-native-fbsdklogin": "0.0.8",
     "request": "^2.67.0"
   },
