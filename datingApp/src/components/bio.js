@@ -110,7 +110,7 @@ export default class Bio extends Component {
 	header(text) {
 		return (
 			<View style={styles.header}>
-		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
+		  	<Text style={styles.headerText}> {text} </Text>
 	  	</View>
 	  )
 	}
@@ -119,32 +119,27 @@ export default class Bio extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex:1,
-		backgroundColor: '#48BBEC',
+		backgroundColor: '#fff',
 		marginTop: 40,
 		paddingBottom: 10
 	},
 	bioBox: {
 		flex: 12
 	},
-	header:{
-
-	},
-	headerText: {
-
-	},
 	bio: {
 		paddingLeft: 30
 	},
 	buttons: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
+		flex: 2,
+    flexDirection: 'row',
+		justifyContent: 'center'
 	},
 	button: {
-    width: 200,
+    alignSelf: 'center',
+    flex: 4,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: 'green'
+    borderRadius: 5,
+    backgroundColor: '#3cae8e'
 	},
 	buttonText: {
 		color: 'white',
@@ -153,16 +148,16 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	image: {
-		height: 140,
-		width: 140,
-		borderRadius: 70,
+		height: 300,
+    width: 300,
+		borderRadius: 4,
 		alignSelf: 'center'
 	},
 	name: {
 		alignSelf: 'center',
 		fontSize: 30,
 		margin: 10,
-		color: 'white'
+		color: '#3cae8e'
 	},
 	inputView: {
 		flex: 1
@@ -172,7 +167,6 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
     backgroundColor: 'rgba(255,255,255,0.5)',
     width: 400,
-
     borderRadius: 5
 	}
 });
