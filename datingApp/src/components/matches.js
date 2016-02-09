@@ -2,23 +2,25 @@
 import React, { 
   Component, 
   View, 
-  Text, 
+  Text,
+  AlertIOS, 
   StyleSheet
 } from 'react-native';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import MatchesItem from './matchesItem';
 import ChatRoom from './chatRoom';
-//var BackgroundGeolocation = require('react-native-background-geolocation');
 const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
 const geoFire = new Geofire(firebaseRef);
 
 export default class Matches extends Component {
   constructor(props){
+    console.log("in the matches");
     super(props);
     this.state = {
       requestList: [],
-      currentUser: props.profile
+      currentUser: props.profile,
+      isChatting: props.isChatting
     };
   }
 
@@ -26,7 +28,7 @@ export default class Matches extends Component {
     geoFire.remove(this.props.profile.id);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     if(this.props.profile.gender === 'male'){
       navigator.geolocation.watchPosition((loc) => {
         geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
@@ -50,6 +52,7 @@ export default class Matches extends Component {
       let newReq = request.val();
 
       if(newReq.accepted === true){
+        console.log(newReq);
         let currentUserFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + newReq.id + '/' + newReq.otherUserKey);
         currentUserFirebase.update({accepted: true});
         
@@ -57,7 +60,8 @@ export default class Matches extends Component {
           first_name: this.state.currentUser.first_name, 
           roomNumber: newReq.room, 
           navigator: this.props.navigator,
-          picture: this.state.currentUser.picture
+          picture: this.state.currentUser.picture,
+          profile: this.state.currentUser
         };
 
         let removeFromState = this.state.requestList;
@@ -65,19 +69,40 @@ export default class Matches extends Component {
           if( removeFromState[i].key === request.key() ){
             removeFromState.splice(i, 1);
           }
-        }  
+        };  
 
         this.setState({requestList: removeFromState});
         currentUserFirebase.remove();
         let requestedUserFirebase = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + request.key());
         requestedUserFirebase.remove();
 
-
-        this.props.navigator.push({
-          component: ChatRoom,
-          passProps: newProps,
-          navigationBarHidden: true
-        });
+        if(!this.state.isChatting){
+          this.setState({isChatting: true});
+          console.log("what is this", this.state);
+          this.props.navigator.push({
+            component: ChatRoom,
+            passProps: newProps,
+            navigationBarHidden: true
+          });
+        } else {
+          console.log("is here");
+          AlertIOS.alert(
+            "Looks Like " + newReq.name + " has accepted your request",
+            "Do you want to chat with him right now or wait a moment?",
+            [{text: 'OK', onPress: () => {
+              this.props.navigator.replacePreviousAndPop({
+                component: ChatRoom,
+                passProps: newProps,
+                navigationBarHidden: true
+              });
+            }}, 
+            {text: 'Wait a moment', onPress: () => {
+              console.log('Wait a moment');
+              setTimeout(() => console.log("hello world"), 2000);
+            }}],
+            null
+          );
+        }
       }
     }).bind(this);
 
@@ -94,7 +119,20 @@ export default class Matches extends Component {
 
   }
 
-  render () {
+  handleRedirect() {
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("what is next props",nextProps);
+    if (!nextProps.isChatting) {
+      this.setState({isChatting: false});
+    }
+  }
+
+
+  render() {
+    console.log(this.props);
     if(this.props.profile.gender === 'male' && this.state.requestList.length === 0) {
       return (
         <View style={styles.container}>
@@ -140,7 +178,8 @@ export default class Matches extends Component {
       first_name: this.state.currentUser.first_name, 
       roomNumber: roomKey, 
       navigator: this.props.navigator,
-      picture: this.state.currentUser.picture
+      picture: this.state.currentUser.picture,
+      profile: this.props.profile
     };
 
     let removeFromState = this.state.requestList;

@@ -6,7 +6,7 @@ import React, {
   Image, 
   TouchableHighlight
 } from 'react-native';
-import Bio from './bio'
+import Bio from './bio';
 
 export default class ListItem extends Component {
 	
