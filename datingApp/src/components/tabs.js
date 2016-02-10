@@ -21,6 +21,7 @@ export default class Tab extends Component {
   }
 
   componentWillMount() {
+
     if (this.props.profile.gender==="male") {
       this.handleWatch("List");
     } else {

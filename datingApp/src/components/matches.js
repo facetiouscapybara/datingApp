@@ -196,14 +196,23 @@ export default class Matches extends Component {
       } else if (this.state.womenInArea === 1){
         womenInArea = 'There is 1 woman looking in your area.';
       } else {
-        womenInArea = 'There are ' + this.state.womenInArea + ' women looking in your area.';
+        womenInArea = 'There are currently ' + this.state.womenInArea + ' women looking in your area.';
       }
 
       return (
         <View style={styles.container}>
-          <Text>
-            {womenInArea}
-          </Text>
+          <View style={styles.noMatches}>
+            <View style={styles.currentlyInArea}>
+              <Text style={styles.noMatchText}>
+                Hang out here and wait for someone to message you, we'll let you know when you've got one!
+              </Text>
+            </View>
+            <View style={styles.currentlyInArea}>
+              <Text style={styles.noMatchTextCount}>
+                {womenInArea}
+              </Text>
+            </View>
+          </View>    
         </View>
       )
     } else if ( this.props.profile.gender === 'female' && this.state.requestList.length === 0){
@@ -290,7 +299,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 40,
     backgroundColor: '#fff'
-	}
+	},
+  noMatches: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  currentlyInArea: {
+    margin: 40,
+  },
+  noMatchText: {
+    textAlign: 'center',
+    fontSize: 18
+  },
+  noMatchTextCount: {
+    textAlign: 'center',
+    fontSize: 22,
+    color: 'red'
+  }
 });
 
 
