@@ -4,7 +4,7 @@ var expect = chai.expect;
 var createNewUser = require('../server/controllers/accountControllers.js').createNewUser;
 var deleteUser = require('../server/controllers/accountControllers.js').deleteUser;
 chai.use(chaiHttp);
-var app = 'http://localhost:3000';
+var app = 'https://powerful-sea-68331.herokuapp.com';
 
 describe('The server side API controllers', function(){
 
