@@ -24,7 +24,8 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 	  	this.state = {
 	  		bio : "",
 	  		firstName : this.props.first_name || 'Julianne',
-	  		url: this.props.picture
+	  		url: this.props.picture,
+	  		chattingCount: this.props.chattingCount
 	  	};
 	  }
 
