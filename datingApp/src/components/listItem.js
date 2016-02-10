@@ -1,74 +1,79 @@
-import React, { Component, View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
-import Bio from './bio'
+import React, { 
+  Component, 
+  View, 
+  Text, 
+  StyleSheet, 
+  Image, 
+  TouchableHighlight,
+  Dimensions
+} from 'react-native';
+import Bio from './bio';
 
+const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {
+
 	render () {
+    console.log(this.props.user)
 		return (
-		<TouchableHighlight
-      activeOpacity={0.3}
-		  underlayColor={'#48BBEC'}
-		  onPress={(e) => this.buttonPress()}>
-			<View style={styles.container} key={this.props.key}>
-				<Image 
-					source={{uri: this.props.user.picture}}
-        	style={styles.image} />
-        <View style={styles.textBody}>
-		      <Text style={styles.text}>
-		      	{this.props.user.first_name}
-		      </Text>
-		  	</View>
-		  	<View style={styles.distance}>
-		  	  <Text>
-		      	{this.props.user.distance} ft away
-		      </Text>
-		  	</View>
-	    </View>
-	  </TouchableHighlight>
+		<View style={[ { width: deviceWidth / 2, height: 250 } ]}>	
+				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10, marginBottom:10 }]}>
+				<TouchableHighlight
+		      activeOpacity={0.5}
+				  underlayColor={'#93E1CB'}
+				  onPress={(e) => this.buttonPress()}
+				  style={[ { backgroundColor: 'white', flex:1, borderRadius: 3, padding:10  }, styles.shadow ]}>
+					<View key={this.props.key}>
+						<Image 
+							source={{uri: this.props.user.picture}} 
+							style={styles.photo}/>
+		        <View >
+				      <Text style={[ {fontSize: 24, fontFamily: 'verdana'} ]}>
+				      	{this.props.user.first_name}, {this.props.user.age}
+				      </Text>
+				  	</View>
+				  	<View>
+				  	  <Text>
+				      	{this.props.user.distance} ft away
+				      </Text>
+				  	</View>
+			    </View>
+			  </TouchableHighlight>
+			</View>  
+		</View>  
 		)
 	}
-	buttonPress = () => {
+
+	buttonPress() {
 		const props = { 
 			profile: this.props.user, 
 			navgation: this.props.navigator, 
 			currentUser: this.props.currentUser
-		}
+		};
 		this.props.navigator.push({
 	    component: Bio,
 	    title: this.props.user.first_name + "'s About Me",
 	    passProps: props,
-	    barTintColor: 'rgba(72,187,236,0)',
+	    barTintColor: '#fff',
 	    translucent: true,
-	    tintColor: 'rgb(0,0,0)'
+	    tintColor: '#3cae8e',
+	    shadowHidden: true,
+	    titleTextColor: '#3cae8e'
     }); 
-	};
-};
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginTop: 10,
-		marginLeft: 0,
-		marginRight: 5,
-		padding: 5,
-    backgroundColor: '#48BBEC'
-	},
-	image : {
-		flex: 4,
-		borderRadius: 10,
-		height: 100,
-		width: 100
-	},
-	textBody:{
-		paddingLeft: 5,
-		flex: 5,
-		width: 195
-	}, 
-	text: {
-		fontSize: 20
-	},
-	distance: {
-		marginRight: 10,
-		flex: 1,
-		minWidth: 50
 	}
-})
+
+};
+
+const styles = StyleSheet.create({
+	photo: {
+    height: 170
+	},
+	shadow: {
+		shadowColor: "#3cae8e",
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 2,
+      width: 2
+    }
+	}
+});

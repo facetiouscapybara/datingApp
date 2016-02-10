@@ -1,19 +1,20 @@
-import React, { Component, View, Text, StyleSheet, Image } from 'react-native'
-import FBSDKCore, { FBSDKAccessToken } from 'react-native-fbsdkcore/';
-import Bio from './bio';
-import List from './list';
-import SignIn from './signin';
+import React, { 
+  Component,
+  View,
+  Text, 
+  StyleSheet, 
+  Image
+} from 'react-native';
 import fbApi from '../helpers/fbsdk';
-import Matches from './matches';
-import EditProfile from './editProfile';
+import SignIn from './signin';
 import Tab from './tabs';
-import logo from '../styles/LogoPerch2.png';
+import logo from '../styles/splash.gif';
 
 export default class Splash extends Component {
   
   handleRedirect(component) {
     if ( component === 'tab' ) {
-      const props = { profile: this.state.profile, locationLat: this.state.latitude, locationLon: this.state.longitude }
+      const props = { profile: this.state.profile }
       this.props.navigator.push({
         component: Tab,
         passProps: props,
@@ -38,29 +39,33 @@ export default class Splash extends Component {
     });
   }
 
-  componentDidMount = () => {
-    fbApi.fbToken((token) => {
-      if (token) {
-        this.handleFBProfile();
-      } else {
-        this.handleRedirect('signin');
-        console.log("no tokennnnnnnnn");
-      }
-    });
+  componentDidMount() {
+    let that = this
+    setTimeout(function(){
+      fbApi.fbToken((token) => {
+        if (token) {
+          that.handleFBProfile();
+        } else {
+          that.handleRedirect('signin');
+        }
+      })
+    }, 1000
+    )
   };
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={logo} />
       </View>
     )
   }
-}
+};
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create ({  
   logo: {
-    
+    width: 550,
+    height: 780
   },
   container: {
     flex: 1,
@@ -68,7 +73,8 @@ const styles = StyleSheet.create ({
     justifyContent: 'center',
     alignItems: 'center'
   }
-})
+
+});
 
 
 

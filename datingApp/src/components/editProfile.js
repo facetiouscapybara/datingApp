@@ -1,5 +1,14 @@
 //edit user Profile
-import React, { Component, View, Text, StyleSheet, TextInput, Image, TouchableHighlight, PickerIOS} from 'react-native';
+import React, { 
+	Component, 
+	View, 
+	Text, 
+	StyleSheet, 
+	TextInput, 
+	Image, 
+	TouchableHighlight, 
+	PickerIOS
+} from 'react-native';
 import host from './../../constants.js';
 import FBSDKLogin, { FBSDKLoginButton } from 'react-native-fbsdklogin/';
 import SignIn from './signin';
@@ -10,7 +19,7 @@ let that;
 export default class Matches extends Component {
 
 	constructor(props){
-		super(props)
+		super(props);
 
 		that = this;
 
@@ -23,12 +32,12 @@ export default class Matches extends Component {
 			bio:"Loading...",
 			picture: "http://sierrafire.cr.usgs.gov/images/loading.gif",
 			age: '?'
-		}
+		};
 	}
 
 
 	componentWillMount (props) {
-		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id
+		urlPath = host.SERVER_URL + '/api/users/' + this.props.profile.id;
 		//need to set authorization header
 		// let accessToken = JSON.stringify(this.props.access_token)
 		let queryObject = {
@@ -58,7 +67,7 @@ export default class Matches extends Component {
 			})
 			.catch(function(error){
 				console.log(err, "error")
-			})
+			});
 	}
 
 	postData() {
@@ -75,7 +84,7 @@ export default class Matches extends Component {
       	bio:that.state.bio,
       	age: that.state.age
       })
-    }
+    };
 
     fetch(urlPath, queryObject)
     	.then(function(res){
@@ -85,41 +94,41 @@ export default class Matches extends Component {
     	})
     	.catch(function(err){
     		console.log(res)
-    	})
+    	});
 	}
 
 	onSavePress(){
 		this.setState({
 			text:"Saved"
-		})
+		});
 	}
 
 	onBioChange (bio) {
 		that.setState({
 			bio: bio,
 			text: ""
-		})
+		});
 	}
 
 	onAgeChange (age) {
 		that.setState({
 			age: age,
 			text: ""
-		})
+		});
 	}
 
 	onIndustryChange (industry) {//There is 100% a way to prevent the repetition of these functions, but i've spent 40 minutes working on it, not worth it right now.
 		that.setState({
 			industry: industry,
 			text: ""
-		})
+		});
 	}
 
 	onEducationChange (education) {
 		that.setState({
 			education: education,
 			text: ""
-		})
+		});
 	}
 
 	render () {
@@ -139,9 +148,10 @@ export default class Matches extends Component {
 	  			  {this.header("Age:")}
 	  			  {this.textInput(styles.smallestBox, that.onAgeChange, that.state.age, 2, false)}
 	  			</View>
-	  			<View style={styles.inputsBox}>
-	  			  {this.header("Bio:")}
-		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 255, true)}
+	  			<View>
+	  			  {this.header("Pick up line:", styles.pickUp, styles.pickUpHeaderText)}
+	  			  <Text></Text>
+		  			{this.textInput(styles.bigBox, that.onBioChange, that.state.bio, 50, false)}
 		  		</View>
 	  		</View>
   			{this.wordCount()}
@@ -157,7 +167,6 @@ export default class Matches extends Component {
 	  				  alert("Logged out.");
 	  				}}
 	  			  onLogoutFinished={() => {
-	  			  	console.log("hello world !!!!!!!!!!!!!!!");
 		  			  this.handleLogout();	
 	  			  }}/>
 	  		</View>
@@ -171,12 +180,12 @@ export default class Matches extends Component {
 		});
 	}
 
-	header (text) {
+	header (text, additionalBoxStyling, additionalTextStyling) {
 		return (
-			<View style={styles.header}>
-		  	<Text style={styles.headerText}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
+			<View style={[styles.header, additionalBoxStyling]}>
+		  	<Text style={[styles.headerText, additionalTextStyling]}> {text} </Text>{/*I don't like "Bio". We should think of other things it could be*/}
 	  	</View>
-	  )
+	  );
 	}
 
 	textInput (style, onChangeText, value, maxLength, multiline) {
@@ -186,8 +195,9 @@ export default class Matches extends Component {
     			onChangeText={onChangeText}
     			value={value}
     			maxLength={maxLength}
-    			multiline={multiline}/>
-		)
+    			multiline={multiline}
+    	/>
+		);
 	}
 
 	button (onPress, underlayColor, highlightStyle, buttonText, textStyle) {
@@ -196,15 +206,16 @@ export default class Matches extends Component {
 				<Text style={textStyle}>
 					{buttonText}
 				</Text>
-			</TouchableHighlight>)
+			</TouchableHighlight> 
+		);
 	}
 
 	wordCount () {
 		return (
 			<View style={styles.wordCount}>
-				<Text>{255 - this.state.bio.length} characters remaining</Text>
+				<Text>{50 - this.state.bio.length} characters remaining</Text>
 			</View>
-		)
+		);
 	}
 };
 
@@ -231,8 +242,9 @@ const styles = StyleSheet.create({
 	},
 	bigBox:{
 		flex: 1,
+		marginLeft: 30,
 		paddingLeft: 5,
-		height: 100, 
+		height: 25, 
 		borderColor: 'gray',
 		borderWidth: 2,
 		marginRight: 50,
@@ -288,11 +300,18 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	header: {
-		marginBottom: 5,
+		marginTop: 5,
 		marginLeft: 2,
+	},
+	pickUp: {
+		flexDirection: "row",
+		alignSelf: 'center',
 	},
 	headerText: {
 		fontFamily: "HelveticaNeue-Medium"
+	},
+	pickUpHeaderText: {
+		fontSize: 25
 	},
 	buttonBox:{
 		flexDirection: 'row',
@@ -327,4 +346,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingBottom: 80
 	}
-})
+});
+
+
+
+
+
