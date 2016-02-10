@@ -18,20 +18,64 @@ export default class Matches extends Component {
     super(props);
     this.state = {
       requestList: [],
+      womenInArea: 0,
+      womenIds : {},
       currentUser: props.profile,
       chattingCount: props.chattingCount,
       trackingCount: props.chattingCount
     };
+  that = this;
   }
 
   logoutOrPause() {
     geoFire.remove(this.props.profile.id);
   }
 
+  addWomanToArea(key){
+    if(key[0] === 'f'){
+      let id = key.slice(1);
+      if(!that.state.womenIds[id]){
+        let count = that.state.womenInArea + 1;
+        let womenIds = that.state.womenIds;
+        womenIds[id] = true;
+        that.setState({
+          womenInArea : count,
+          womenIds : womenIds
+        });
+        
+      }
+    }
+  }
+
+  removeWomanFromArea(key){
+    if(key[0] === 'f'){  
+      let id = key.slice(1);
+      if(!that.state.womenIds[id]){
+        let count = that.state.womenInArea - 1;
+        let womenIds = that.state.womenIds;
+        delete womenIds[id];
+        that.setState({
+          womenInArea : count,
+          womenIds : womenIds
+        });
+      }
+    }
+  }
   componentWillMount() {
+
     if(this.props.profile.gender === 'male'){
       navigator.geolocation.watchPosition((loc) => {
         geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
+        const geoQuery = geoFire.query({
+          center: [loc.coords.latitude, loc.coords.longitude],
+          radius: 1.0 //kilometers
+        });
+        geoQuery.on("key_entered", function(key) {
+          that.addWomanToArea(key);
+        });
+        geoQuery.on("key_exited", function(key) {
+          that.removeWomanFromArea(key);
+        });
       }, (err) => {
         console.log('error getting location:', err)
       });
@@ -140,13 +184,22 @@ export default class Matches extends Component {
 
   render() {
     if(this.props.profile.gender === 'male' && this.state.requestList.length === 0) {
+      let womenInArea = '';
+      if (this.state.womenInArea === 0){
+        womenInArea = 'There are no women looking in your area.';
+      } else if (this.state.womenInArea === 1){
+        womenInArea = 'There is 1 woman looking in your area.';
+      } else {
+        womenInArea = 'There are ' + this.state.womenInArea + ' women looking in your area.';
+      }
+
       return (
         <View style={styles.container}>
           <Text>
-            Thats it! Just hang out and when someone wants to message you, it will appear on this screen!
+            {womenInArea}
           </Text>
         </View>
-  		)
+      )
     } else if ( this.props.profile.gender === 'female' && this.state.requestList.length === 0){
       return (
         <View style={styles.container}>
@@ -158,7 +211,8 @@ export default class Matches extends Component {
     } else {
       return (<View style={styles.container}>{this.requests()}</View>)
     }
-	}
+  }
+
 
   handleReject(key, otherUserId, otherUserKey) {
     let firebaseUserRefRemove = new Firebase('http://rawdog.firebaseio.com/users/' + this.state.currentUser.id + '/' + key);

@@ -4,7 +4,6 @@
   "authors": [
     "Eric Geniesse <egeniesse@gmail.com>"
   ],
-  "directory": "docs/bower_components",
   "description": "Dating app",
   "main": "splash.html",
   "moduleType": [],
