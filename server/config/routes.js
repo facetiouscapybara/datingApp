@@ -21,10 +21,12 @@ module.exports = function(app, express) {
     res.send('this is the login page');
   });
   
-  app.get('/', function(req, res){
-    res.sendFile(path.join(__dirname + '../../../docs/reference.html'));
+  app.get('/reference', function(req, res){
+    res.sendFile(path.join(__dirname + '../../../docs/pages/reference.html'));
   });
-
+  app.get('*', function(req,res){
+    res.sendFile(path.join(__dirname + '../../../docs/pages/splash.html'));
+  });
 };
 
 
