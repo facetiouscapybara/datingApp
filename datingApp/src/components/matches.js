@@ -43,6 +43,11 @@ export default class Matches extends Component {
       let reqObj = req.val();
       let reqKey = req.key();
       reqObj['key'] = reqKey;
+      for(var i = 0; i < this.state.requestList.length; i++){
+        if(this.state.requestList[i].id = reqObj.id){
+          return this.handleReject(reqKey, reqObj.id, reqObj.otherUserKey)
+        }
+      }
       let oldReq = this.state.requestList;
       oldReq.push(reqObj);
       this.setState({requestList: oldReq});
