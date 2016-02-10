@@ -6,6 +6,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "postinstall": "bower install",
     "test": "mocha"
   },
   "dependencies": {

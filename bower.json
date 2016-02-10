@@ -1,0 +1,23 @@
+{
+  "name": "Tolo",
+  "homepage": "https://github.com/egeniesse/datingApp",
+  "authors": [
+    "Eric Geniesse <egeniesse@gmail.com>"
+  ],
+  "directory": "docs/bower_components",
+  "description": "Dating app",
+  "main": "splash.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6"
+  }
+}
