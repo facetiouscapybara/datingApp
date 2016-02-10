@@ -19,13 +19,13 @@ export default class MatchesItem extends Component {
         }
         underlayColor={'green'}
         style={styles.acceptButton}>
-        <Text style={styles.name}>ACCEPT</Text>
+        <Text style={styles.buttonText}>ACCEPT & CHAT</Text>
       </TouchableHighlight>
       <TouchableHighlight
         onPress={(e) => this.props.reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
         underlayColor={'red'}
         style={styles.rejectButton}>
-        <Text style={styles.name}>Reject</Text>
+        <Text style={styles.buttonText}>Cancel Request</Text>
       </TouchableHighlight>
       </View>
     );
@@ -38,33 +38,40 @@ export default class MatchesItem extends Component {
 
     if (this.props.profile.gender === "male") {
       return (
-        <View key={this.props.key}>
-          <Image 
-            source={{uri: this.props.user.photo}}
-            style={styles.image}/>
-          <View >
+        <View key={this.props.key} style={styles.container}>
+          <View style={styles.leftBox}>
+            <Text>Tap on Photo for more info</Text>
+            <TouchableHighlight>
+              <Image 
+                source={{uri: this.props.user.photo}}
+                style={styles.image}/>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.rightBox}>
             <Text style={styles.name}>
-              {this.props.user.name}, {this.props.user.age}
+              {this.props.user.name} {this.props.user.age}
             </Text>
             {maleComponent}
           </View>
         </View>
       );
-    } else {
+    } else { 
       return (
-        <View key={this.props.key}>
-          <Image 
-            source={{uri: this.props.user.photo}}
-            style={styles.image}/>
-          <View >
-            <Text style={styles.name}>
-              {this.props.user.name}, {this.props.user.age}
-            </Text>
+        <View key={this.props.key} style={styles.container}>
+          <View style={styles.leftBox}>
+            <Image 
+              source={{uri: this.props.user.photo}}
+              style={styles.image}/>
+          </View>    
+          <View style={styles.rightBox}>
+            <View style={styles.waitingBox}>
+              <Text style={styles.waiting}>Waiting on a response from {this.props.user.name}</Text>
+            </View>  
             <TouchableHighlight
               onPress={(e) => this.props.reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
               underlayColor={'red'}
               style={styles.rejectButton}>
-              <Text style={styles.name}>Reject</Text>
+              <Text style={styles.buttonText}>Cancel Request</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -77,10 +84,33 @@ export default class MatchesItem extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between'
+    marginTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+    paddingBottom: 20,
+    paddingTop: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderRadius: 5,
+    shadowColor: "#3cae8e",
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 2,
+      width: 2
+    }
+  },
+  leftBox: {
+    flex: 1
+  },
+  rightBox: {
+    flex: 1,
+    paddingLeft: 20,
+    paddingTop : 10
   },
   name: {
-    fontSize: 20
+    fontSize: 40,
+    marginBottom: 30
   },
   image : {
     flex: 4,
@@ -90,15 +120,31 @@ const styles = StyleSheet.create({
   },
   acceptButton: {
     borderRadius: 5,
-    height: 20,
-    width: 100,
+    marginBottom: 45,
     backgroundColor: 'green'
   },
   rejectButton: {
+
     borderRadius: 5,
-    height: 20,
-    width: 100,
     backgroundColor: 'red'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 17,
+    textAlign: 'center',
+    margin: 5,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  waitingBox: {
+    width: 120,
+    marginBottom: 45,
+    marginTop: 20
+  },
+  waiting: {
+    fontSize: 18,
+    flexWrap: 'wrap',
+    textAlign: 'center'
   }
 });
 

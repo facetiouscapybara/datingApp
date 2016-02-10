@@ -21,6 +21,7 @@ export default class Tab extends Component {
   }
 
   componentWillMount() {
+  this.props.profile.gender = 'female'
     if (this.props.profile.gender==="male") {
       this.handleWatch("List");
     } else {
@@ -77,7 +78,7 @@ export default class Tab extends Component {
   }
 
   render() {
-    this.props.profile.gender = 'female'
+    // this.props.profile.gender = 'female'
 
     var settingsComponent = (
       <TabBarIOS.Item

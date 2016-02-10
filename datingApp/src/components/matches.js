@@ -4,7 +4,8 @@ import React, {
   View, 
   Text,
   AlertIOS, 
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
@@ -87,6 +88,11 @@ export default class Matches extends Component {
       let reqObj = req.val();
       let reqKey = req.key();
       reqObj['key'] = reqKey;
+      for(var i = 0; i < this.state.requestList.length; i++){
+        if(this.state.requestList[i].id === reqObj.id){
+          return this.handleReject(reqKey, reqObj.id, reqObj.otherUserKey)
+        }
+      }
       let oldReq = this.state.requestList;
       oldReq.push(reqObj);
       this.setState({requestList: oldReq});
@@ -190,21 +196,30 @@ export default class Matches extends Component {
       } else if (this.state.womenInArea === 1){
         womenInArea = 'There is 1 woman looking in your area.';
       } else {
-        womenInArea = 'There are ' + this.state.womenInArea + ' women looking in your area.';
+        womenInArea = 'There are currently ' + this.state.womenInArea + ' women looking in your area.';
       }
 
       return (
         <View style={styles.container}>
-          <Text>
-            {womenInArea}
-          </Text>
+          <View style={styles.noMatches}>
+            <View style={styles.currentlyInArea}>
+              <Text style={styles.noMatchText}>
+                Hang out here and wait for someone to message you, we'll let you know when you've got one!
+              </Text>
+            </View>
+            <View style={styles.currentlyInArea}>
+              <Text style={styles.noMatchTextCount}>
+                {womenInArea}
+              </Text>
+            </View>
+          </View>    
         </View>
       )
     } else if ( this.props.profile.gender === 'female' && this.state.requestList.length === 0){
       return (
         <View style={styles.container}>
-          <Text>
-            This is where your pending requests show up! Go out there and find someone!
+          <Text style={styles.noMatchText}>
+            This is where your pending requests go! Go out there and find someone!
           </Text>
         </View>
       )
@@ -266,7 +281,11 @@ export default class Matches extends Component {
 
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key;
-      return <MatchesItem profile={this.props.profile} accept={this.handleAccept.bind(this)} reject={this.handleReject.bind(this)} user={user} key={user.id}/>
+      return (
+              <View key={user.id} style={styles.matchContainer}>
+                <MatchesItem profile={this.props.profile} accept={this.handleAccept.bind(this)} reject={this.handleReject.bind(this)} user={user} key={user.id}/>
+              </View> 
+            ) 
     });
     
     return <View>{requestUsers}</View>
@@ -277,31 +296,25 @@ export default class Matches extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingTop: 40,
-    backgroundColor: 'white'
+    alignItems: 'center',
+    paddingTop: 40
 	},
-  name: {
-    fontSize: 20
+  noMatches: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  image : {
-    flex: 4,
-    borderRadius: 10,
-    height: 100,
-    width: 100
+  currentlyInArea: {
+    margin: 40,
   },
-  acceptButton: {
-    borderRadius: 5,
-    height: 20,
-    width: 100,
-    backgroundColor: 'green'
+  noMatchText: {
+    textAlign: 'center',
+    fontSize: 18
   },
-  rejectButton: {
-    borderRadius: 5,
-    height: 20,
-    width: 100,
-    backgroundColor: 'red'
+  noMatchTextCount: {
+    textAlign: 'center',
+    fontSize: 22,
+    color: 'red'
   }
 });
 
