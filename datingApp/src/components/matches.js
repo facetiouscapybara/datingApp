@@ -149,15 +149,16 @@ export default class Matches extends Component {
               var that = this;
               setTimeout(() => {
                 AlertIOS.alert(
-                  "You are going to message with " + newReq.name + " right now!",
-                  null,
+                  "Are you going to message with " + newReq.name + " now?",
+                  "Press Cancel if you want to stay!",
                   [{text: 'OK', onPress: () => {
                     that.props.navigator.replace({
                       component: ChatRoom,
                       passProps: newProps,
                       navigationBarHidden: true
                     });  
-                  }}],
+                  }}, 
+                  {text: 'Cancel'}],
                   null
                 );
               }, 6000);
