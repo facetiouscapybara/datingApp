@@ -105,8 +105,8 @@ export default class Tab extends Component {
     } else {
       return (
         <TabBarIOS
-        tintColor="white"
-        barTintColor="#3cae8e">
+        tintColor="#3cae8e"
+        barTintColor="white">
           <TabBarIOS.Item
             icon={require('../styles/ipeople.png')}
             title="FIND"

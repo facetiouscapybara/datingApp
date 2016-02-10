@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     paddingTop: 40,
-    backgroundColor: '#48BBEC'
+    backgroundColor: 'white'
 	},
   name: {
     fontSize: 20
