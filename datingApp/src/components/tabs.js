@@ -77,7 +77,7 @@ export default class Tab extends Component {
   }
 
   render() {
-    this.props.profile.gender = 'female'
+    this.props.profile.gender = 'male'
 
     var settingsComponent = (
       <TabBarIOS.Item
