@@ -297,9 +297,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
     alignItems: 'center',
-    paddingTop: 40,
-    backgroundColor: '#fff'
-<<<<<<< HEAD
+    paddingTop: 40
 	},
   noMatches: {
     flex: 1,
@@ -318,9 +316,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'red'
   }
-=======
-	}
->>>>>>> d419f67fb2d3ccf656360787bcb2aba65be3550e
 });
 
 
