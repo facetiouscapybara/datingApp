@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green'
   },
   rejectButton: {
+
     borderRadius: 5,
     backgroundColor: 'red'
   },
