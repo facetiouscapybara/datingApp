@@ -60,11 +60,9 @@ export default class Splash extends Component {
       </View>
     )
   }
-
 };
 
-const styles = StyleSheet.create ({
-  
+const styles = StyleSheet.create ({  
   logo: {
     width: 550,
     height: 780

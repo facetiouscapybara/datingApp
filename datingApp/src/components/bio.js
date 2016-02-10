@@ -1,4 +1,4 @@
-//this will be the screen where, upon signing up the user is taken to write a short bio of themselves
+
 import React, { 
   Component, 
   View, 
@@ -7,10 +7,11 @@ import React, {
   StyleSheet, 
   TouchableHighlight, 
   ScrollView, 
-  TextInput
+  TextInput,
+  Dimensions
 } from 'react-native';
 import Firebase from 'firebase';
-
+const widthDimensions = (Dimensions.get('window').width) - 20
 export default class Bio extends Component {
 
 	constructor(props) {
@@ -26,7 +27,7 @@ export default class Bio extends Component {
 	  	distance: props.profile.distance,
 	  	education: props.profile.education,
 	  	industry: props.profile.industry,
-	  	text: ' Hi! Wanna grab a coffee?'
+	  	text: ' Hi! Want to chat?'
 	  };
 	  this.buttonSubmit = this.buttonSubmit.bind(this);
 	}
@@ -77,16 +78,26 @@ export default class Bio extends Component {
   render() {
 		return (
       <View style={styles.container} onMagicTap={this.buttonSubmit}>
-      	<ScrollView style={styles.bioBox}>
-	      	<Image style={styles.image} source={{uri: this.state.picture}} />
-	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
-	      	{this.header("Works in ")}
-	      	<Text style={styles.bio}>{this.state.industry}</Text>
-	      	{this.header("Went to school at ")}
-	      	<Text style={styles.bio}>{this.state.education}</Text>
-	      	{this.header("About " + this.state.first_name)}
-	      	<Text style={styles.bio}>{this.state.bio}</Text>
-        </ScrollView>
+      	<View style={styles.bioBox}>
+          <View style={styles.mainBox}>
+    	      	<Image style={styles.image} source={{uri: this.state.picture}} />
+    	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
+          </View>
+          <View style={styles.infoBox}>
+    	      	{this.header("  Works in: ")}
+              <View style={{backgroundColor:'#3cae8e'}}>
+    	      	  <Text style={styles.bio}>{this.state.industry}</Text>
+              </View>  
+    	      	{this.header("  Went to school at: ")}
+              <View style={{backgroundColor:'#3cae8e'}}>
+    	      	  <Text style={styles.bio}>{this.state.education}</Text>
+              </View>  
+    	      	{this.header("  About: " + this.state.first_name)}
+    	      	<View style={{backgroundColor:'#3cae8e'}}>
+                <Text style={styles.bio}>{this.state.bio}</Text>
+              </View>
+          </View>
+        </View>
         <View style={styles.inputView}>
           <TextInput 
             style={styles.inputBox}
@@ -95,13 +106,15 @@ export default class Bio extends Component {
             value={this.state.text}/>
         </View>
         <View style={styles.buttons}>
+          <View style={{flex: 1}}></View>
           <TouchableHighlight
             style={styles.button}
             activeOpacity={0.7}
-            underlayColor={'#3ABB3A'}
+            underlayColor={'#0C8362'}
             onPress={this.buttonSubmit}>
             <Text style={styles.buttonText}>Send Request!</Text>
           </TouchableHighlight>
+          <View style={{flex: 1}}></View>
         </View>
       </View>
 		)
@@ -120,19 +133,32 @@ const styles = StyleSheet.create({
 	container: {
 		flex:1,
 		backgroundColor: '#fff',
-		marginTop: 40,
-		paddingBottom: 10
+		marginTop: 70
 	},
+  mainBox: {
+    marginLeft: 20, 
+    marginRight: 20,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+    shadowColor: "#3cae8e", 
+    shadowOpacity: 1, 
+    shadowRadius: 5, 
+    shadowOffset: {height: 2,width: 2}
+  },
 	bioBox: {
 		flex: 12
 	},
 	bio: {
-		paddingLeft: 30
+		paddingLeft: 10,
+    paddingTop: 3,
+    paddingBottom: 3,
+    fontSize: 18
 	},
 	buttons: {
-		flex: 2,
+		flex: 1,
     flexDirection: 'row',
-		justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#f5fffc'
 	},
 	button: {
     alignSelf: 'center',
@@ -150,6 +176,7 @@ const styles = StyleSheet.create({
 	image: {
 		height: 300,
     width: 300,
+    marginTop: 40,
 		borderRadius: 4,
 		alignSelf: 'center'
 	},
@@ -157,18 +184,38 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		fontSize: 30,
 		margin: 10,
-		color: '#3cae8e'
+		color: '#0c8362'
 	},
 	inputView: {
-		flex: 1
+		flex: 1,
+    backgroundColor: '#f5fffc'
 	},
 	inputBox: {
-		flex: 1,
+    flex: 1,
 		alignSelf: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-    width: 400,
-    borderRadius: 5
-	}
+    marginTop: 5,
+    backgroundColor: 'rgba(147,225,203,0.5)',
+    borderRadius: 5,
+    width: widthDimensions
+	},
+  header: {
+    paddingTop: 5,
+    backgroundColor: '#93E1CB'
+  },
+  headerText: {
+    fontSize: 14,
+    color: '#0c8362'
+  },
+  infoBox: {
+    marginLeft: 20, 
+    marginRight: 20,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    shadowColor: "#3cae8e", 
+    shadowOpacity: 1, 
+    shadowRadius: 5, 
+    shadowOffset: {height: 2,width: 2}
+  }
 });
 
 

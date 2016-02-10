@@ -22,7 +22,7 @@ export default class List extends Component {
   		currentList: [],
       isRefreshing: false,
       bioText:  <Text style={{fontSize: 24, fontFamily: 'verdana', alignSelf: 'center', color: '#3cae8e'}}>
-                  Tap on a photo to see their Bio
+                  Tap on a photo to learn more
                 </Text>
   	};
   	that = this;
