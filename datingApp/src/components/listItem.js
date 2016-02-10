@@ -13,7 +13,6 @@ const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {
 
 	render () {
-    console.log(this.props.user)
 		return (
 		<View style={[ { width: deviceWidth / 2, height: 250 } ]}>	
 				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10, marginBottom:10 }]}>

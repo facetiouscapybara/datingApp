@@ -11,6 +11,8 @@ import ListItem from './listItem';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
 import host from './../../constants.js'
+const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
+const geoFire = new Geofire(firebaseRef);
 
 let that;
 
@@ -40,32 +42,39 @@ export default class List extends Component {
     });
   }
 
-  getUserData(key, distance) { 
-  	let userObj;
-    distance = Math.floor(distance * 3280.84);
-  	const queryObject = {
-		  method: "GET",
-		  headers: {
-			  'Accept': 'application/json',
-        'Content-Type': 'application/json',
-			  'Authorization': 'Bearer ' +  this.props.profile.access_token
-			}
-		};
+  getUserData(key, distance) {
+    if(key[0] !== 'f'){
+      distance = Math.floor(distance * 3280.84);
+      const queryObject = {
+        method: "GET",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' +  this.props.profile.access_token
+        }
+      };
 
-		let url = host.SERVER_URL + '/api/users/?id=' + this.props.profile.id + '&userInArea=' + key;
+      let url = host.SERVER_URL + '/api/users/?id=' + this.props.profile.id + '&userInArea=' + key;
 
-  	fetch(url, queryObject)
-  	  .then(function(res){
-        userObj = JSON.parse(res._bodyText);
-        userObj['distance'] = distance;
-		    let newList = that.state.currentList.concat([userObj]);
-	      that.setState({
-	        currentList: newList
-	      });	    	
-      });
+      fetch(url, queryObject)
+        .then(function(res){
+          userObj = JSON.parse(res._bodyText);
+          userObj['distance'] = distance;
+          let newList = that.state.currentList.concat([userObj]);
+          that.setState({
+            currentList: newList
+          });       
+        });
+    } 
   }
 
   componentWillMount() {
+    // navigator.geolocation.watchPosition((loc) => {
+    //   console.log('new Location', loc)
+    // //   geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
+    // // }, (err) => {
+    // //   console.log('error getting location:', err)
+    // });
   	 navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
 		    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
@@ -76,6 +85,8 @@ export default class List extends Component {
 		    });
 		      
 		    navigator.geolocation.watchPosition((loc) => {
+
+          geoFire.set('f'+ this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
 		    	geoQuery.updateCriteria({
 		    		center: [loc.coords.latitude, loc.coords.longitude]
 		    	});
