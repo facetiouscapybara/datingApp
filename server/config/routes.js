@@ -20,13 +20,6 @@ module.exports = function(app, express) {
   app.get('/login', function(req, res){
     res.send('this is the login page');
   });
-  
-  app.get('/reference', function(req, res){
-    res.sendFile(path.join(__dirname + '../../../docs/pages/reference.html'));
-  });
-  app.get('*', function(req,res){
-    res.sendFile(path.join(__dirname + '../../../docs/pages/splash.html'));
-  });
 };
 
 
