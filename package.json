@@ -6,12 +6,10 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
     "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
-    "bower": "^1.7.7",
     "express": "^4.13.4",
     "jsonwebtoken": "^5.5.4",
     "node-neo4j": "^2.0.3",
