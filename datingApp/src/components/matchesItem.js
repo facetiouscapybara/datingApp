@@ -25,7 +25,11 @@ export default class MatchesItem extends Component {
         onPress={(e) => this.props.reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
         underlayColor={'red'}
         style={styles.rejectButton}>
+<<<<<<< HEAD
         <Text style={styles.buttonText}>Cancel Request</Text>
+=======
+        <Text style={styles.name}>Cancel Request</Text>
+>>>>>>> d419f67fb2d3ccf656360787bcb2aba65be3550e
       </TouchableHighlight>
       </View>
     );
@@ -71,7 +75,11 @@ export default class MatchesItem extends Component {
               onPress={(e) => this.props.reject(this.props.user.key, this.props.user.id, this.props.user.otherUserKey)}
               underlayColor={'red'}
               style={styles.rejectButton}>
+<<<<<<< HEAD
               <Text style={styles.buttonText}>Cancel Request</Text>
+=======
+              <Text style={styles.name}>Cancel Request</Text>
+>>>>>>> d419f67fb2d3ccf656360787bcb2aba65be3550e
             </TouchableHighlight>
           </View>
         </View>
@@ -124,6 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green'
   },
   rejectButton: {
+
     borderRadius: 5,
     backgroundColor: 'red'
   },
