@@ -204,7 +204,7 @@ export default class Matches extends Component {
       return (
         <View style={styles.container}>
           <Text>
-            This is where your pending requests go! Go out there and find someone!
+            This is where your pending requests show up! Go out there and find someone!
           </Text>
         </View>
       )
