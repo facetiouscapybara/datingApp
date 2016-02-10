@@ -4,7 +4,8 @@ import React, {
   View, 
   Text,
   AlertIOS, 
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import Firebase from 'firebase/';
 import Geofire from 'geofire/';
@@ -88,7 +89,7 @@ export default class Matches extends Component {
       let reqKey = req.key();
       reqObj['key'] = reqKey;
       for(var i = 0; i < this.state.requestList.length; i++){
-        if(this.state.requestList[i].id = reqObj.id){
+        if(this.state.requestList[i].id === reqObj.id){
           return this.handleReject(reqKey, reqObj.id, reqObj.otherUserKey)
         }
       }
@@ -271,7 +272,11 @@ export default class Matches extends Component {
 
     let requestUsers = this.state.requestList.map((user) => {
       let key = user.key;
-      return <MatchesItem profile={this.props.profile} accept={this.handleAccept.bind(this)} reject={this.handleReject.bind(this)} user={user} key={user.id}/>
+      return (
+              <View key={user.id} style={styles.matchContainer}>
+                <MatchesItem profile={this.props.profile} accept={this.handleAccept.bind(this)} reject={this.handleReject.bind(this)} user={user} key={user.id}/>
+              </View> 
+            ) 
     });
     
     return <View>{requestUsers}</View>
@@ -282,32 +287,10 @@ export default class Matches extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingTop: 40,
-    backgroundColor: '#48BBEC'
-	},
-  name: {
-    fontSize: 20
-  },
-  image : {
-    flex: 4,
-    borderRadius: 10,
-    height: 100,
-    width: 100
-  },
-  acceptButton: {
-    borderRadius: 5,
-    height: 20,
-    width: 100,
-    backgroundColor: 'green'
-  },
-  rejectButton: {
-    borderRadius: 5,
-    height: 20,
-    width: 100,
-    backgroundColor: 'red'
-  }
+    backgroundColor: '#fff'
+	}
 });
 
 
