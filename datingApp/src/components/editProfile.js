@@ -87,15 +87,20 @@ export default class Matches extends Component {
       })
     };
 
-    fetch(urlPath, queryObject)
-    	.then(function(res){
-    		console.log(res)
-    		styles.saved.color = 'gray'
-    		that.onSavePress()
-    	})
-    	.catch(function(err){
-    		console.log(res)
-    	});
+    if(Number(that.state.age)< 18){
+			alert('Sorry, you must be at least 18 for this app')
+		}else{
+	    fetch(urlPath, queryObject)
+	    	.then(function(res){
+	    		console.log(res)
+	    		styles.saved.color = 'gray'
+	    		that.onSavePress()
+	    	})
+	    	.catch(function(err){
+	    		console.log(res)
+	    	});
+		}
+
 	}
 
 	onSavePress(){
@@ -238,7 +243,7 @@ const styles = StyleSheet.create({
 	headline: {
 		paddingLeft: 5,
 		height: 40, 
-		borderColor: '#0c8362', 
+		borderColor: '#3cae8e', 
 		borderWidth: 1,
 		marginRight: 50,
 		marginLeft: 30,
@@ -252,7 +257,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingLeft: 5,
 		height: 25, 
-		borderColor: '#0c8362',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
 		borderRadius: 5,
 		backgroundColor: 'white',
@@ -263,7 +268,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		height: 25,
 		paddingLeft: 5,
-		borderColor: '#0c8362', 
+		borderColor: '#3cae8e', 
 		borderWidth: 2,
 		borderRadius: 5,
 		backgroundColor: 'white',
@@ -276,7 +281,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		backgroundColor: 'white',
 		borderRadius: 5,
-		borderColor: '#0c8362',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
 		paddingLeft: 5,
 		fontSize: 15,
@@ -287,7 +292,7 @@ const styles = StyleSheet.create({
 		width: 50,
 		backgroundColor: 'white',
 		borderRadius: 5,
-		borderColor: '#0c8362',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
 		paddingLeft: 5,
 		fontSize: 15,
