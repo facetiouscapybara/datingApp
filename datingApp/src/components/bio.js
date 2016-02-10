@@ -11,7 +11,9 @@ import React, {
   Dimensions
 } from 'react-native';
 import Firebase from 'firebase';
+
 const widthDimensions = (Dimensions.get('window').width) - 20
+
 export default class Bio extends Component {
 
 	constructor(props) {
@@ -92,7 +94,7 @@ export default class Bio extends Component {
               <View style={{backgroundColor:'#3cae8e'}}>
     	      	  <Text style={styles.bio}>{this.state.education}</Text>
               </View>  
-    	      	{this.header("  About: " + this.state.first_name)}
+    	      	{this.header(this.state.first_name + "'s pickup line")}
     	      	<View style={{backgroundColor:'#3cae8e'}}>
                 <Text style={styles.bio}>{this.state.bio}</Text>
               </View>

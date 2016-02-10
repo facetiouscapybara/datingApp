@@ -204,7 +204,7 @@ export default class Matches extends Component {
       return (
         <View style={styles.container}>
           <Text>
-            This is where your pending requests go! Go out there and find someone!
+            This is where your pending requests show up! Go out there and find someone!
           </Text>
         </View>
       )
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     paddingTop: 40,
-    backgroundColor: '#48BBEC'
+    backgroundColor: 'white'
 	},
   name: {
     fontSize: 20
