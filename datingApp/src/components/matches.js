@@ -218,7 +218,7 @@ export default class Matches extends Component {
     } else if ( this.props.profile.gender === 'female' && this.state.requestList.length === 0){
       return (
         <View style={styles.container}>
-          <Text>
+          <Text style={styles.noMatchText}>
             This is where your pending requests go! Go out there and find someone!
           </Text>
         </View>
