@@ -13,6 +13,7 @@ const deviceWidth = Dimensions.get('window').width;
 export default class ListItem extends Component {
 
 	render () {
+    console.log(this.props.user)
 		return (
 		<View style={[ { width: deviceWidth / 2, height: 250 } ]}>	
 				<View style={[ { flex:1, marginLeft:10, marginRight: 10, marginTop:10, marginBottom:10 }]}>
@@ -27,7 +28,7 @@ export default class ListItem extends Component {
 							style={styles.photo}/>
 		        <View >
 				      <Text style={[ {fontSize: 24, fontFamily: 'verdana'} ]}>
-				      	{this.props.user.first_name}
+				      	{this.props.user.first_name}, {this.props.user.age}
 				      </Text>
 				  	</View>
 				  	<View>
@@ -52,9 +53,11 @@ export default class ListItem extends Component {
 	    component: Bio,
 	    title: this.props.user.first_name + "'s About Me",
 	    passProps: props,
-	    barTintColor: 'rgba(72,187,236,0)',
+	    barTintColor: '#fff',
 	    translucent: true,
-	    tintColor: 'rgb(0,0,0)'
+	    tintColor: '#3cae8e',
+	    shadowHidden: true,
+	    titleTextColor: '#3cae8e'
     }); 
 	}
 
@@ -65,12 +68,12 @@ const styles = StyleSheet.create({
     height: 170
 	},
 	shadow: {
-		shadowColor: "#000000",
-    shadowOpacity: 0.7,
-    shadowRadius: 2,
+		shadowColor: "#3cae8e",
+    shadowOpacity: 1,
+    shadowRadius: 5,
     shadowOffset: {
-      height: 1,
-      width: 0
+      height: 2,
+      width: 2
     }
 	}
 });
