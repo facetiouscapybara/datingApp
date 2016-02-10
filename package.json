@@ -6,17 +6,22 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
     "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
+    "bootstrap": "^3.3.6",
+    "bower": "^1.7.7",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "jquery": "^2.2.0",
     "jsonwebtoken": "^5.5.4",
     "node-neo4j": "^2.0.3",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
     "passport-http-bearer": "^1.0.1",
+    "path": "^0.12.7",
     "react-native-fbsdklogin": "0.0.8",
     "request": "^2.67.0"
   },

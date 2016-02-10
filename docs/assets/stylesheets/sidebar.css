@@ -1,0 +1,46 @@
+#sidebar {
+	padding-top: 20px;
+	width: 15%;
+	height: 3000px;
+	background: #fcfcfc;
+	position: fixed;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border: 1px solid #e5e5ee;
+	-webkit-box-shadow: inset 0 0 5px #e5e5ee;
+}
+
+#sidebar ul {
+	padding: 0px;
+	margin: 7%;
+	list-style-type: none;
+}
+
+.toc_title {
+	text-decoration: none;
+	font-weight: normal;
+	font-family: "roboto-black";
+}
+
+.toc_section li a {
+	text-align: center;
+	font-size: 11pt;
+	text-decoration: none;
+
+}
+
+.oneSection {
+	margin-left: 10%;	
+	width: 80%;
+	margin-top: 7%;
+}
+
+#userFlow {
+	width: 90%;
+	padding: 2.5%;
+	margin: 3% 0px;
+}
+
+#userFlow h2 {
+	margin-bottom: 30px;
+}
