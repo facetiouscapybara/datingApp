@@ -4,7 +4,7 @@ var expect = chai.expect;
 var createNewUser = require('../server/controllers/accountControllers.js').createNewUser;
 var deleteUser = require('../server/controllers/accountControllers.js').deleteUser;
 chai.use(chaiHttp);
-var app = 'http://localhost:3000';
+var app = 'https://powerful-sea-68331.herokuapp.com';
 
 describe('The server side API controllers', function(){
 
@@ -155,14 +155,12 @@ describe('The server side API controllers', function(){
     var params = {raw : {
       userId: "346",
       targetId: "348",
-      relationship: "blocked",
-      tag: 'creep'
+      relationship: "blocked"
     },
       sweeny : {
       userId: "346",
       targetId: "349",
-      relationship: "selected",
-      tag: 'cool'
+      relationship: "selected"
     }};
 
     chai.request(app)
@@ -172,7 +170,7 @@ describe('The server side API controllers', function(){
       .end(function (err, res) {
          expect(err).to.be.null;
          expect(res).to.have.status(201);
-         expect(res.body.columns[0]).to.equal('creep');
+         expect(res.body.columns[0]).to.equal('tag');
 
           chai.request(app)
             .post('/api/relationship')
@@ -181,7 +179,7 @@ describe('The server side API controllers', function(){
             .end(function (err, res) {
                expect(err).to.be.null;
                expect(res).to.have.status(201);
-               expect(res.body.columns[0]).to.equal('cool');
+               expect(res.body.columns[0]).to.equal('tag');
                done();
             });
         });
