@@ -2,7 +2,8 @@
 import React, { 
 	Component, 
 	View, 
-	Text, 
+	Text,
+	ScrollView, 
 	StyleSheet, 
 	TextInput, 
 	Image, 
@@ -86,15 +87,20 @@ export default class Matches extends Component {
       })
     };
 
-    fetch(urlPath, queryObject)
-    	.then(function(res){
-    		console.log(res)
-    		styles.saved.color = 'gray'
-    		that.onSavePress()
-    	})
-    	.catch(function(err){
-    		console.log(res)
-    	});
+    if(Number(that.state.age)< 18){
+			alert('Sorry, you must be at least 18 for this app')
+		}else{
+	    fetch(urlPath, queryObject)
+	    	.then(function(res){
+	    		console.log(res)
+	    		styles.saved.color = 'gray'
+	    		that.onSavePress()
+	    	})
+	    	.catch(function(err){
+	    		console.log(res)
+	    	});
+		}
+
 	}
 
 	onSavePress(){
@@ -133,13 +139,13 @@ export default class Matches extends Component {
 
 	render () {
 		return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
       	<View style={styles.imageBox}>
 	        <Image style={styles.image} source={{uri:this.state.picture}}/>
       	</View>
   			<View style={styles.infoBox}>
   				<View style={styles.inputsBox}>
-	      	  {this.header("Industry:")}
+	      	  {this.header("Works in:")}
 	      		{this.textInput(styles.smallBox, that.onIndustryChange, that.state.industry, 50, false)}
 	  			</View>
       		<View style={styles.inputsBox}>
@@ -170,7 +176,7 @@ export default class Matches extends Component {
 		  			  this.handleLogout();	
 	  			  }}/>
 	  		</View>
-      </View>
+      </ScrollView>
 		)
 	}
 
@@ -221,33 +227,38 @@ export default class Matches extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		paddingTop: 65,
 		flex:1,
-    backgroundColor: '#48BBEC'
+    backgroundColor: '#fff'
 	},
 	imageBox: {
-		flex:1.5,
+		marginLeft: 20, 
+    marginRight: 20,
+    marginBottom: 20,
+    borderRadius: 5,
+    shadowColor: "#3cae8e", 
+    shadowOpacity: 1, 
+    shadowRadius: 5, 
+    shadowOffset: {height: 2,width: 2}
 	},
 	headline: {
 		paddingLeft: 5,
 		height: 40, 
-		borderColor: 'gray', 
+		borderColor: '#3cae8e', 
 		borderWidth: 1,
 		marginRight: 50,
 		marginLeft: 30,
 		borderRadius: 5
 	},
 	infoBox: {
-		flex: 1.5,
+		marginLeft: 20, 
+    marginRight: 20,
 	},
 	bigBox:{
 		flex: 1,
-		marginLeft: 30,
 		paddingLeft: 5,
 		height: 25, 
-		borderColor: 'gray',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
-		marginRight: 50,
 		borderRadius: 5,
 		backgroundColor: 'white',
 		fontSize: 15,
@@ -255,10 +266,9 @@ const styles = StyleSheet.create({
 	},
 	smallBox:{
 		flex: 1,
-		marginRight:50,
 		height: 25,
 		paddingLeft: 5,
-		borderColor: 'gray', 
+		borderColor: '#3cae8e', 
 		borderWidth: 2,
 		borderRadius: 5,
 		backgroundColor: 'white',
@@ -271,7 +281,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		backgroundColor: 'white',
 		borderRadius: 5,
-		borderColor: 'gray',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
 		paddingLeft: 5,
 		fontSize: 15,
@@ -280,10 +290,9 @@ const styles = StyleSheet.create({
 	smallestBox:{
 		height: 25,
 		width: 50,
-		marginRight: 50,
 		backgroundColor: 'white',
 		borderRadius: 5,
-		borderColor: 'gray',
+		borderColor: '#3cae8e',
 		borderWidth: 2,
 		paddingLeft: 5,
 		fontSize: 15,
@@ -294,10 +303,12 @@ const styles = StyleSheet.create({
 		marginTop: 5
 	},
 	image: {
-		height: 125,
-		width: 125,
-		borderRadius: 50,
-		alignSelf: 'center'
+		height: 300,
+    width: 300,
+    marginTop: 20,
+		borderRadius: 4,
+		alignSelf: 'center',
+		marginBottom: 20
 	},
 	header: {
 		marginTop: 5,
@@ -315,22 +326,24 @@ const styles = StyleSheet.create({
 	},
 	buttonBox:{
 		flexDirection: 'row',
-		flex:2,
+		flex:1,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-start',
 		paddingRight:20,
-		marginRight: 30
 	},
 	button:{
 		fontSize:15,
-		fontFamily: "HelveticaNeue-Medium"
+		fontFamily: "HelveticaNeue-Medium",
+		color:'white',
+		shadowRadius: 5, 
+    shadowOffset: {height: 2,width: 2}
 	},
 	buttonHighlight: {
 		borderRadius:10,
 		borderWidth: 1, 
-		borderColor: '#0796D3',
+		borderColor: '#339B7E',
 		padding: 10,
-		backgroundColor: '#A1DDF8'
+		backgroundColor: '##3cae8e',
 	},
 	wordCount: {
 		alignItems: 'flex-end',
@@ -338,13 +351,14 @@ const styles = StyleSheet.create({
 	},
 	saved: {
 		padding: 10,
-		color: 'white',
+		color: '#3cae8e',
 		fontStyle: 'italic',
 		paddingRight: 10
 	},
 	logout: {
+		paddingTop: 40,
 		alignItems: 'center',
-		paddingBottom: 80
+		paddingBottom: 40
 	}
 });
 
