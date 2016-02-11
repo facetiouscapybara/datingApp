@@ -62,7 +62,7 @@ export default class SignIn extends Component {
     return (
       <View style={styles.container}>
         <Image source={GameChanger} />
-        <Text style={styles.text}>"Use Facebook to Sign In or Sign Up"</Text>
+        <Text style={styles.text}>"Log In With facebook"</Text>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
             if (error) {
@@ -92,14 +92,14 @@ export default class SignIn extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#48BBEC',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30
   },
   text: {
     fontSize: 30,
-    color: 'white',
+    color: '#3cae8e',
     padding: 5,
     textAlign: 'center',
     marginBottom:20,
