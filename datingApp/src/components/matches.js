@@ -114,6 +114,7 @@ export default class Matches extends Component {
           profile: this.state.currentUser
         };
 
+        var chatroom = new Firebase('https://rawdog.firebaseio.com/chatroom/' + newReq.room);
         let removeFromState = this.state.requestList;
         for(var i = 0; i < removeFromState.length; i++){
           if( removeFromState[i].key === request.key() ){
@@ -158,7 +159,15 @@ export default class Matches extends Component {
                       navigationBarHidden: true
                     });  
                   }}, 
-                  {text: 'Cancel'}],
+                  {text: 'Cancel', onPress: () => {
+                    var message = {
+                      text: that.state.currentUser.first_name + " has rejected the chat.",
+                      name: 'TOLO',
+                      //put TOLO logo in here eventually
+                      image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}
+                    };
+                   chatroom.push(message);
+                  }}],
                   null
                 );
               }, 6000);
