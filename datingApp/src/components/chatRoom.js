@@ -90,11 +90,11 @@ import GiftedMessenger from 'react-native-gifted-messenger';
 		}
 
   addMessage = (child) => {
-  	console.log("In the addMessage>>>>>>>>>>", that.state);
-
+  	console.log("In the addMessage>>>>>>>>>>", this.props);
+  	console.log(child.val());
 		if(child.val().name !== that.state.firstName || child.val().isFirstMessage){
 			let message = child.val();
-			message.position = message.isFirstMessage ? "right" : "left";
+			message.position = message.isFirstMessage && this.props.profile.gender==="female"? "right" : "left";
 			that.handleReceive(message);
 		}
   };
