@@ -6,16 +6,11 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
     "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
-    "bootstrap": "^3.3.6",
-    "bower": "^1.7.7",
     "express": "^4.13.4",
-    "express-session": "^1.13.0",
-    "jquery": "^2.2.0",
     "jsonwebtoken": "^5.5.4",
     "node-neo4j": "^2.0.3",
     "passport": "^0.3.2",
@@ -30,7 +25,6 @@
     "chai-http": "^1.0.0",
     "mocha": "^2.4.4",
     "morgan": "^1.6.1",
-    "nodemon": "^1.8.1",
-    "supertest": "^1.1.0"
+    "nodemon": "^1.8.1"
   }
 }

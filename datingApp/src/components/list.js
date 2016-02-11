@@ -69,12 +69,7 @@ export default class List extends Component {
   }
 
   componentWillMount() {
-    // navigator.geolocation.watchPosition((loc) => {
-    //   console.log('new Location', loc)
-    // //   geoFire.set(this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
-    // // }, (err) => {
-    // //   console.log('error getting location:', err)
-    // });
+
   	 navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
 		    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");

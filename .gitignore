@@ -9,6 +9,7 @@ dist/
 node_modules/
 bower_components/
 lib/
+docs/
 passwords.txt
 
 */.DS_Store
