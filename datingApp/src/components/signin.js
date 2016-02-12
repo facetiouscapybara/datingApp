@@ -12,6 +12,8 @@ import fbApi from '../helpers/fbsdk';
 import host from './../../constants.js';
 import Splash from './splash';
 import GameChanger from '../../ios/somehowFixesEverything.gif';
+import logo from '../styles/logoPerchCutout.png';
+
 
 export default class SignIn extends Component {
 
@@ -61,7 +63,7 @@ export default class SignIn extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Image source={GameChanger} />
+        <Image source={logo} />
         <Text style={styles.text}>"Log In With facebook"</Text>
         <FBSDKLoginButton
           onLoginFinished={(error, result) => {
@@ -105,6 +107,10 @@ const styles = StyleSheet.create({
     marginBottom:20,
     textShadowColor: 'black',
     textShadowOffset: {width: 1, height: 1}
+  },
+  logo: {
+    width: 550,
+    height: 780
   }
 })
 
