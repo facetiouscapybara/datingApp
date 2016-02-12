@@ -18,6 +18,7 @@ export default class Matches extends Component {
   constructor(props){
     super(props);
     this.state = {
+      counter: 0,
       requestList: [],
       womenInArea: 0,
       womenIds : {},
@@ -290,9 +291,9 @@ export default class Matches extends Component {
   requests = () => {
 
     let requestUsers = this.state.requestList.map((user) => {
-      let key = user.key;
+      let counter = Math.random();
       return (
-              <View key={user.id} style={styles.matchContainer}>
+              <View key={counter} style={styles.matchContainer}>
                 <MatchesItem profile={this.props.profile} accept={this.handleAccept.bind(this)} reject={this.handleReject.bind(this)} user={user} key={user.id}/>
               </View> 
             ) 
