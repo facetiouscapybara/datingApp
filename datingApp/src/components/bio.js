@@ -16,23 +16,23 @@ const widthDimensions = (Dimensions.get('window').width) - 20
 
 export default class Bio extends Component {
 
-	constructor(props) {
-	  super(props);
-	  this.state = {
-	  	currentUser: props.currentUser,
-	  	facebookId: props.profile.facebookId,
-	  	age: props.profile.age,
-	  	first_name: props.profile.first_name,
-	  	gender: props.profile.gender,
-	  	picture: props.profile.picture,
-	  	bio: props.profile.bio,
-	  	distance: props.profile.distance,
-	  	education: props.profile.education,
-	  	industry: props.profile.industry,
-	  	text: ' Hi! Want to chat?'
-	  };
-	  this.buttonSubmit = this.buttonSubmit.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: props.currentUser,
+      facebookId: props.profile.facebookId,
+      age: props.profile.age,
+      first_name: props.profile.first_name,
+      gender: props.profile.gender,
+      picture: props.profile.picture,
+      bio: props.profile.bio,
+      distance: props.profile.distance,
+      education: props.profile.education,
+      industry: props.profile.industry,
+      text: ' Hi! Want to chat?'
+    };
+    this.buttonSubmit = this.buttonSubmit.bind(this);
+  }
 
   buttonSubmit() {
     alert('message sent!');
@@ -78,24 +78,24 @@ export default class Bio extends Component {
   }
 
   render() {
-		return (
+    return (
       <View style={styles.container} onMagicTap={this.buttonSubmit}>
-      	<View style={styles.bioBox}>
+        <View style={styles.bioBox}>
           <View style={styles.mainBox}>
-    	      	<Image style={styles.image} source={{uri: this.state.picture}} />
-    	      	<Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
+              <Image style={styles.image} source={{uri: this.state.picture}} />
+              <Text style={styles.name}>{this.state.first_name}, {this.state.age || "?"}</Text>
           </View>
           <View style={styles.infoBox}>
-    	      	{this.header("  Works in: ")}
+              {this.header("  Works in: ")}
               <View style={{backgroundColor:'#3cae8e'}}>
-    	      	  <Text style={styles.bio}>{this.state.industry}</Text>
+                <Text style={styles.bio}>{this.state.industry}</Text>
               </View>  
-    	      	{this.header("  Went to school at: ")}
+              {this.header("  Went to school at: ")}
               <View style={{backgroundColor:'#3cae8e'}}>
-    	      	  <Text style={styles.bio}>{this.state.education}</Text>
+                <Text style={styles.bio}>{this.state.education}</Text>
               </View>  
-    	      	{this.header(this.state.first_name + "'s pickup line")}
-    	      	<View style={{backgroundColor:'#3cae8e'}}>
+              {this.header(this.state.first_name + "'s pickup line")}
+              <View style={{backgroundColor:'#3cae8e'}}>
                 <Text style={styles.bio}>{this.state.bio}</Text>
               </View>
           </View>
@@ -119,24 +119,24 @@ export default class Bio extends Component {
           <View style={{flex: 1}}></View>
         </View>
       </View>
-		)
-	}
+    )
+  }
 
-	header(text) {
-		return (
-			<View style={styles.header}>
-		  	<Text style={styles.headerText}> {text} </Text>
-	  	</View>
-	  )
-	}
+  header(text) {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}> {text} </Text>
+      </View>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex:1,
-		backgroundColor: '#fff',
-		marginTop: 70
-	},
+  container: {
+    flex:1,
+    backgroundColor: '#fff',
+    marginTop: 70
+  },
   mainBox: {
     marginLeft: 20, 
     marginRight: 20,
@@ -147,59 +147,59 @@ const styles = StyleSheet.create({
     shadowRadius: 5, 
     shadowOffset: {height: 2,width: 2}
   },
-	bioBox: {
-		flex: 12
-	},
-	bio: {
-		paddingLeft: 10,
+  bioBox: {
+    flex: 12
+  },
+  bio: {
+    paddingLeft: 10,
     paddingTop: 3,
     paddingBottom: 3,
     fontSize: 18
-	},
-	buttons: {
-		flex: 1,
+  },
+  buttons: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#f5fffc'
-	},
-	button: {
+  },
+  button: {
     alignSelf: 'center',
     flex: 4,
     height: 40,
     borderRadius: 5,
     backgroundColor: '#3cae8e'
-	},
-	buttonText: {
-		color: 'white',
-		fontSize: 25,
-		paddingTop: 5,
-		alignSelf: 'center'
-	},
-	image: {
-		height: 300,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 25,
+    paddingTop: 5,
+    alignSelf: 'center'
+  },
+  image: {
+    height: 300,
     width: 300,
     marginTop: 40,
-		borderRadius: 4,
-		alignSelf: 'center'
-	},
-	name: {
-		alignSelf: 'center',
-		fontSize: 30,
-		margin: 10,
-		color: '#0c8362'
-	},
-	inputView: {
-		flex: 1,
-    backgroundColor: '#f5fffc'
-	},
-	inputBox: {
+    borderRadius: 4,
+    alignSelf: 'center'
+  },
+  name: {
+    alignSelf: 'center',
+    fontSize: 30,
+    margin: 10,
+    color: '#0c8362'
+  },
+  inputView: {
     flex: 1,
-		alignSelf: 'center',
+    backgroundColor: '#f5fffc'
+  },
+  inputBox: {
+    flex: 1,
+    alignSelf: 'center',
     marginTop: 5,
     backgroundColor: 'rgba(147,225,203,0.5)',
     borderRadius: 5,
     width: widthDimensions
-	},
+  },
   header: {
     paddingTop: 5,
     backgroundColor: '#93E1CB'

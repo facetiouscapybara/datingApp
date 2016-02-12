@@ -19,26 +19,26 @@ let that;
 export default class List extends Component {
 
   constructor(props){
-  	super(props);
-  	this.state = {
-  		currentList: [],
+    super(props);
+    this.state = {
+      currentList: [],
       isRefreshing: false,
       bioText:  <Text style={{fontSize: 24, fontFamily: 'verdana', alignSelf: 'center', color: '#3cae8e'}}>
                   Tap on a photo to learn more
                 </Text>
-  	};
-  	that = this;
+    };
+    that = this;
   }
 
   removeUser(key) {
     let list = that.state.currentList;
     list.forEach(function(item, index){
       if(item.facebookId === key){
-      	list.splice(index, 1);
+        list.splice(index, 1);
       }
     });
     that.setState({
-    	currentList: list
+      currentList: list
     });
   }
 
@@ -70,29 +70,29 @@ export default class List extends Component {
 
   componentWillMount() {
 
-  	 navigator.geolocation.getCurrentPosition((loc, err) => {
+     navigator.geolocation.getCurrentPosition((loc, err) => {
       if(!err){
-		    const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
-		    const geoFire = new Geofire(firebaseRef);
-		    const geoQuery = geoFire.query({
-		      center: [loc.coords.latitude, loc.coords.longitude],
-		      radius: 1.0 //kilometers
-		    });
-		      
-		    navigator.geolocation.watchPosition((loc) => {
+        const firebaseRef = new Firebase("https://rawdog.firebaseio.com/geofire");
+        const geoFire = new Geofire(firebaseRef);
+        const geoQuery = geoFire.query({
+          center: [loc.coords.latitude, loc.coords.longitude],
+          radius: 1.0 //kilometers
+        });
+          
+        navigator.geolocation.watchPosition((loc) => {
 
           geoFire.set('f'+ this.props.profile.id, [loc.coords.latitude, loc.coords.longitude]);
-		    	geoQuery.updateCriteria({
-		    		center: [loc.coords.latitude, loc.coords.longitude]
-		    	});
-		    }, (err) => {console.log('error:', err)});
-		    
-		    geoQuery.on("key_entered", function(key, location, distance) {
-			  	that.getUserData(key, distance);
-		    });
-		    geoQuery.on("key_exited", function(key, location, distance) {
-		      that.removeUser(key);
-		    });
+          geoQuery.updateCriteria({
+            center: [loc.coords.latitude, loc.coords.longitude]
+          });
+        }, (err) => {console.log('error:', err)});
+        
+        geoQuery.on("key_entered", function(key, location, distance) {
+          that.getUserData(key, distance);
+        });
+        geoQuery.on("key_exited", function(key, location, distance) {
+          that.removeUser(key);
+        });
       } else {
         console.log(err);
       }
@@ -100,8 +100,8 @@ export default class List extends Component {
 
   }
 
-	render() {
-		return (
+  render() {
+    return (
         <ScrollView
           style={styles.scrollView}
           onScroll={() => this.setState({bioText: <View></View>})}>
@@ -110,24 +110,24 @@ export default class List extends Component {
             {this.users()}
           </View>
         </ScrollView>
-		)
-	}
+    )
+  }
 
-	users() {
+  users() {
     let currentUser = this.props.profile;
     let nav = this.props.navigator;
-		var userList = this.state.currentList.map(function(user){
-			return (
-				<ListItem 
-					navigator={nav} 
-					user={user} 
-					key={user.facebookId} 
-					style={styles.listItem} 
-					currentUser={currentUser}/>
-			);	
-		});
-		return userList;
-	}
+    var userList = this.state.currentList.map(function(user){
+      return (
+        <ListItem 
+          navigator={nav} 
+          user={user} 
+          key={user.facebookId} 
+          style={styles.listItem} 
+          currentUser={currentUser}/>
+      );  
+    });
+    return userList;
+  }
 
 };
 
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection: 'row',
     flexWrap: 'wrap'
-	}
+  }
 });
 
 
